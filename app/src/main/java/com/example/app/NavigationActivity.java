@@ -1,15 +1,15 @@
 package com.example.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.app.ui.fragments.CartFragment;
 import com.example.app.ui.fragments.DashboardFragment;
@@ -21,14 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavigationActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-
     DashboardFragment dashboardFragment = new DashboardFragment();
     ManagerFragment managerFragment = new ManagerFragment();
     ProfileFragment profileFragment = new ProfileFragment();
     CartFragment cartFragment = new CartFragment();
-
-    private static final int DASHBOARD_ID = R.id.dashboard;
-
     TextView emailTextView;
     String email;
 
@@ -57,7 +53,7 @@ public class NavigationActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch(item.getItemId()) {
-                case DASHBOARD_ID:
+                case R.id.dashboard:
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,dashboardFragment).commit();
                     return true;
 
