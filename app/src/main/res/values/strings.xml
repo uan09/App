@@ -1,0 +1,368 @@
+<resources>
+    <string name="app_name">App</string>
+    <string name="log_in">LOG IN</string>
+    <string name="register">REGISTER</string>
+    <string name="todo">TODO</string>
+    <string name="username">Username</string>
+    <string name="welcome">WELCOME</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email_address">Email Address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    //NAVIGATION MENU
+    <string name="dashboard"> DASHBOARD </string>
+    <string name="userprofile"> PROFILE </string>
+    <string name="cart"> CART </string>
+    <string name="manage"> MANAGE </string>
+
+    //NO NOTIFICATION ACTIVITY
+    <string name="no_notifications"> You currently have no notifications. We\'ll notify you when
+        something new arrives. </string>
+
+    //TERMS OF SERVICE ACTIVITY
+    <string name="termsofservicetext"> The customer agrees that BiRD may use, process and/or host customer confidential information/data such as Bank Account Number and other bank account credentials.
+
+        The customer also agrees that BiRD has the debit authority; BiRD may debit money from customer account/wallet/card etc. for the processing of transactions.</string>
+
+    //ABOUT US ACTIVITY
+
+    //TERMS OF SERVICE ACTIVITY
+    <string name="aboutustext"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat at nisl at ornare. Phasellus varius tincidunt luctus. Nunc eget tincidunt turpis, et fringilla mauris.
+        Fusce arcu metus, pretium eget elementum a, congue ut nulla. Cras sodales risus sed dui suscipit, dictum fermentum urna aliquam. Fusce id tellus enim.</string>
+
+    //NO REQUESTS ACTIVITY
+    <string name="no_requests"> You currently have no requests. We\'ll notify you when
+        something new arrives. </string>
+    <string name="request_description_text">Request Description Here... </string>
+    <string name="request_accept"> ACCEPT </string>
+    <string name="request_deny"> DENY </string>
+    <string name="request_finish"> FINISH </string>
+
+    //FORUMS ACTIVITY
+    <string name="no_forums"> There are currently no forums. </string>
+
+    //NEW FORUMS ACTIVITY
+    <string name="new_forums_create"> CREATE </string>
+
+    //FORGOT PASSWORD ACTIVITY
+    <string name="forgot_password_message"> Select which detail should be used to reset your password. </string>
+
+    //SMS TEXT (FORGOT PASSWORD)
+    <string name="sms_message"> via SMS </string>
+
+    //EMAIL (FORGOT PASSWORD)
+    <string name="email_message"> via Email </string>
+
+    //SMS ACTIVITY
+    <string name="sms_text"> Provide your contact number to reset your password. </string>
+
+    //EMAIL ACTIVITY
+    <string name="email_text"> Provide your email address to reset your password. </string>
+
+    //VERIFICATION ACTIVITY
+    <string name="verification_otp"> Enter one-time OTP sent on your contact number. </string>
+
+    //NEW CREDENTIALS ACTIVITY
+    <string name="new_credentials_text"> Your identity has been verified! Set your new password. </string>
+
+    //PENDING REQUESTS ACTIVITY
+    <string name="tech_pendingrequests_text"> There are no pending requests for you. </string>
+
+    //HISTORY REQUESTS ACTIVITY
+    <string name="tech_finishedrequests_text"> You have not finished any requests at the moment. </string>
+
+    //MESSAGES ACTIVITY
+    <string name="tech_messages_text"> You do not have any messages at the moment. </string>
+
+    //MANAGE PRODUCTS ACTIVITY
+    <string name="retail_manageproducts_text"> You do not have any products to manage at the moment. </string>
+
+    //PROFILE FRAGMENT
+    <string name="profile_username"> Your Name </string>
+    <string name="profile_full_name"> your_full_name </string>
+    <string name="profile_cart_text"> What are your orders ?</string>
+    <string name="userID">User ID</string>
+    <string name="firstname">First Name</string>
+    <string name="birthDate">Your Birthdate</string>
+    <string name="gender">Gender</string>
+    <string name="contactNumber">Contact Number</string>
+    <string name="lastname">Last Name</string>
+    <string name="address">Your Address</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="already_have_an_account_log_in_here">ALREADY HAVE AN ACCOUNT? LOG IN HERE</string>
+    <string name="gender1">Gender:</string>
+    <string name="female1">Female</string>
+    <string name="male1">Male</string>
+    <string name="Gender">Gender</string>
+    <string name="welcome_to_bird">Welcome to Bird</string>
+    <string name="bird_logo">BiRD LOGO</string>
+    <string name="username1">Username</string>
+    <string name="log_email">log_email</string>
+    <string name="log_password">log_password</string>
+    <string name="Email">Your Email</string>
+    <string name="Password">Password</string>
+    <string name="Welcome_to_bird">Welcome to bird</string>
+    <string name="forgot_password">FORGOT PASSWORD ?</string>
+    <string name="don_t_have_an_account_register_here">DON\'T HAVE AN ACCOUNT? REGISTER HERE.</string>
+    <string name="email">Email</string>
+    <string name="button">button</string>
+    <string name="birdimage">birdimage</string>
+    <string name="next">NEXT</string>
+    <string name="new_credentials">New Credentials</string>
+    <string name="backbutton">backButton</string>
+    <string name="birdlockimage">birdlockimage</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password1">Confirm Password</string>
+    <string name="update">UPDATE</string>
+    <string name="value">Value</string>
+    <string name="Registration">registration</string>
+    <string name="textview">TextView</string>
+    <string name="Back">backButton</string>
+    <string name="profile_image">profileImage</string>
+    <string name="purchase_history">Purchase History</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="email_address1">Email Address :</string>
+    <string name="contact_number">Contact Number :</string>
+    <string name="gender2">Gender:</string>
+    <string name="birthdate">Birthdate:</string>
+    <string name="address1">Address:</string>
+    <string name="modify_profile">Modify Profile</string>
+    <string name="switch_to_retailer_mode_tap_me">Switch to Retailer mode? Tap me</string>
+    <string name="switch_to_technician_mode_tap_me">Switch to Technician mode? Tap me</string>
+    <string name="profile_username1">profile_username</string>
+    <string name="profile_userID">profile_userID</string>
+    <string name="cart1">Cart</string>
+    <string name="email1">email</string>
+    <string name="Email2">Email</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="Update_profile_first_name">First Name</string>
+    <string name="profile_update_last_name">Last Name</string>
+    <string name="update_profile_email_address">Email Address :</string>
+    <string name="update_profile_contact_number">Contact Number :</string>
+    <string name="update_profile_gender">Gender :</string>
+    <string name="update_profile_birthdate">Birthdate :</string>
+    <string name="update_profile_address">Address :</string>
+    <string name="update_profile_button">UPDATE</string>
+    <string name="update_profile_first_name">First Name :</string>
+    <string name="update_profile_first_name1">Your First Name</string>
+    <string name="update_profile_last_name">Last Name :</string>
+    <string name="your_last_name">Your Last Name</string>
+    <string name="update_profile_email_address1">Email Address :</string>
+    <string name="update_profile_contact_number1">Contact Number :</string>
+    <string name="update_profile_your_contact_number">Your Contact Number</string>
+    <string name="email123">email</string>
+    <string name="Add">Add</string>
+    <string name="cancel">Cancel</string>
+    //--------------------------------------------------------------------
+    //NEW BUILD RECYCLERVIEW
+    <string-array name="new_builds">
+        <item>Central Processing Unit</item>
+        <item>CPU Cooler</item>
+        <item>Graphics Processing Unit</item>
+        <item>Hard Disk Drive</item>
+        <item>Random Access Memory</item>
+        <item>Motherboard</item>
+        <item>PC Case</item>
+        <item>Peripherals</item>
+        <item>Power Supply Unit</item>
+        <item>Solid State Drive</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //CENTRAL PROCESSING UNIT RECYCLERVIEW
+    <string-array name="cpu_product_name">
+        <item>Intel Core i5-5600</item>
+        <item>AMD Ryzen 7 5700X</item>
+        <item>AMD Ryzen 5 5600X</item>
+    </string-array>
+
+    <string-array name="cpu_product_price">
+        <item>12,655 Php</item>
+        <item>13,607 Php</item>
+        <item>16,650 Php</item>
+    </string-array>
+
+    <string-array name="cpu_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //CPU COOLER RECYCLERVIEW
+    <string-array name="cooler_product_name">
+        <item>PC Case RGB Fan</item>
+        <item>HLS PC CPU Cooler</item>
+        <item>Aigoo PC Case Water Cooling</item>
+    </string-array>
+
+    <string-array name="cooler_product_price">
+        <item>2,203 Php</item>
+        <item>369 Php</item>
+        <item>3,288 Php</item>
+    </string-array>
+
+    <string-array name="cooler_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //GRAPHICS PROCESSING UNIT RECYCLERVIEW
+    <string-array name="gpu_product_name">
+        <item>GTX 1050 Ti</item>
+        <item>Asus GTX 1660 Super</item>
+        <item>Asus RTX 3080 V2</item>
+    </string-array>
+
+    <string-array name="gpu_product_price">
+        <item>1,207 Php</item>
+        <item>10,905 Php</item>
+        <item>88,127 Php</item>
+    </string-array>
+
+    <string-array name="gpu_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //HARD DISK DRIVE RECYCLERVIEW
+    <string-array name="hdd_product_name">
+        <item>WD 2TB Blue</item>
+        <item>WD 1TB Red Plus</item>
+        <item>Seagate Barracuda</item>
+    </string-array>
+
+    <string-array name="hdd_product_price">
+        <item>2,390 Php</item>
+        <item>2,784 Php</item>
+        <item>2,200 Php</item>
+    </string-array>
+
+    <string-array name="hdd_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //RANDOM ACCESS MEMORY RECYCLERVIEW
+    <string-array name="ram_product_name">
+        <item>Corsair Vengeance RGB Pro</item>
+        <item>Hyper Fury DDR4 RAM</item>
+        <item>Kingston memory DDR3 / DDR4</item>
+    </string-array>
+
+    <string-array name="ram_product_price">
+        <item>4,827 Php</item>
+        <item>1,500 Php</item>
+        <item>1,600 Php</item>
+    </string-array>
+
+    <string-array name="ram_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //MOTHERBOARD RECYCLERVIEW
+    <string-array name="motherboard_product_name">
+        <item>Z590 Aorus Elite</item>
+        <item>B550 Aorus Master</item>
+        <item>MSI Z490 MPG Gaming Edge</item>
+    </string-array>
+
+    <string-array name="motherboard_product_price">
+        <item>5,725 Php</item>
+        <item>9,911 Php</item>
+        <item>6,606 Php</item>
+    </string-array>
+
+    <string-array name="motherboard_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //PC CASE RECYCLERVIEW
+    <string-array name="pccase_product_name">
+        <item>Corsair Icue 7000x Tower Case</item>
+        <item>GOF Azza Pyramid PC Case</item>
+        <item>Beast ATX side transparent</item>
+    </string-array>
+
+    <string-array name="pccase_product_price">
+        <item>18,957 Php</item>
+        <item>44,330 Php</item>
+        <item>511,973 Php</item>
+    </string-array>
+
+    <string-array name="pccase_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //PERIPHERALS RECYCLERVIEW
+    <string-array name="peripherals_product_name">
+        <item>VCOM USB Wired Mouse 3D</item>
+        <item>M-001 Ergonomic Vertical Optical Mouse</item>
+        <item>MXMIO USB Optical Mouse</item>
+    </string-array>
+
+    <string-array name="peripherals_product_price">
+        <item>110 Php</item>
+        <item>198 Php</item>
+        <item>100 Php</item>
+    </string-array>
+
+    <string-array name="peripherals_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //POWER SUPPLY UNIT RECYCLERVIEW
+    <string-array name="psu_product_name">
+        <item>Rise ATX Powersupply</item>
+        <item>Be Quiet! System Power U9</item>
+        <item>Thermaltake TR2</item>
+    </string-array>
+
+    <string-array name="psu_product_price">
+        <item>370 Php</item>
+        <item>2,650 Php</item>
+        <item>3,866 Php</item>
+    </string-array>
+
+    <string-array name="psu_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+    //--------------------------------------------------------------------
+    //SOLID STATE DRIVE RECYCLERVIEW
+    <string-array name="ssd_product_name">
+        <item>WD Green SSD</item>
+        <item>NAND SATA SSD 1TB Blue</item>
+        <item>ORICO M.2 SATA SSD</item>
+    </string-array>
+
+    <string-array name="ssd_product_price">
+        <item>644 Php</item>
+        <item>1,242 Php</item>
+        <item>1,172 Php</item>
+    </string-array>
+
+    <string-array name="ssd_product_desc">
+        <item>aaaaaaaaaaaaaaa</item>
+        <item>bbbbbbbbbbbbbbb</item>
+        <item>ccccccccccccccc</item>
+    </string-array>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard_retail"
+        android:icon="@drawable/ic_outline_home_24"
+        android:title="@string/dashboard" />
+
+    <item
+        android:id="@+id/userprofile_retail"
+        android:icon="@drawable/ic_outline_profile_24"
+        android:title="@string/userprofile" />
+
+    <item
+        android:id="@+id/manage_retail"
+        android:icon="@drawable/ic_outline_manage_24"
+        android:title="@string/manage" />
+
+</menu>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_10"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Retail_ManageProductsActivity">
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e0af1f"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/backbutton19"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_back_7"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
+            <TextView
+                android:id="@+id/retail_manageproducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/graduate"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="MANAGE PRODUCTS"
+                android:textColor="#616161"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/recycler_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:background="@color/lighter"/>
+            <TextView
+                android:id="@+id/products_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="No Products Found"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/yellow"
+                android:fontFamily="@font/graduate"
+                android:gravity="center"
+                android:visibility="gone"/>
+            <ImageButton
+                android:id="@+id/add_button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/Add"
+                android:padding="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_baseline_add_circle_24"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
