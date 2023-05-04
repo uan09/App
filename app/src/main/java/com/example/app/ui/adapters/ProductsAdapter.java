@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +38,7 @@ import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
     private final Context context;
-    private final List<ProductModel> productList;
+    private List<ProductModel> productList;
     private OnItemClickListener mOnItemClickListener;
     TextView product_empty;
     MainViewModel mainViewModel;
@@ -113,6 +114,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
                     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                         MenuInflater menuInflater = actionMode.getMenuInflater();
                         menuInflater.inflate(R.menu.menu,menu);
+
                         return true;
                     }
 
@@ -120,10 +122,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
                     public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
                         isEnable = true;
                         ClickItem(holder);
-
+                        
                         mainViewModel.getText().observe((LifecycleOwner) context, s -> {
                             if (selectList.size() > 0) {
-                                actionMode.setTitle(String.format("%s Selected", s));
+                                actionMode.setTitle(Html.fromHtml(String.format("<font color='#FFA500'>%s Selected</font>", s), Html.FROM_HTML_MODE_LEGACY));
                             } else {
                                 // No items selected, remove title
                                 actionMode.setTitle(null);

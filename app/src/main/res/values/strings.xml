@@ -365,4 +365,5 @@
         <item>bbbbbbbbbbbbbbb</item>
         <item>ccccccccccccccc</item>
     </string-array>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>

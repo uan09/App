@@ -1,22 +1,22 @@
 package com.example.app.ui.models;
 
 public class CategoryModel {
-    private String CategoryIconLink;
     private String categoryName;
     private int icon;
+    private String CategoryType;
 
-    public CategoryModel(String categoryIconLink, String categoryName, int icon) {
-        this.CategoryIconLink = categoryIconLink;
+    public CategoryModel(String categoryType, String categoryName, int icon) {
+        this.CategoryType = categoryType;
         this.categoryName = categoryName;
         this.icon = icon;
     }
 
-    public String getCategoryIconLink() {
-        return CategoryIconLink;
+    public String getCategoryType() {
+        return CategoryType;
     }
 
-    public void setCategoryIconLink(String categoryIconLink) {
-        CategoryIconLink = categoryIconLink;
+    public void setCategoryType(String categoryType) {
+        this.CategoryType = categoryType;
     }
 
     public String getCategoryName() {
