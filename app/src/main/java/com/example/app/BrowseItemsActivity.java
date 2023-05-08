@@ -174,7 +174,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
         productsAdapter.setOnItemClickListener(new ProductsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ProductModel obj, int position) {
-                Intent i = new Intent(BrowseItemsActivity.this, Retail_DisplayProductActivity.class);
+                Intent i = new Intent(BrowseItemsActivity.this, User_DisplayProductActivity.class);
                 i.putExtra("product_id", obj.getProduct_id());
                 BrowseItemsActivity.this.startActivity(i);
             }
