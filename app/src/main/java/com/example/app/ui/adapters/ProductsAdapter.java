@@ -38,7 +38,7 @@ import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
     private final Context context;
-    private List<ProductModel> productList;
+    private final List<ProductModel> productList;
     private OnItemClickListener mOnItemClickListener;
     TextView product_empty;
     MainViewModel mainViewModel;
@@ -81,7 +81,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         NumberFormat formatter = new DecimalFormat("###,###,###");
-        holders.add(holder); // Add this line
+        holders.add(holder);
         ProductModel product = productList.get(position);
         holder.product_name.setText(product.getProduct_name());
         holder.product_quantity.setText("Quantity: "+product.getProduct_quantity());
@@ -248,14 +248,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
         mainViewModel.setText(String.valueOf(selectList.size()));
     }
 
-    @Override
+   @Override
     public int getItemCount() {
         int size = productList.size();
-        if (size == 0) {
+       /* if (size == 0) {
             product_empty.setVisibility(View.VISIBLE);
         } else {
             product_empty.setVisibility(View.GONE);
-        }
+        }*/
         return size;
     }
 

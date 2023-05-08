@@ -187,6 +187,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
                     android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(Retail_ManageProductsActivity.this, new
                         String[] { Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+                PickImageFromGallery();
             } else {
                 PickImageFromGallery();
             }

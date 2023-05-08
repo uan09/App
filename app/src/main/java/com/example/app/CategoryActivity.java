@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.ui.adapters.CategoryAdapter;
-import com.example.app.ui.models.CategoryModel;
+import com.example.app.ui.adapters.ProductsAdapter;
+import com.example.app.ui.models.ProductModel;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +27,12 @@ public class CategoryActivity extends AppCompatActivity {
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
-
+    private RecyclerView recyclerView;
+    ProductsAdapter productsAdapter;
+    List<ProductModel> productList = new ArrayList<>();
+    TextView products_empty;
+    CollectionReference productsRef;
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +44,14 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        categoryRecyclerView = findViewById(R.id.category_recyclerView);
+        loadProduct();
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        /*categoryRecyclerView = findViewById(R.id.category_recyclerView);
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(this);
         testingLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(testingLayoutManager);
+
+
 
         final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
         categoryModelList.add(new CategoryModel("home", "Home", R.drawable.home_icon));
@@ -52,13 +68,17 @@ public class CategoryActivity extends AppCompatActivity {
         categoryModelList.add(new CategoryModel("pc case", "Computer Cases", R.drawable.pc_case_icon));
         categoryModelList.add(new CategoryModel("accessory", "Others", R.drawable.more_horiz_icon));
 
+
         CategoryAdapter categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecyclerView.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
 
-        String type = getIntent().getStringExtra("CategoryType");
 
-        if (type.equals("motherboard")) {
+
+
+        String type = getIntent().getStringExtra("CategoryType");*/
+
+        /*if (type.equals("motherboard")) {
             Intent productListIntent = new Intent(this, ProductListActivity.class);
             productListIntent.putExtra("CategoryType", type);
             startActivity(productListIntent);
@@ -118,7 +138,44 @@ public class CategoryActivity extends AppCompatActivity {
             productListIntent.putExtra("CategoryType", type);
             startActivity(productListIntent);
             finish();
-        }
+        }*/
+    }
+
+    private void loadProduct() {
+        db.getInstance()
+                .collection("Products")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> dsList = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot ds:dsList) {
+                        ProductModel product = ds.toObject(ProductModel.class);
+                        if (product.getProduct_image() != null && !product.getProduct_image().isEmpty()) {
+                            String firstImageUrl = product.getProduct_image().get(0);
+                            product.setFirst_image_url(firstImageUrl);
+                            productsAdapter.add(product);
+                        }
+                        initComponents();
+                    }
+                }).addOnFailureListener(e -> initComponents());
+    }
+
+    private void initComponents() {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        recyclerView.setAdapter(productsAdapter);
+
+        productsAdapter.setOnItemClickListener(new ProductsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, ProductModel obj, int position) {
+                Intent i = new Intent(CategoryActivity.this, Retail_DisplayProductActivity.class);
+                i.putExtra("product_id", obj.getProduct_id());
+                CategoryActivity.this.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -133,6 +190,8 @@ public class CategoryActivity extends AppCompatActivity {
 
         // Handle the back button click
         if (id == android.R.id.home) {
+            Intent intent = new Intent(this, BrowseItemsActivity.class);
+            startActivity(intent);
             finish();
             return true;
         }
