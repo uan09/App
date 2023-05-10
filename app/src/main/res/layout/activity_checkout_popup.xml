@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lighter">
+
+    <FrameLayout
+        android:id="@+id/add_item_popup_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e0af1f"
+                android:orientation="horizontal"
+                tools:ignore="ExtraText">
+
+                <TextView
+                    android:id="@+id/popup_add_item_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:fontFamily="@font/graduate"
+                    android:text="CHECKOUT"
+                    android:textColor="#616161"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.078"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="00dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/checkout_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_item_popup_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Email :"
+                    android:textColor="@color/mustard"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgGallery" />
+
+                <EditText
+                    android:id="@+id/checkout_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/white"
+                    android:ems="25"
+                    android:fontFamily="@font/graduate"
+                    android:hint="User's Email"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13sp"
+                    app:boxStrokeColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.326"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_item_popup_text"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/add_item_category_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Contact Number :"
+                    android:textColor="@color/mustard"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_input_first_name" />
+
+                <EditText
+                    android:id="@+id/checkout_contact_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/white"
+                    android:ems="25"
+                    android:fontFamily="@font/graduate"
+                    android:hint="User's Contact Number"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:minHeight="48dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13sp"
+                    app:boxStrokeColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.326"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_last_name_text"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/add_item_desc_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Address :"
+                    android:textColor="@color/mustard"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_input_first_name" />
+
+                <EditText
+                    android:id="@+id/checkout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/white"
+                    android:ems="25"
+                    android:fontFamily="@font/graduate"
+                    android:hint="User's Address"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:minHeight="48dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13sp"
+                    app:boxStrokeColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.326"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_last_name_text"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/add_item_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Payment Methods :"
+                    android:textColor="@color/mustard"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.052"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_item_quantity" />
+
+                <RadioGroup
+                    android:id="@+id/checkout_payment_method"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/credit_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Credit/Debit Card"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/online_banking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Online Banking"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/gcash"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="GCash"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/paymaya"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Paymaya"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/cash_on_delivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Cash on Delivery"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/add_item_price_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/graduate"
+                        android:text="Total :"
+                        android:textColor="@color/mustard"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.063"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_item_description" />
+
+                    <EditText
+                        android:id="@+id/checkout_totalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:autofillHints="phone"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/graduate"
+                        android:hint="Total Price"
+                        android:inputType="number"
+                        android:textColorHint="@color/orange"
+                        android:textSize="25sp"
+                        android:textColor="@color/orange"
+                        app:boxStrokeColor="@color/white"
+                        app:layout_constraintTop_toBottomOf="@+id/add_item_price_text"
+                        tools:ignore="LabelFor" />
+
+                    <Button
+                        android:id="@+id/checkout_place_order"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/custom_button"
+                        android:fontFamily="@font/graduate"
+                        android:text="Place Order"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.36"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/forSale" />
+
+                    <Button
+                        android:id="@+id/checkout_cancel_order"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/custom_button"
+                        android:fontFamily="@font/graduate"
+                        android:text="Cancel"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.36"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

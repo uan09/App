@@ -19,6 +19,12 @@ public class CartModel {
         this.First_image_url = first_image_url;
     }
 
+    public CartModel(String product_name, String product_number, String product_price) {
+        this.product_name = product_name;
+        this.product_number = product_number;
+        this.product_price = product_price;
+    }
+
     public String getCart_id() {
         return cart_id;
     }
