@@ -4,20 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.ui.adapters.CategoryAdapter;
 import com.example.app.ui.adapters.ProductsAdapter;
 import com.example.app.ui.models.ProductModel;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -33,6 +30,7 @@ public class CategoryActivity extends AppCompatActivity {
     TextView products_empty;
     CollectionReference productsRef;
     FirebaseFirestore db;
+    String layout_style;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +42,7 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadProduct();
+        //loadProduct();
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         /*categoryRecyclerView = findViewById(R.id.category_recyclerView);
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(this);
@@ -141,7 +139,7 @@ public class CategoryActivity extends AppCompatActivity {
         }*/
     }
 
-    private void loadProduct() {
+    /*private void loadProduct() {
         db.getInstance()
                 .collection("Products")
                 .get()
@@ -165,7 +163,7 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
 
-        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
         productsAdapter.setOnItemClickListener(new ProductsAdapter.OnItemClickListener() {
@@ -176,7 +174,7 @@ public class CategoryActivity extends AppCompatActivity {
                 CategoryActivity.this.startActivity(i);
             }
         });
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {

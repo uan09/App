@@ -6,39 +6,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.CartFragment"
     android:background="@color/lighter"
-    android:id="@+id/main_cart"
-    android:padding="8dp">
+    android:id="@+id/main_cart">
 
-    <TextView
-        android:id="@+id/cart_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/graduate"
-        android:text="Shop Cart"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/place_order_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PLACE ORDER"
-        android:textColor="@color/white"
-        android:background="@drawable/custom_button"
-        android:layout_alignParentBottom="true" />
+        android:orientation="vertical"
+        android:id="@+id/text_layout">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_cart"
-        android:layout_above="@+id/place_order_button"
-        android:layout_below="@+id/cart_text"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mustard">
+
+        <TextView
+            android:id="@+id/cart_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/graduate"
+            android:text="Shop Cart"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/text_layout">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:elevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/graduate"
+            android:textSize="25sp"
+            android:layout_gravity="right"
+            android:text="total_price"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/place_order_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PLACE ORDER"
+            android:textColor="@color/white"
+            android:background="@drawable/custom_button"
+            android:layout_alignParentBottom="true" />
+    </LinearLayout>
 </RelativeLayout>

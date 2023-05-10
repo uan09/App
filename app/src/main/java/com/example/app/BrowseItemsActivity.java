@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.ui.adapters.CategoryAdapter;
 import com.example.app.ui.adapters.ProductsAdapter;
+import com.example.app.ui.fragments.CartFragment;
 import com.example.app.ui.models.CategoryModel;
 import com.example.app.ui.models.ProductModel;
 import com.google.firebase.firestore.CollectionReference;
@@ -35,6 +37,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     CollectionReference productsRef;
     FirebaseFirestore db;
     private Button backButton;
+    String layout_style;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +76,12 @@ public class BrowseItemsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
         loadProduct();
 
-        String type = getIntent().getStringExtra("CategoryType");
+        /*String type = getIntent().getStringExtra("CategoryType");
 
         if (type.equals("motherboard")) {
             Intent productListIntent = new Intent(this, ProductListActivity.class);
@@ -140,7 +143,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             productListIntent.putExtra("CategoryType", type);
             startActivity(productListIntent);
             finish();
-        }
+        }*/
 
     }
     List<ProductModel> productList = new ArrayList<>();
@@ -163,12 +166,12 @@ public class BrowseItemsActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
 
-        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
         productsAdapter.setOnItemClickListener(new ProductsAdapter.OnItemClickListener() {
@@ -201,7 +204,11 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_cart:
-                // Handle cart action
+                CartFragment cartFragment = new CartFragment(); // create a new instance of your Fragment
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_cart, cartFragment); // replace the current Fragment in the container with your new Fragment
+                transaction.addToBackStack(null); // add the transaction to the back stack, so the user can navigate back to the previous Fragment by pressing the back button
+                transaction.commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

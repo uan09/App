@@ -18,6 +18,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        tools:replace="android:icon"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
@@ -28,7 +29,7 @@
             android:theme="@style/Theme.App" />
         <activity
             android:name=".BrowseItemsActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Retail_ManageProductsActivity"
             android:exported="true">
@@ -248,6 +249,9 @@
         </activity>
         <activity
             android:name=".Retail_DisplayProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User_DisplayProductActivity"
             android:exported="false" />
         <activity
             android:name=".NewCredentials"

@@ -25,6 +25,7 @@ public class ProductListActivity extends AppCompatActivity {
     TextView product_empty;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference productsRef= db.collection("Products");
+    String layout_style;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         productListRecyclerView = findViewById(R.id.product_list_recyclerView);
         productListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ProductsAdapter productsAdapter = new ProductsAdapter(productList, this, product_empty, productsRef);
+        ProductsAdapter productsAdapter = new ProductsAdapter(productList, this, product_empty, productsRef, layout_style);
         productListRecyclerView.setAdapter(productsAdapter);
 
         // Query Firestore to get the products with the matching categoryType

@@ -47,6 +47,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     ArrayList<MyViewHolder> holders = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference productsRef = db.collection("Products");
+    String layout_style = "0";
 
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -54,13 +55,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     }
     public interface OnItemClickListener {
         void onItemClick(View view, ProductModel obj, int position);
+
     }
 
-    public ProductsAdapter(List<ProductModel> productList, Context context, TextView product_empty, CollectionReference productsRef) {
+    public ProductsAdapter(List<ProductModel> productList, Context context, TextView product_empty, CollectionReference productsRef, String layout_style) {
         this.context = context;
         this.productList = productList;
         this.product_empty = product_empty;
         this.productsRef = productsRef;
+        this.layout_style = layout_style;
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -73,6 +73,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     CollectionReference productsRef;
     TextView products_empty;
+    String layout_style;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.productsRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
         loadProduct();
@@ -124,12 +125,12 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        recyclerView = (RecyclerView) findViewById(R.id.productsRecycler);
+        recyclerView = findViewById(R.id.productsRecycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
 
-        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef);
+        productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
         productsAdapter.setOnItemClickListener(new ProductsAdapter.OnItemClickListener() {
