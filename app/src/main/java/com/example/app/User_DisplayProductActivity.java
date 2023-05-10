@@ -22,7 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -122,6 +124,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         });
 
     }
+
     private void add_item() {
         String product_name = Product_name.getText().toString();
         String product_type = Product_type.getText().toString();
@@ -149,20 +152,99 @@ public class User_DisplayProductActivity extends AppCompatActivity {
             cart_item.put("product_image_url", product_image_url);
         }
 
-        // Add a new document to the "cart" collection with the data from the cart_item object
-        cartRef.add(cart_item)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Product failed to cart", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // Create a batch operation to update the product quantity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        WriteBatch batch = db.batch();
+        DocumentReference productRef = FirebaseFirestore.getInstance().collection("Products").document(product_id);
+
+        productRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
+
+                    String quantityString = product.getProduct_quantity();
+                    String inputtedQuantityString = quantity.getText().toString();
+
+                    int currentQuantity = Integer.parseInt(quantityString);
+                    int desiredQuantity = Integer.parseInt(inputtedQuantityString);
+
+                    int newQuantity = currentQuantity - desiredQuantity;
+
+
+                    String newQuantityStr = String.valueOf(newQuantity);
+                    Object finalQty = newQuantityStr;
+                    batch.update(productRef, "product_quantity", finalQty);
+                    batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context, "Product quantity updated", Toast.LENGTH_SHORT).show();
+                            recreate();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Product quantity failed to update", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, "Product not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Error retrieving product: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
+
+
+
+//    private void add_item() {
+//        String product_name = Product_name.getText().toString();
+//        String product_type = Product_type.getText().toString();
+//        String product_price = Product_price.getText().toString();
+//        String product_number = quantity.getText().toString();
+//        String product_image_url = null;
+//
+//        if (product_number.isEmpty()) {
+//            Toast.makeText(context, "Please enter a quantity", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        int currentImagePosition = Product_image.getCurrentItem();
+//        if (currentImagePosition >= 0 && currentImagePosition < product.getProduct_image().size()) {
+//            product_image_url = product.getProduct_image().get(currentImagePosition);
+//        }
+//
+//        CollectionReference cartRef = FirebaseFirestore.getInstance().collection("Cart");
+//
+//        Map<String, Object> cart_item = new HashMap<>();
+//        cart_item.put("product_name", product_name);
+//        cart_item.put("product_type", product_type);
+//        cart_item.put("product_price", product_price);
+//        cart_item.put("product_number", product_number);
+//        if (product_image_url != null) {
+//            cart_item.put("product_image_url", product_image_url);
+//        }
+//
+//        // Add a new document to the "cart" collection with the data from the cart_item object
+//        cartRef.add(cart_item)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(context, "Product failed to cart", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
 }
