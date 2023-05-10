@@ -2,6 +2,7 @@ package com.example.app.ui.fragments;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class CartFragment extends Fragment {
     List<CartModel> cartItems = new ArrayList<>();
     TextView totalTextView;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,15 +70,21 @@ public class CartFragment extends Fragment {
                 assert cartItem != null;
                 cartItem.setCart_id(doc.getId());
                 cartItems.add(cartItem);
-                String priceString = cartItem.getProduct_price().replaceAll("[^\\d]", "");
-                int price = Integer.parseInt(priceString);
-                total += price * Integer.parseInt(cartItem.getProduct_number());
-                formattedNumber = formatter.format(Long.valueOf(total));
+                String priceString = cartItem.getProduct_price().replaceAll("\\D", "");
+                if (!priceString.isEmpty()) {
+                    try {
+                        int price = Integer.parseInt(priceString);
+                        total += price * Integer.parseInt(cartItem.getProduct_number());
+                        formattedNumber = formatter.format(Long.valueOf(total));
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "Error parsing price string: " + priceString, e);
+                    }
+                }
             }
             adapter.notifyDataSetChanged();
             totalTextView.setText(String.format(Locale.getDefault(), "Total: P%s.00", formattedNumber));
         });
-//EEEEEEEEEEROOOOOOOOOOOR DI MU DISPLAY OG IMAGE!
+
         return view;
     }
 }
