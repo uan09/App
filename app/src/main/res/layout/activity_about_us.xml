@@ -8,6 +8,26 @@
     android:background="@color/lighter">
 
     <ImageView
+        android:id="@+id/yellowabstractshape1"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:alpha=".6"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitStart"
+        android:src="@drawable/yellow_abstract_shape_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/yellowabstractshape2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:alpha=".4"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitStart"
+        android:src="@drawable/yellow_abstract_shape_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/backbutton14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

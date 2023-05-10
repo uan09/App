@@ -33,8 +33,14 @@
     //ABOUT US ACTIVITY
 
     //TERMS OF SERVICE ACTIVITY
-    <string name="aboutustext"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat at nisl at ornare. Phasellus varius tincidunt luctus. Nunc eget tincidunt turpis, et fringilla mauris.
-        Fusce arcu metus, pretium eget elementum a, congue ut nulla. Cras sodales risus sed dui suscipit, dictum fermentum urna aliquam. Fusce id tellus enim.</string>
+    <string name="aboutustext"> We are 4th year Students taking up the course Bachelor of Science in Information Technology. This project is in pursuit of completing our degree as a requirement for the subject of Capstones 42
+
+        You can reach us at
+
+        uancoronel@gmail.com
+        rrbretana00@gmail.com
+        jomariepearlvelasquez@gmail.com.</string>
+
 
     //NO REQUESTS ACTIVITY
     <string name="no_requests"> You currently have no requests. We\'ll notify you when
