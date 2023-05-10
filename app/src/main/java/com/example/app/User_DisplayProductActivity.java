@@ -108,9 +108,9 @@ public class User_DisplayProductActivity extends AppCompatActivity {
             Product_image.setAdapter(new ProductImageAdapter(context, product.getProduct_image()));
         }
         Product_name.setText(product.getProduct_name());
-        Product_description.setText(product.getProduct_description());
-        Product_type.setText(product.getProduct_type());
-        Product_quantity.setText(product.getProduct_quantity());
+        Product_description.setText("Description: " + product.getProduct_description());
+        Product_type.setText("Type: " + product.getProduct_type());
+        Product_quantity.setText("Quantity: " + product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String)product.getProduct_price()));
         Product_price.setText("P"+formattedNumber);
@@ -129,6 +129,10 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         String product_number = quantity.getText().toString();
         String product_image_url = null;
 
+        if (product_number.isEmpty()) {
+            Toast.makeText(context, "Please enter a quantity", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int currentImagePosition = Product_image.getCurrentItem();
         if (currentImagePosition >= 0 && currentImagePosition < product.getProduct_image().size()) {
             product_image_url = product.getProduct_image().get(currentImagePosition);

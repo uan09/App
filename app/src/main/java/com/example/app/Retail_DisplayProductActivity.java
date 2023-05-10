@@ -96,8 +96,8 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         }
         Product_name.setText(product.getProduct_name());
         Product_description.setText(product.getProduct_description());
-        Product_type.setText(product.getProduct_type());
-        Product_quantity.setText(product.getProduct_quantity());
+        Product_type.setText("Type " + product.getProduct_type());
+        Product_quantity.setText("Quantity " + product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String)product.getProduct_price()));
         Product_price.setText("P"+formattedNumber);
