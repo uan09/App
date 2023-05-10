@@ -38,7 +38,7 @@ public class CartFragment extends Fragment {
     CollectionReference cartRef = db.collection("Cart");
     CartAdapter adapter;
     List<CartModel> cartItems = new ArrayList<>();
-    TextView totalTextView, connector;
+    TextView totalTextView;
     EditText checkout_email, checkout_address, checkout_contact_number, checkout_totalPrice;
     Button checkout_cancel_order, checkout_place_order;
     RadioGroup checkout_payment_method;
@@ -62,9 +62,7 @@ public class CartFragment extends Fragment {
 
         totalTextView = view.findViewById(R.id.total_price);
         Button checkoutButton = view.findViewById(R.id.place_order_button);
-        checkoutButton.setOnClickListener(view1 -> {
-            checkout_popup();
-        });
+        checkoutButton.setOnClickListener(view1 -> checkout_popup());
 
         cartRef.addSnapshotListener((value, error) -> {
             if (error != null) {
@@ -142,9 +140,7 @@ public class CartFragment extends Fragment {
         checkout_cancel_order.setOnClickListener(view -> dialog.dismiss());
 
         checkout_place_order = contactPopupView.findViewById(R.id.checkout_place_order);
-        checkout_place_order.setOnClickListener(view -> {
-            place_order();
-        });
+        checkout_place_order.setOnClickListener(view -> place_order());
 
         cartRef.addSnapshotListener((value, error) -> {
             if (error != null) {
