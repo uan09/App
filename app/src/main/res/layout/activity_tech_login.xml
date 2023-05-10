@@ -7,6 +7,24 @@
     tools:context=".Tech_LoginActivity"
     android:background="@color/lighter">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/bird_components"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bird_components"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graduate"
                 android:text="LOGIN AS TECHNICIAN"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"/>
@@ -53,7 +71,7 @@
                 android:id="@+id/tech_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_edittext"
                 android:hint="Password"
                 android:fontFamily="@font/graduate"
@@ -67,10 +85,9 @@
                 android:layout_height="50dp"
                 android:text="@string/log_in"
                 android:textColor="@color/white"
-                android:background="@drawable/custom_buttontwo"
+                android:background="@drawable/custom_yellow_button"
                 android:fontFamily="@font/graduate"
-                android:backgroundTint="@color/black"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/toregastech"
