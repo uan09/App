@@ -129,7 +129,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-            case R.id.home:
+            case R.id.menu_title:
                 Intent intent = new Intent(this, NavigationActivity.class);
                 startActivity(intent);
                 finish();

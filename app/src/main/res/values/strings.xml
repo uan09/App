@@ -9,7 +9,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="email_address">Email Address</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -104,8 +103,6 @@
     <string name="welcome_to_bird">Welcome to Bird</string>
     <string name="bird_logo">BiRD LOGO</string>
     <string name="username1">Username</string>
-    <string name="log_email">log_email</string>
-    <string name="log_password">log_password</string>
     <string name="Email">Your Email</string>
     <string name="Password">Password</string>
     <string name="Welcome_to_bird">Welcome to bird</string>
@@ -366,4 +363,324 @@
         <item>ccccccccccccccc</item>
     </string-array>
     <string name="title_activity_category">CategoryActivity</string>
+
+
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    <!-- Main Activity -->
+    <string name="main_login">LOG IN</string>
+    <string name="main_register">REGISTER</string>
+
+    <!-- Registration Activity -->
+    <string name="reg_background">BACKGROUND</string>
+    <string name="reg_welcome">WELCOME</string>
+    <string name="reg_firstname">First Name</string>
+    <string name="reg_lastname">Last Name</string>
+    <string name="reg_email_add">Email Address</string>
+    <string name="reg_contact_number">Contact Number</string>
+    <string name="reg_address">Address</string>
+    <string name="reg_birthdate">Birth Date</string>
+    <string name="reg_gender">Gender:</string>
+    <string name="reg_male">Male</string>
+    <string name="reg_female">Female</string>
+    <string name="reg_username">Username</string>
+    <string name="reg_password">Password</string>
+    <string name="reg_confirm_password">Confirm Password</string>
+    <string name="reg_register_button">REGISTER</string>
+    <string name="reg_login_here">Already Have An Account? Login Here</string>
+
+    <!-- Login Activity -->
+    <string name="log_welcome_back">Hello, Welcome Back</string>
+    <string name="log_email">Email</string>
+    <string name="log_password">Password</string>
+    <string name="log_forgot_password">Forgot Password?</string>
+    <string name="log_login_button">LOGIN</string>
+    <string name="log_register_here">Don\'t have an account? Register Here</string>
+
+    <!-- Forgot Password Activity -->
+    <string name="fp_credentials">Forgot Password?</string>
+    <string name="fp_credentials_text">Please input your email address on the field below</string>
+    <string name="fp_email">Email Address</string>
+    <string name="fp_next">NEXT</string>
+
+    <!-- Confirmation Code Activity -->
+    <string name="cc_credentials">Confirmation Code</string>
+    <string name="cc_credentials_text">Please input the code being sent to your email</string>
+    <string name="cc_confirm_code">Confirmation Code</string>
+    <string name="cc_next">NEXT</string>
+
+    <!-- Reset Code Activity -->
+    <string name="rc_credentials">Reset Password</string>
+    <string name="rc_credentials_text">Please input your new password</string>
+    <string name="rc_bird_lock_image">bird lock image</string>
+    <string name="rc_confirm_password">New Password</string>
+    <string name="rc_confirm_new_password">Confirm New Password</string>
+    <string name="rc_update">UPDATE</string>
+
+    <!-- Account Information Activity -->
+    <string name="ac_credentials">ACCOUNT INFORMATION</string>
+    <string name="ac_username">USERNAME</string>
+    <string name="ac_phone_number">PHONE NUMBER</string>
+    <string name="ac_email_address">EMAIL ADDRESS</string>
+
+    <!-- Change Password Activity -->
+    <string name="cp_change_password_credentials">CHANGE PASSWORD</string>
+    <string name="cp_change_password_credentials_text">In order to change your password. Please input your current password.</string>
+    <string name="cp_current_password_text">Current Password</string>
+    <string name="cp_next">NEXT</string>
+
+    <!-- Edit Password Activity -->
+    <string name="ep_edit_password_credentials">EDIT PASSWORD</string>
+    <string name="ep_edit_password_credentials_text">Please input your new password.</string>
+    <string name="ep_new_password_text">NEW PASSWORD</string>
+    <string name="ep_new_confirm_password_text">CONFIRM NEW PASSWORD</string>
+    <string name="ep_save">SAVE</string>
+
+    <!-- Notifications Activity -->
+
+    <!-- Terms And Service Activity -->
+    <string name="terms_and_service_title">TERMS AND SERVICE</string>
+    <string name="terms_and_service_text">The user agrees that BiRD may use, process and/or host customer confidential information/data such as Bank Account Number and other bank account credentials.
+
+    The user also agrees that BiRD has the debit authority; BiRD may debit money from customer account/wallet/card etc. for the processing of transactions.</string>
+
+    <!-- About Us Activity -->
+    <string name="about_us_title">ABOUT US</string>
+    <string name="about_us_text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat at nisl at ornare. Phasellus varius tincidunt luctus. Nunc eget tincidunt turpis, et fringilla mauris.
+    Fusce arcu metus, pretium eget elementum a, congue ut nulla. Cras sodales risus sed dui suscipit, dictum fermentum urna aliquam. Fusce id tellus enim.</string>
+
+    <!-- Help Centre Activity -->
+    <string name="hc_credentials">HELP CENTRE</string>
+    <string name="hc_credentials_text">What can we do for you?</string>
+    <string name="hc_concern">Type your concern here</string>
+    <string name="hc_send">SEND</string>
+
+    <!-- Look For A Technician Activity -->
+    <string name="lft_in_need_of_assistance_label">IN NEED OF ASSISTANCE ?</string>
+    <string name="lft_preferable_label">Which would you prefer</string>
+    <string name="lft_company_or_retailer_label">Select a company or retailer</string>
+    <string name="lft_technician_nearby_label">Find a technician nearby</string>
+    <string name="lft_which_company_or_retailer_label">Which company or retailer are you seeking ?</string>
+    <string name="lft_input_company_or_retailer">Input company or retailer here...</string>
+    <string name="lft_describe_problem_label">Describe the situation in need of assistance.</string>
+    <string name="lft_input_problem">Input description here...</string>
+    <string name="lft_show">SHOW IN MAP</string>
+
+    <!-- ****************************** CONSUMER ********************************** -->
+    <!-- Navigation Menu (Consumer) -->
+    <string name="c_dashboard">DASHBOARD</string>
+    <string name="c_userprofile">PROFILE</string>
+    <string name="c_cart">CART</string>
+    <string name="c_settings">SETTINGS</string>
+
+    <!-- Dashboard Fragment (Consumer) -->
+    <string name="c_categories_text">Categories</string>
+    <string name="c_new_build">NEW BUILD</string>
+    <string name="c_look_for_a_tech">LOOK FOR A TECHNICIAN</string>
+    <string name="c_see_forums">SEE FORUMS</string>
+
+    <!-- Profile Fragment (Consumer) -->
+    <string name="c_profile_image"> </string>
+    <string name="c_profile_username">Username</string>
+    <string name="c_profile_userID">User ID</string>
+    <string name="c_profile_value">value</string>
+    <string name="c_profile_cart">cart icon</string>
+    <string name="c_profile_purchase_history">Purchase History</string>
+
+    <string name="c_profile_firstName_label">First Name</string>
+    <string name="c_profile_lastName_label">Last Name</string>
+    <string name="c_profile_email_label">Email Address</string>
+    <string name="c_profile_contact_number_label">Contact Number</string>
+    <string name="c_profile_gender_label">Gender</string>
+    <string name="c_profile_birth_date_label">Birth Date</string>
+    <string name="c_profile_address_label">Address</string>
+    <string name="c_profile_modify_button_text">MODIFY</string>
+
+    <string name="c_profile_switch_account_label">WANT TO SWITCH ACCOUNTS?</string>
+    <string name="c_profile_switch_retailer_label">Switch to Retailer</string>
+    <string name="c_profile_switch_technician_label">Switch to Technician</string>
+    <string name="c_profile_delete_account_text">Delete Account</string>
+
+    <!-- Cart Fragment (Consumer) -->
+    <string name="c_cart_text_label">SHOP CART</string>
+    <string name="c_cart_place_order">PLACE ORDER</string>
+
+    <!-- Settings Fragment (Consumer) -->
+    <string name="c_settings_text">Settings</string>
+    <string name="c_account_information">Account Information</string>
+    <string name="c_change_password">Change Password</string>
+    <string name="c_notifications">NOTIFICATIONS</string>
+    <string name="c_terms_and_service">TERMS AND SERVICE</string>
+    <string name="c_about_us">ABOUT US</string>
+    <string name="c_help_centre">HELP CENTRE</string>
+    <string name="c_logout">LOG OUT</string>
+
+    <!-- Modify Profile Activity (Consumer) -->
+    <string name="c_modify_firstName_label">First Name</string>
+    <string name="c_modify_lastName_label">Last Name</string>
+    <string name="c_modify_email_label">Email Address</string>
+    <string name="c_modify_contact_number_label">Contact Number</string>
+    <string name="c_modify_address_label">Address</string>
+    <string name="c_modify_button_text">MODIFY</string>
+
+    <!-- ****************************** RETAILER ********************************** -->
+    <!-- Login Activity (Retailer) -->
+    <string name="log_retailer_context">LOGIN AS RETAILER</string>
+    <string name="log_retailer_name">Name</string>
+    <string name="log_retailer_password">Password</string>
+    <string name="log_retailer_forgot_password">Forgot Password?</string>
+    <string name="log_retailer_login_button">LOGIN</string>
+    <string name="log_retailer_register_here">Don\'t have an account? Register Here</string>
+
+    <!-- Registration Activity (Retailer) -->
+    <string name="reg_retailer_name">Store Name</string>
+    <string name="reg_retailer_contact_number">Contact Number</string>
+    <string name="reg_retailer_address">Address</string>
+    <string name="reg_retailer_password">Password</string>
+    <string name="reg_retailer_confirm_password">Confirm Password</string>
+    <string name="reg_retailer_register_button">REGISTER</string>
+    <string name="reg_retailer_login_here">Already Have An Account? Login Here</string>
+
+    <!-- Navigation Menu (Retailer) -->
+    <string name="r_dashboard">DASHBOARD</string>
+    <string name="r_userprofile">PROFILE</string>
+    <string name="r_settings">SETTINGS</string>
+
+    <!-- Dashboard Fragment (Retailer) -->
+    <string name="r_categories_text">Categories</string>
+    <string name="r_manage_products_text">MANAGE PRODUCTS</string>
+    <string name="r_see_forums">SEE FORUMS</string>
+
+    <!-- Profile Fragment (Retailer) -->
+    <string name="r_profile_image"> </string>
+    <string name="r_profile_sale_history">Sale History</string>
+    <string name="r_profile_storeName_label">Store Name</string>
+    <string name="r_profile_contact_number_label">Contact Number</string>
+    <string name="r_profile_address_label">Address</string>
+    <string name="r_profile_modify_button_text">MODIFY</string>
+
+    <string name="r_profile_switch_account_label">WANT TO SWITCH ACCOUNTS?</string>
+    <string name="r_profile_switch_user_label">Switch to User</string>
+    <string name="r_profile_switch_technician_label">Switch to Technician</string>
+
+    <!-- Settings Fragment (Retailer) -->
+    <string name="r_settings_text">Settings</string>
+    <string name="r_notifications">NOTIFICATIONS</string>
+    <string name="r_terms_and_service">TERMS AND SERVICE</string>
+    <string name="r_about_us">ABOUT US</string>
+    <string name="r_help_centre">HELP CENTRE</string>
+    <string name="r_logout">LOG OUT</string>
+
+    <!-- Modify Profile Activity (Retailer) -->
+    <string name="r_modify_storeName_label">Store Name</string>
+    <string name="r_modify_contact_number_label">Contact Number</string>
+    <string name="r_modify_address_label">Address</string>
+    <string name="r_modify_button_text">MODIFY</string>
+
+    <!-- Manage Products Activity (Retailer)  -->
+    <string name="r_add_products_text">ADD PRODUCTS</string>
+    <string name="r_edit_products_text">EDIT PRODUCTS</string>
+    <string name="r_view_products_text">VIEW PRODUCTS</string>
+
+    <!-- Add Products Activity (Retailer) -->
+    <string name="r_add_productName_label">Product Name</string>
+    <string name="r_add_description_label">Product Description</string>
+    <string name="r_add_price_label">Product Price</string>
+    <string name="r_add_tag_label">Tag</string>
+    <string name="r_add_button_text">ADD</string>
+
+    <!-- Edit Products Activity (Retailer) -->
+    <string name="r_edit_storeName_label"></string>
+    <string name="r_edit_productName_label">Product Name</string>
+    <string name="r_edit_description_label">Product Description</string>
+    <string name="r_edit_price_label">Product Price</string>
+    <string name="r_edit_tag_label">Tag</string>
+    <string name="r_delete_product_label">Delete Product</string>
+    <string name="r_update_button_text">UPDATE</string>
+
+    <!-- Products Details Activity (Retailer) -->
+    <string name="r_details_productName_label">Product Name</string>
+    <string name="r_details_description_label">Product Description</string>
+    <string name="r_details_price_label">Product Price</string>
+    <string name="r_details_tag_label">Tag</string>
+    <string name="r_edit_button_text">EDIT</string>
+
+    <!--****************************** TECHNICIAN **********************************-->
+    <!-- Login Activity (Technician) -->
+    <string name="log_technician_context">LOGIN AS TECHNICIAN</string>
+    <string name="log_technician_name">Name</string>
+    <string name="log_technician_password">Password</string>
+    <string name="log_technician_forgot_password">Forgot Password?</string>
+    <string name="log_technician_login_button">LOGIN</string>
+    <string name="log_technician_register_here">Don\'t have an account? Register Here</string>
+
+    <!-- Registration Activity (Technician) -->
+    <string name="reg_technician_name">Full Name</string>
+    <string name="reg_technician_contact_number">Contact Number</string>
+    <string name="reg_technician_address">Address</string>
+    <string name="reg_technician_password">Password</string>
+    <string name="reg_technician_confirm_password">Confirm Password</string>
+    <string name="reg_technician_register_button">REGISTER</string>
+    <string name="reg_technician_login_here">Already Have An Account? Login Here</string>
+
+    <!-- Navigation Menu (Technician) -->
+    <string name="t_dashboard">DASHBOARD</string>
+    <string name="t_userprofile">PROFILE</string>
+    <string name="t_settings">SETTINGS</string>
+
+    <!-- Dashboard Fragment (Technician) -->
+    <string name="t_categories_text">Categories</string>
+    <string name="t_browse_products_text">MANAGE REQUESTS</string>
+    <string name="t_see_forums">SEE FORUMS</string>
+
+    <!-- Profile Fragment (Technician) -->
+    <string name="t_profile_image"> </string>
+    <string name="t_profile_request_history">Request History</string>
+    <string name="t_profile_Name_label">Full Name</string>
+    <string name="t_profile_contact_number_label">Contact Number</string>
+    <string name="t_profile_address_label">Address</string>
+    <string name="t_profile_modify_button_text">MODIFY</string>
+
+    <string name="t_profile_switch_account_label">WANT TO SWITCH ACCOUNTS?</string>
+    <string name="t_profile_switch_user_label">Switch to User</string>
+    <string name="t_profile_switch_retailer_label">Switch to Retailer</string>
+
+    <!-- Settings Fragment (Technician) -->
+    <string name="t_settings_text">Settings</string>
+    <string name="t_notifications">NOTIFICATIONS</string>
+    <string name="t_terms_and_service">TERMS AND SERVICE</string>
+    <string name="t_about_us">ABOUT US</string>
+    <string name="t_help_centre">HELP CENTRE</string>
+    <string name="t_logout">LOG OUT</string>
+
+    <!-- Modify Profile Activity (Technician) -->
+    <string name="t_modify_Name_label">Name</string>
+    <string name="t_modify_contact_number_label">Contact Number</string>
+    <string name="t_modify_address_label">Address</string>
+    <string name="t_modify_button_text">MODIFY</string>
+
+    <!--****************************** RECYCLER VIEWS **********************************-->
+
+    <!-- New Build Recycler View -->
+    <string-array name="new_build_recyclerview">
+        <item>Central Processing Unit</item>
+        <item>CPU Cooler</item>
+        <item>Graphics Processing Unit</item>
+        <item>Hard Disk Drive</item>
+        <item>Random Access Memory</item>
+        <item>Motherboard</item>
+        <item>PC Case</item>
+        <item>Peripherals</item>
+        <item>Power Supply Unit</item>
+        <item>Solid State Drive</item>
+    </string-array>
+
+    <!--Feedback Activity -->
+    <string name="f_description_label">FEEDBACK</string>
+    <string name="f_send_button_text">SEND</string>
+
+    <!-- Map Activity -->
+    <string name="m_technicians_nearby_text">TECHNICIANS NEAR ME</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
