@@ -7,17 +7,36 @@
     tools:context=".Retail_LoginActivity"
     android:background="@color/lighter" >
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/birdlogowithwhitecircle"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="100dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/birdwhitecircle"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/custom_edittext"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,20 +50,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graduate"
+                android:gravity="center"
                 android:text="LOGIN AS RETAILER"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/retail_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_edittext"
-                android:hint="Username"
                 android:fontFamily="@font/graduate"
+                android:hint="Username"
                 android:paddingLeft="20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/lighter" />
@@ -53,10 +72,10 @@
                 android:id="@+id/retail_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/custom_edittext"
-                android:hint="Password"
                 android:fontFamily="@font/graduate"
+                android:hint="Password"
                 android:paddingLeft="20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/lighter" />
@@ -65,23 +84,22 @@
                 android:id="@+id/retail_loginbutton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/log_in"
-                android:textColor="@color/white"
-                android:background="@drawable/custom_buttontwo"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_yellow_button"
                 android:fontFamily="@font/graduate"
-                android:backgroundTint="@color/black"
-                android:layout_marginTop="40dp"/>
+                android:text="@string/log_in"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/toregasretail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/graduate"
+                android:gravity="center"
                 android:text="Don't Have An Account? Register Here"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"/>
+                android:textSize="13sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

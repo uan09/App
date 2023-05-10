@@ -156,7 +156,6 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         WriteBatch batch = db.batch();
         DocumentReference productRef = FirebaseFirestore.getInstance().collection("Products").document(product_id);
-
         productRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -175,6 +174,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
                     String newQuantityStr = String.valueOf(newQuantity);
                     Object finalQty = newQuantityStr;
                     batch.update(productRef, "product_quantity", finalQty);
+
                     batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

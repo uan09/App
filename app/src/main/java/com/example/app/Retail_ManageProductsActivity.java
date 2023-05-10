@@ -182,6 +182,8 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
     }
+
+
     private void CheckPermission() {
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(Retail_ManageProductsActivity.this,
