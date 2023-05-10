@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Retail_DisplayProductActivity">
 
     <LinearLayout
@@ -62,13 +63,13 @@
 
             <TextView
                 android:id="@+id/product_description"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:textColor="@color/white"
                 android:text="Description"
+                android:textColor="@color/white"
                 android:textSize="18dp" />
 
             <TextView
@@ -86,7 +87,7 @@
                 android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="right"
@@ -130,8 +131,10 @@
                     android:gravity="right"
                     android:hint="Input Quantity"
                     android:textSize="25dp"
+                    android:text="1"
                     android:textColorHint="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:required="true"/>
             </LinearLayout>
             <Button
                 android:id="@+id/add_to_cart"
