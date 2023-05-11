@@ -54,7 +54,17 @@ public class NavigationActivity extends AppCompatActivity {
 
             switch(item.getItemId()) {
                 case R.id.dashboard:
+                    DashboardFragment fragment2 = new DashboardFragment();
+                    Bundle args2 = new Bundle();
+                    args2.putString("Email", email);
+                    fragment2.setArguments(args2);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,dashboardFragment).commit();
+
+                    FragmentManager fragmentManager2 = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                    fragmentTransaction2.add(R.id.frame_layout, fragment2);
+                    fragmentTransaction2.addToBackStack(null);
+                    fragmentTransaction2.commit();
                     return true;
 
                 case R.id.userprofile:
@@ -70,7 +80,6 @@ public class NavigationActivity extends AppCompatActivity {
                     fragmentTransaction.add(R.id.frame_layout, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-
                     return true;
 
                 case R.id.cart:

@@ -5,56 +5,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar1"
+        <LinearLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
             android:background="@color/mustard">
 
-            <!-- Toolbar items here -->
+            <ImageView
+                android:id="@+id/menu_back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_back_black"
+                android:contentDescription="@string/backbutton" />
+
             <TextView
                 android:id="@+id/menu_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="25dp"
+                android:layout_gravity="center"
                 android:fontFamily="@font/graduate"
                 android:text="Browse Items"
                 android:textColor="#000000"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 tools:ignore="HardcodedText" />
             <ImageView
-                android:id="@+id/menu_search"
+                android:id="@+id/menu_cart1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="18dp"
-                android:clickable="true"
-                android:src="@drawable/search_icon" />
-
-            <ImageView
-                android:id="@+id/cart_button"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="30dp"
-                android:clickable="true"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
                 android:layout_toStartOf="@id/menu_delete"
                 android:src="@drawable/cart_icon" />
-        </androidx.appcompat.widget.Toolbar>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/menu_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:text="Check Orders"
+                android:textColor="#000000"
+                android:textSize="10dp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar_layout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recyclerview"

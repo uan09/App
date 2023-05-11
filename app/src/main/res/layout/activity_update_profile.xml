@@ -90,7 +90,7 @@
                     android:layout_marginBottom="70dp"
                     android:text="@string/Email2"
                     android:textColor="@color/white"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

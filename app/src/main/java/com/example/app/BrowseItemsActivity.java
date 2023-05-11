@@ -2,15 +2,12 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app.ui.adapters.CategoryAdapter;
 import com.example.app.ui.adapters.ProductsAdapter;
 import com.example.app.ui.fragments.CartFragment;
+import com.example.app.ui.fragments.ProfileFragment;
 import com.example.app.ui.models.CategoryModel;
 import com.example.app.ui.models.ProductModel;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,12 +32,10 @@ public class BrowseItemsActivity extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private RecyclerView recyclerView;
     ProductsAdapter productsAdapter;
-    TextView products_empty;
-
-    ImageView menu_cart;
+    TextView products_empty, menu_options;
+    ImageView menu_search1, menu_cart1, menu_back;
     CollectionReference productsRef;
     FirebaseFirestore db;
-    private Button backButton;
     String layout_style;
 
     @Override
@@ -47,15 +43,32 @@ public class BrowseItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_items);
 
+        menu_cart1 = findViewById(R.id.menu_cart1);
+        menu_cart1.setOnClickListener(view -> {
+            CartFragment cartFragment = new CartFragment(); // create a new instance of your Fragment
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_cart, cartFragment); // replace the current Fragment in the container with your new Fragment
+            transaction.addToBackStack(null); // add the transaction to the back stack, so the user can navigate back to the previous Fragment by pressing the back button
+            transaction.commit();
+        });
+        menu_back = findViewById(R.id.menu_back);
+        menu_back.setOnClickListener(view -> {
+            ProfileFragment fragment = new ProfileFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.frame_layout, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+        menu_options = findViewById(R.id.menu_options);
+        menu_options.setOnClickListener(view -> {
+
+        });
+
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(layoutManager);
-
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
         categoryModelList.add(new CategoryModel("home", "Home", R.drawable.home_icon));
@@ -102,14 +115,8 @@ public class BrowseItemsActivity extends AppCompatActivity {
                         initComponents();
                     }
                 }).addOnFailureListener(e -> initComponents());
+    }
 
-        menu_cart = findViewById(R.id.menu_cart);
-        menu_cart.setOnClickListener(view -> Cart());
-    }
-    private void Cart(){
-        Intent cartIntent = new Intent (this, CartFragment.class);
-        startActivity(cartIntent);
-    }
     private void initComponents() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -127,36 +134,5 @@ public class BrowseItemsActivity extends AppCompatActivity {
                 BrowseItemsActivity.this.startActivity(i);
             }
         });
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
-            case R.id.home:
-                Intent intent = new Intent(this, NavigationActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-
-            case R.id.menu_search:
-                // Handle search action
-
-                return true;
-            case R.id.menu_cart:
-                CartFragment cartFragment = new CartFragment(); // create a new instance of your Fragment
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_cart, cartFragment); // replace the current Fragment in the container with your new Fragment
-                transaction.addToBackStack(null); // add the transaction to the back stack, so the user can navigate back to the previous Fragment by pressing the back button
-                transaction.commit();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
