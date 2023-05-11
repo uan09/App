@@ -42,11 +42,18 @@ public class User_DisplayProductActivity extends AppCompatActivity {
     Context context;
     NumberFormat formatter = new DecimalFormat("###,###,###");
     ProgressDialog progressDialog;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_product_display);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
+        Toast.makeText(User_DisplayProductActivity.this, email, Toast.LENGTH_SHORT).show();
 
         BackButton = findViewById(R.id.backbutton19);
         BackButton.setOnClickListener(view -> {

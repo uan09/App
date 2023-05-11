@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -32,16 +33,25 @@ public class BrowseItemsActivity extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private RecyclerView recyclerView;
     ProductsAdapter productsAdapter;
-    TextView products_empty, menu_options;
+    TextView products_empty, menu_options, connector;
     ImageView menu_search1, menu_cart1, menu_back;
     CollectionReference productsRef;
     FirebaseFirestore db;
-    String layout_style;
+    String layout_style, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_items);
+
+        connector = findViewById(R.id.connector);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+            connector.setText(email);
+        }
+        Toast.makeText(BrowseItemsActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
 
         menu_cart1 = findViewById(R.id.menu_cart1);
         menu_cart1.setOnClickListener(view -> {
@@ -130,6 +140,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, ProductModel obj, int position) {
                 Intent i = new Intent(BrowseItemsActivity.this, User_DisplayProductActivity.class);
+                i.putExtra("Email", email);
                 i.putExtra("product_id", obj.getProduct_id());
                 BrowseItemsActivity.this.startActivity(i);
             }

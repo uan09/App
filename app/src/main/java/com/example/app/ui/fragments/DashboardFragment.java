@@ -19,10 +19,16 @@ import com.example.app.R;
 public class DashboardFragment extends Fragment {
 
     Activity build, browse, technician, forums;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
 
         build = getActivity();
         browse = getActivity();
@@ -37,21 +43,20 @@ public class DashboardFragment extends Fragment {
         super.onStart();
         //Direct to New Build Activity
         CardView dashboard_build = (CardView) build.findViewById(R.id.new_build_card);
-        dashboard_build.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(build, NewBuildActivity.class);
-                startActivity(intent);
-            }
+        dashboard_build.setOnClickListener(view -> {
+            Intent intent = new Intent(build, NewBuildActivity.class);
+            startActivity(intent);
         });
 
         CardView browse_items = (CardView) build.findViewById(R.id.browse_items_card);
-        browse_items.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(build, BrowseItemsActivity.class);
-                startActivity(intent);
-            }
+        browse_items.setOnClickListener(view -> {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("Email", email);
+            Intent intent = new Intent(build, BrowseItemsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
         });
 
         //Direct to Assistance Activity

@@ -48,7 +48,17 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+        DashboardFragment fragment3 = new DashboardFragment();
+        Bundle args3 = new Bundle();
+        args3.putString("Email", email);
+        fragment3.setArguments(args3);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new DashboardFragment()).commit();
+
+        FragmentManager fragmentManager3 = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+        fragmentTransaction3.add(R.id.frame_layout, fragment3);
+        fragmentTransaction3.addToBackStack(null);
+        fragmentTransaction3.commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -68,7 +78,6 @@ public class NavigationActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.userprofile:
-
                     ProfileFragment fragment = new ProfileFragment();
                     Bundle args = new Bundle();
                     args.putString("Email", email);
