@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class BrowseItemsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     ProductsAdapter productsAdapter;
     TextView products_empty;
+
+    ImageView menu_cart;
     CollectionReference productsRef;
     FirebaseFirestore db;
     private Button backButton;
@@ -99,8 +102,14 @@ public class BrowseItemsActivity extends AppCompatActivity {
                         initComponents();
                     }
                 }).addOnFailureListener(e -> initComponents());
-    }
 
+        menu_cart = findViewById(R.id.menu_cart);
+        menu_cart.setOnClickListener(view -> Cart());
+    }
+    private void Cart(){
+        Intent cartIntent = new Intent (this, CartFragment.class);
+        startActivity(cartIntent);
+    }
     private void initComponents() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

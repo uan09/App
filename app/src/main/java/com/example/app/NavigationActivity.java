@@ -74,7 +74,18 @@ public class NavigationActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.cart:
+
+                    CartFragment fragment1 = new CartFragment();
+                    Bundle args1 = new Bundle();
+                    args1.putString("Email", email);
+                    fragment1.setArguments(args1);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,cartFragment).commit();
+
+                    FragmentManager fragmentManager1 = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                    fragmentTransaction1.add(R.id.frame_layout, fragment1);
+                    fragmentTransaction1.addToBackStack(null);
+                    fragmentTransaction1.commit();
                     return true;
 
                 case R.id.manage:

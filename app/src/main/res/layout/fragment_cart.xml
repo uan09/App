@@ -48,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_recycler_view"
             android:layout_width="match_parent"
@@ -58,6 +59,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/connector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/graduate"
+            android:textSize="25sp"
+            android:visibility="gone"
+            android:layout_gravity="right"
+            android:text="connector"/>
+
         <TextView
             android:id="@+id/total_price"
             android:layout_width="wrap_content"
