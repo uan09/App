@@ -1,18 +1,39 @@
 package com.example.app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.Intent;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.app.ui.fragments.DashboardFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.type.LatLng;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AssistanceActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    EditText input_assitance, input_description;
+    Button showMap;
     ImageView backbutton6;
 
     @Override
@@ -25,8 +46,10 @@ public class AssistanceActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_assistance);
 
-        backbutton6 = findViewById(R.id.backbutton6);
+        input_assitance = (EditText) findViewById(R.id.input_assistance);
+        input_description = (EditText) findViewById(R.id.input_description);
 
+        backbutton6 = findViewById(R.id.backbutton6);
         backbutton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,5 +57,41 @@ public class AssistanceActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.main_dashboard, new DashboardFragment()).commit();
             }
         });
+
+        showMap = (Button) findViewById(R.id.show_in_map_button);
+        showMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                needAssistance(input_assitance.getText().toString(), input_description.getText().toString());
+
+                String uri = "http://maps.google.com/maps?q=" + input_assitance.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void needAssistance(String assistance, String description) {
+        Map<String, Object> assistanceData = new HashMap<>();
+        assistanceData.put("email", "");
+        assistanceData.put("assistance", assistance);
+        assistanceData.put("description", description);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference assistanceRef = db.collection("RequestAssistance").document();
+        assistanceRef.set(assistanceData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot written with ID: ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
     }
 }

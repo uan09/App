@@ -7,102 +7,101 @@
     tools:context=".Retail_LoginActivity"
     android:background="@color/lighter" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/birdlogowithwhitecircle"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginTop="100dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/birdwhitecircle"
-            tools:ignore="MissingConstraints" />
-    </RelativeLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/custom_edittext"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
+    <ImageView
+        android:id="@+id/BiRDLogoimageView2"
+        android:layout_width="411dp"
+        android:layout_height="290dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="581dp"
+        android:src="@drawable/bird_logo_withtext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.268" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="24dp">
+    <TextView
+        android:id="@+id/log_retailer_context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:fontFamily="@font/graduate"
+        android:text="@string/log_retailer_context"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/BiRDLogoimageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571" />
 
-            <TextView
-                android:id="@+id/loginasretail_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/graduate"
-                android:gravity="center"
-                android:text="LOGIN AS RETAILER"
-                android:textColor="@color/yellow"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+    <EditText
+        android:id="@+id/login_retailer_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/log_retailer_name"
+        android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:endIconMode="clear_text"
+        app:layout_constraintTop_toBottomOf="@+id/BiRDLogoimageView2"
+        tools:layout_editor_absoluteX="5dp"
+        android:autofillHints=""
+        android:inputType="text" />
 
-            <EditText
-                android:id="@+id/retail_login"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/graduate"
-                android:hint="Username"
-                android:paddingLeft="20dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/lighter" />
+    <EditText
+        android:id="@+id/login_retailer_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/log_retailer_password"
+        android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:endIconMode="clear_text"
+        app:layout_constraintTop_toBottomOf="@+id/login_retailer_name"
+        tools:layout_editor_absoluteX="5dp"
+        android:autofillHints=""
+        android:inputType="text" />
 
-            <EditText
-                android:id="@+id/retail_password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/graduate"
-                android:hint="Password"
-                android:paddingLeft="20dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/lighter" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/retailer_login_button"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="@string/log_retailer_login_button"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/graduate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_retailer_password"
+        app:layout_constraintVertical_bias="0.095" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/retail_loginbutton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/custom_yellow_button"
-                android:fontFamily="@font/graduate"
-                android:text="@string/log_in"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/toregasretail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/graduate"
-                android:gravity="center"
-                android:text="Don't Have An Account? Register Here"
-                android:textColor="@color/black"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/retailer_register_here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/graduate"
+        android:text="@string/log_retailer_register_here"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/retailer_login_button"
+        app:layout_constraintVertical_bias="0.106" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
