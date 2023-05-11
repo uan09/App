@@ -6,23 +6,17 @@ public class CartModel {
     private String product_type;
     private String product_price;
     private String product_number;
-    private String First_image_url;
+    private String product_image_url;
     public CartModel() {}
 
 
-    public CartModel(String cart_id, String product_name, String product_type, String product_price, String product_number, String first_image_url) {
+    public CartModel(String cart_id, String product_name, String product_type, String product_price, String product_number, String product_image_url) {
         this.cart_id = cart_id;
         this.product_name = product_name;
         this.product_type = product_type;
         this.product_price = product_price;
         this.product_number = product_number;
-        this.First_image_url = first_image_url;
-    }
-
-    public CartModel(String product_name, String product_number, String product_price) {
-        this.product_name = product_name;
-        this.product_number = product_number;
-        this.product_price = product_price;
+        this.product_image_url = product_image_url;
     }
 
     public String getCart_id() {
@@ -65,11 +59,11 @@ public class CartModel {
         this.product_number = product_number;
     }
 
-    public String getFirst_image_url() {
-        return First_image_url;
+    public String getProduct_image_url() {
+        return product_image_url;
     }
 
-    public void setFirst_image_url(String first_image_url) {
-        First_image_url = first_image_url;
+    public void setProduct_image_url(String product_image_url) {
+        this.product_image_url = product_image_url;
     }
 }

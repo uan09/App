@@ -80,6 +80,7 @@ public class CartFragment extends Fragment {
                 assert cartItem != null;
                 cartItem.setCart_id(doc.getId());
                 cartItems.add(cartItem);
+                cartItem.setProduct_image_url(doc.getString("product_image_url"));
                 String priceString = cartItem.getProduct_price().replaceAll("\\D", "");
                 if (!priceString.isEmpty()) {
                     try {
@@ -158,6 +159,7 @@ public class CartFragment extends Fragment {
                 assert cartItem != null;
                 cartItem.setCart_id(doc.getId());
                 cartItems.add(cartItem);
+                cartItem.setProduct_image_url(doc.getString("product_image_url"));
                 String priceString = cartItem.getProduct_price().replaceAll("\\D", "");
                 if (!priceString.isEmpty()) {
                     try {

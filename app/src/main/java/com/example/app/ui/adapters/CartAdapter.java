@@ -39,8 +39,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.productType.setText(cart.getProduct_type());
         holder.productPrice.setText(cart.getProduct_price());
         holder.productNumber.setText(cart.getProduct_number());
-        String firstImageUrl = cart.getFirst_image_url();
-        Glide.with(context).load(firstImageUrl).into(holder.productImage);
+        Glide.with(context)
+                .load(cart.getProduct_image_url())
+                .into(holder.productImage);
     }
 
     @Override
