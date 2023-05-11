@@ -19,6 +19,7 @@ import com.example.app.R;
 public class DashboardFragment extends Fragment {
 
     Activity build, browse, technician, forums;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
