@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_margin="5dp"
-        android:hint="Input company or retailer here..."
+        android:hint="Required *"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:endIconMode="clear_text"
@@ -79,7 +79,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_assistance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="required"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -133,5 +134,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.703" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/show_nearest_button"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/graduate"
+        android:text="SHOW NEAREST TECHNICIAN"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

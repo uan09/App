@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.app.ui.fragments.tech_NearMe_fragment;
 import com.example.app.ui.fragments.DashboardFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.type.LatLng;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +30,10 @@ public class AssistanceActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     EditText input_assitance, input_description;
-    Button showMap;
+    Button showMap, showNearest;
+
+    tech_NearMe_fragment tech_Fragment = new tech_NearMe_fragment();
+
     ImageView backbutton6;
 
     @Override
@@ -62,14 +62,43 @@ public class AssistanceActivity extends AppCompatActivity {
         showMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                needAssistance(input_assitance.getText().toString(), input_description.getText().toString());
+                String assistance = input_assitance.getText().toString();
+                String description = input_description.getText().toString();
 
-                String uri = "http://maps.google.com/maps?q=" + input_assitance.getText().toString();
+                if (assistance.trim().isEmpty()) {
+                    input_assitance.setError("Required");
+                    input_assitance.requestFocus();
+                    return;
+                }
+                if (description.trim().isEmpty()) {
+                    input_description.setError("Required");
+                    input_description.requestFocus();
+                    return;
+                }
+
+                needAssistance(assistance, description);
+
+                String uri = "http://maps.google.com/maps?q=" + assistance;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
             }
         });
+
+
+        showNearest = findViewById(R.id.show_nearest_button);
+
+        showNearest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.techMap, tech_Fragment);
+                transaction.commit();
+
+            }
+        });
+
     }
 
     private void needAssistance(String assistance, String description) {
@@ -94,4 +123,16 @@ public class AssistanceActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

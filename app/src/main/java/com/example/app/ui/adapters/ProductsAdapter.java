@@ -278,4 +278,5 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             checkbox = itemView.findViewById(R.id.checkbox);
         }
     }
+
 }
