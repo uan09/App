@@ -99,10 +99,10 @@ public class CartFragment extends Fragment {
                 }
             }
             adapter.notifyDataSetChanged();
-            if (formattedNumber != String.valueOf(0)) {
+            if (total > 0) {
                 totalTextView.setText(String.format(Locale.getDefault(), "Total: P%s.00", formattedNumber));
             } else {
-                totalTextView.setText(String.format(Locale.getDefault(), "Total: P00.00"));
+                totalTextView.setText("Total: P0.00");
             }
         });
 
