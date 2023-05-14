@@ -72,7 +72,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     View contactPopupView;
     private RecyclerView recyclerView;
     CollectionReference productsRef;
-    TextView products_empty;
+    TextView products_empty, connector;
     String layout_style, email;
 
     @Override
@@ -102,19 +102,22 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
         productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
 
+        connector = findViewById(R.id.connector);
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null && bundle.containsKey("Email")) {
-            email = bundle.getString("Email");
+        if (bundle != null && bundle.containsKey("storeName")) {
+            email = bundle.getString("storeName");
+            connector.setText(email);
         }
-        Toast.makeText(Retail_ManageProductsActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
-
         loadProduct();
     }
 
     List<ProductModel> productList = new ArrayList<>();
     private void loadProduct() {
+
+
         FirebaseFirestore.getInstance()
                 .collection("Products")
+                .whereEqualTo("store_name", email)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<DocumentSnapshot> dsList = queryDocumentSnapshots.getDocuments();
@@ -258,6 +261,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
 
     private void StoreLinks(ArrayList<String> UrlsList) {
 
+        String store_name = email;
         String product_name = add_item_product_name.getText().toString();
         String product_type = add_item_category.getText().toString();
         String product_description = add_item_description.getText().toString();
@@ -272,8 +276,8 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
             }
         }
 
-        if (!TextUtils.isEmpty(product_name) && !TextUtils.isEmpty(product_description)  && !TextUtils.isEmpty(product_price) && !TextUtils.isEmpty(product_quantity) && !TextUtils.isEmpty(statusText) && ImageUri != null && !TextUtils.isEmpty(product_type)) {
-            ItemModel model = new ItemModel( product_name, product_type, product_description, product_price, statusText, product_quantity, " ", UrlsList);
+        if (!TextUtils.isEmpty(store_name) && !TextUtils.isEmpty(product_name) && !TextUtils.isEmpty(product_description)  && !TextUtils.isEmpty(product_price) && !TextUtils.isEmpty(product_quantity) && !TextUtils.isEmpty(statusText) && ImageUri != null && !TextUtils.isEmpty(product_type)) {
+            ItemModel model = new ItemModel(store_name, product_name, product_type, product_description, product_price, statusText, product_quantity, " ", UrlsList);
 
             // Add the model to "Products" collection in Firestore
             db.collection("Products").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

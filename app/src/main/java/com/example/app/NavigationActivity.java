@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -44,8 +45,8 @@ public class NavigationActivity extends AppCompatActivity {
         Bundle extras = intentReceived.getExtras();
         if (extras != null) {
             email = extras.getString("Value");
-            emailTextView.setText(email);
         }
+        Toast.makeText(this, "Email" +email, Toast.LENGTH_SHORT).show();
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         DashboardFragment fragment3 = new DashboardFragment();

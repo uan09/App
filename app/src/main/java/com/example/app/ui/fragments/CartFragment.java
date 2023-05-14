@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app.OrdersActivity;
 import com.example.app.R;
 import com.example.app.ui.adapters.CartAdapter;
 import com.example.app.ui.models.CartModel;
@@ -43,7 +45,7 @@ public class CartFragment extends Fragment {
     CollectionReference ordersRef = db.collection("Orders");
     CartAdapter adapter;
     List<CartModel> cartItems = new ArrayList<>();
-    TextView totalTextView;
+    TextView totalTextView, menu_options;
     EditText checkout_email, checkout_address, checkout_contact_number, checkout_totalPrice;
     Button checkout_cancel_order, checkout_place_order;
     RadioGroup checkout_payment_method;
@@ -67,6 +69,9 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         totalTextView = view.findViewById(R.id.total_price);
+
+        menu_options = view.findViewById(R.id.menu_options);
+        menu_options.setOnClickListener(view1 -> check_order());
         Button checkoutButton = view.findViewById(R.id.place_order_button);
         checkoutButton.setOnClickListener(view1 -> checkout_popup());
 
@@ -237,5 +242,9 @@ public class CartFragment extends Fragment {
                 Log.e(TAG, "Error placing order", task.getException());
             }
         });
+    }
+    private void check_order() {
+        Intent intent = new Intent(getContext(), OrdersActivity.class);
+        startActivity(intent);
     }
 }

@@ -39,13 +39,14 @@
         Intent intentReceived = getIntent();
         Bundle extras = intentReceived.getExtras();
         if (extras != null) {
-            email = extras.getString("Value");
+            email = extras.getString("storeGet");
         }
+
         retail_bottomNavigation = findViewById(R.id.retail_bottomNavigation);
 
         Retail_DashboardFragment fragment = new Retail_DashboardFragment();
         Bundle args = new Bundle();
-        args.putString("Email", email);
+        args.putString("storeName", email);
         fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().replace(R.id.retailframe_layout, new Retail_DashboardFragment()).commit();
 
@@ -61,15 +62,45 @@
 
                 switch(item.getItemId()) {
                     case R.id.dashboard_retail:
+                        Retail_DashboardFragment fragment1 = new Retail_DashboardFragment();
+                        Bundle args1 = new Bundle();
+                        args1.putString("storeName", email);
+                        fragment1.setArguments(args1);
                         getSupportFragmentManager().beginTransaction().replace(R.id.retailframe_layout,retail_dashboardFragment).commit();
+
+                        FragmentManager fragmentManager1 = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        fragmentTransaction1.add(R.id.retailframe_layout, fragment1);
+                        fragmentTransaction1.addToBackStack(null);
+                        fragmentTransaction1.commit();
                         return true;
 
                     case R.id.userprofile_retail:
+                        ProfileFragment fragment2 = new ProfileFragment();
+                        Bundle args2 = new Bundle();
+                        args2.putString("storeName", email);
+                        fragment2.setArguments(args2);
                         getSupportFragmentManager().beginTransaction().replace(R.id.retailframe_layout,retail_profileFragment).commit();
+
+                        FragmentManager fragmentManager2 = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        fragmentTransaction2.add(R.id.retailframe_layout, fragment2);
+                        fragmentTransaction2.addToBackStack(null);
+                        fragmentTransaction2.commit();
                         return true;
 
                     case R.id.manage_retail:
+                        Retail_ManagerFragment fragment3 = new Retail_ManagerFragment();
+                        Bundle args3 = new Bundle();
+                        args3.putString("storeName", email);
+                        fragment3.setArguments(args3);
                         getSupportFragmentManager().beginTransaction().replace(R.id.retailframe_layout,retail_managerFragment).commit();
+
+                        FragmentManager fragmentManager3 = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+                        fragmentTransaction3.add(R.id.retailframe_layout, fragment3);
+                        fragmentTransaction3.addToBackStack(null);
+                        fragmentTransaction3.commit();
                         return true;
                 }
 

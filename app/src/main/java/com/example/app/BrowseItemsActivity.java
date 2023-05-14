@@ -33,7 +33,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private RecyclerView recyclerView;
     ProductsAdapter productsAdapter;
-    TextView products_empty, menu_options, connector;
+    TextView products_empty, connector;
     ImageView menu_cart1, menu_back;
     CollectionReference productsRef;
     FirebaseFirestore db;
@@ -70,10 +70,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-        menu_options = findViewById(R.id.menu_options);
-        menu_options.setOnClickListener(view -> {
 
-        });
 
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
