@@ -99,7 +99,11 @@ public class CartFragment extends Fragment {
                 }
             }
             adapter.notifyDataSetChanged();
-            totalTextView.setText(String.format(Locale.getDefault(), "Total: P%s.00", formattedNumber));
+            if (formattedNumber != String.valueOf(0)) {
+                totalTextView.setText(String.format(Locale.getDefault(), "Total: P%s.00", formattedNumber));
+            } else {
+                totalTextView.setText(String.format(Locale.getDefault(), "Total: P00.00"));
+            }
         });
 
         return view;
@@ -128,7 +132,7 @@ public class CartFragment extends Fragment {
         checkout_contact_number = contactPopupView.findViewById(R.id.checkout_contact_number);
         checkout_address = contactPopupView.findViewById(R.id.checkout_address);
         checkout_totalPrice = contactPopupView.findViewById(R.id.checkout_totalPrice);
-        checkout_payment_method = contactPopupView.findViewById(R.id.checkout_payment_method);
+
 
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("Email")) {
@@ -186,7 +190,11 @@ public class CartFragment extends Fragment {
                 }
             }
             adapter.notifyDataSetChanged();
-            checkout_totalPrice.setText(String.format(Locale.getDefault(), "P%s.00", formattedNumber));
+            if (total == Integer.parseInt(null)) {
+                checkout_totalPrice.setText(String.format(Locale.getDefault(), "P00.00"));
+            } else {
+                checkout_totalPrice.setText(String.format(Locale.getDefault(), "P%s.00", formattedNumber));
+            }
         });
 
         dialogBuilder.setView(contactPopupView);
@@ -196,7 +204,7 @@ public class CartFragment extends Fragment {
 
     private void place_order() {
         progressDialog.show();
-
+        checkout_payment_method = contactPopupView.findViewById(R.id.checkout_payment_method);
         // Create a new document in the Orders collection
         DocumentReference newOrderRef = ordersRef.document();
         int selectedId = checkout_payment_method.getCheckedRadioButtonId();
