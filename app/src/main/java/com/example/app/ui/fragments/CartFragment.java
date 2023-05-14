@@ -190,10 +190,10 @@ public class CartFragment extends Fragment {
                 }
             }
             adapter.notifyDataSetChanged();
-            if (total == Integer.parseInt(null)) {
-                checkout_totalPrice.setText(String.format(Locale.getDefault(), "P00.00"));
-            } else {
+            if (total > 0) {
                 checkout_totalPrice.setText(String.format(Locale.getDefault(), "P%s.00", formattedNumber));
+            } else {
+                checkout_totalPrice.setText("Total: P0.00");
             }
         });
 
