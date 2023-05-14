@@ -72,6 +72,17 @@
           android:textSize="18dp" />
 
       <TextView
+          android:id="@+id/store_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:layout_marginStart="5dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/white"
+          android:text="Store Name"
+          android:textSize="18dp" />
+
+      <TextView
           android:id="@+id/product_quantity"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

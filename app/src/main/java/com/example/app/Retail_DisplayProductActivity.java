@@ -16,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.app.ui.adapters.ProductImageAdapter;
@@ -32,7 +31,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +42,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
     AlertDialog dialog;
     View contactPopupView;
     EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_category;
-    TextView Product_name, Product_description, Product_quantity, Product_status, Product_price, Product_type;
+    TextView Product_name, Product_description, Product_quantity, Product_status, Product_price, Product_type, Store_name;
     RadioGroup status;
     Button add_item_cancel_button, add_item_add_button;
     RadioButton radioButton;
@@ -88,6 +86,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         Product_status = findViewById(R.id.product_status);
         Product_price = findViewById(R.id.product_price);
         edit_item = findViewById(R.id.edit_item);
+        Store_name = findViewById(R.id.store_name);
     }
 
     private void get_data() {
@@ -107,7 +106,6 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(context, "Failed because " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
-                return;
             }
         });
     }
@@ -119,6 +117,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         Product_name.setText(product.getProduct_name());
         Product_description.setText(product.getProduct_description());
         Product_type.setText(product.getProduct_type());
+        Store_name.setText(product.getStore_name());
         Product_quantity.setText(product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String) product.getProduct_price()));

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app.ui.fragments.Retail_DashboardFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -72,8 +71,9 @@ public class Retail_LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     if(task.getResult().size() == 0) {
                         Toast.makeText(getApplicationContext(), "Invalid store name or password", Toast.LENGTH_SHORT).show();
+                    } else {
+                        openRetailerDashboardActivity();
                     }
-                    openRetailerDashboardActivity();
                 }
             }
         });
@@ -106,7 +106,7 @@ public class Retail_LoginActivity extends AppCompatActivity {
 
     //Method that would redirect to the RetailerNavActivity
     public void openRetailerDashboardActivity() {
-        Intent intent = new Intent(this, Retail_DashboardFragment.class);
+        Intent intent = new Intent(this, Retail_NavigationActivity.class);
         intent.putExtra("storeGet", r_name.getText().toString());
         startActivity(intent);
     }

@@ -3,24 +3,22 @@ package com.example.app.ui.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import com.example.app.ForumActivity;
 import com.example.app.R;
 import com.example.app.Retail_ManageProductsActivity;
 import com.example.app.Retail_MessagesActivity;
-import com.example.app.Tech_MessagesActivity;
-import com.example.app.Tech_RequestsActivity;
 
 public class Retail_DashboardFragment extends Fragment {
 
     Activity retail_manageproducts, retail_messages, retail_forums;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +27,11 @@ public class Retail_DashboardFragment extends Fragment {
         retail_manageproducts = getActivity();
         retail_messages = getActivity();
         retail_forums = getActivity();
+
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("storeName")) {
+            email = bundle.getString("storeName");
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_retail__dashboard, container, false);
@@ -41,7 +44,10 @@ public class Retail_DashboardFragment extends Fragment {
         dashboard_manageproducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("storeName", email);
                 Intent intent = new Intent(retail_manageproducts, Retail_ManageProductsActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

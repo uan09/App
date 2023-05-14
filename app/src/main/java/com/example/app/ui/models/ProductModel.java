@@ -3,13 +3,14 @@ package com.example.app.ui.models;
 import java.util.List;
 
 public class ProductModel {
-    private String Product_id, Product_name, Product_type, Product_description, Product_price, Product_quantity, Product_status, First_image_url;
+    private String Store_name, Product_id, Product_name, Product_type, Product_description, Product_price, Product_quantity, Product_status, First_image_url;
     private List<String> Product_image;
     private boolean selected;
     public ProductModel() {
     }
 
-    public ProductModel(String product_id, String product_name, String product_type, String product_description, String product_price, String product_quantity, String product_status, List<String> product_image) {
+    public ProductModel(String store_name, String product_id, String product_name, String product_type, String product_description, String product_price, String product_quantity, String product_status, List<String> product_image) {
+        this.Store_name = store_name;
         this.Product_id = product_id;
         this.Product_name = product_name;
         this.Product_type = product_type;
@@ -23,7 +24,13 @@ public class ProductModel {
         }
         this.selected = false;
     }
+    public String getStore_name() {
+        return Store_name;
+    }
 
+    public void setStore_name(String store_name) {
+        Store_name = store_name;
+    }
     public boolean isSelected() {
         return selected;
     }

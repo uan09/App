@@ -3,13 +3,14 @@ package com.example.app.ui.models;
 import java.util.ArrayList;
 
 public class ItemModel {
-    private String product_name, product_type, product_description, product_price, Product_status, product_quantity, Product_id;
+    private String product_name, product_type, product_description, product_price, Product_status, product_quantity, Product_id, store_name;
     private ArrayList<String> Product_image;
 
     public ItemModel(String product_name, String product_type, String product_description, String product_price, String statusText, String product_quantity, ArrayList<String> urlsList) {
     }
 
-    public ItemModel(String product_name, String product_type, String product_description, String product_price, String product_status, String product_quantity, String product_id, ArrayList<String> product_image) {
+    public ItemModel(String store_name, String product_name, String product_type, String product_description, String product_price, String product_status, String product_quantity, String product_id, ArrayList<String> product_image) {
+        this.store_name = store_name;
         this.product_name = product_name;
         this.product_type = product_type;
         this.product_description = product_description;
@@ -19,7 +20,13 @@ public class ItemModel {
         Product_id = product_id;
         Product_image = product_image;
     }
+    public String getStore_name() {
+        return store_name;
+    }
 
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
     public String getProduct_type() {
         return product_type;
     }
