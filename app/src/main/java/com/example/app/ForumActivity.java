@@ -1,23 +1,24 @@
 package com.example.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.app.ui.fragments.DashboardFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ForumActivity extends AppCompatActivity {
 
-    ImageView backbutton10;
-    FloatingActionButton button;
-
+    ImageView backbutton19;
+    ImageButton add_button;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,13 @@ public class ForumActivity extends AppCompatActivity {
         getSupportActionBar();
 
         setContentView(R.layout.activity_forum);
-
-        backbutton10 = findViewById(R.id.backbutton10);
-        backbutton10.setOnClickListener(new View.OnClickListener() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
+        Toast.makeText(ForumActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
+        backbutton19 = findViewById(R.id.backbutton19);
+        backbutton19.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -37,8 +42,8 @@ public class ForumActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.floating_add_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        add_button = findViewById(R.id.add_button);
+        add_button.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View view) { openNewForumActivity(); }
         });

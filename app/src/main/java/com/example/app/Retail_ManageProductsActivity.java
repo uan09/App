@@ -73,7 +73,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     CollectionReference productsRef;
     TextView products_empty;
-    String layout_style;
+    String layout_style, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,12 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
 
         productsAdapter = new ProductsAdapter(productList, this, products_empty, productsRef, layout_style);
         recyclerView.setAdapter(productsAdapter);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
+        Toast.makeText(Retail_ManageProductsActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
 
         loadProduct();
     }

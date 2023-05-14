@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -23,12 +24,15 @@ import com.example.app.R;
 import com.example.app.ui.adapters.CartAdapter;
 import com.example.app.ui.models.CartModel;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,6 +40,7 @@ public class CartFragment extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartRef = db.collection("Cart");
+    CollectionReference ordersRef = db.collection("Orders");
     CartAdapter adapter;
     List<CartModel> cartItems = new ArrayList<>();
     TextView totalTextView;
@@ -47,6 +52,7 @@ public class CartFragment extends Fragment {
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     View contactPopupView;
+    String[] paymentMethods = {"Credit/Debit Card", "Online Banking", "Gcash", "Paymaya", "Cash on Delivery"};
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -103,6 +109,14 @@ public class CartFragment extends Fragment {
         NumberFormat formatter = new DecimalFormat("###,###,###");
         dialogBuilder = new AlertDialog.Builder(getContext());
         contactPopupView = getLayoutInflater().inflate(R.layout.activity_checkout_popup, null);
+
+        RadioGroup checkout_payment_method = contactPopupView.findViewById(R.id.checkout_payment_method);
+        for (int i = 0; i < paymentMethods.length; i++) {
+            RadioButton radioButton = new RadioButton(getContext());
+            radioButton.setText(paymentMethods[i]);
+            radioButton.setId(i);
+            checkout_payment_method.addView(radioButton);
+        }
 
         db = FirebaseFirestore.getInstance();
         RecyclerView recyclerView1 = contactPopupView.findViewById(R.id.checkout_recyclerView);
@@ -181,6 +195,39 @@ public class CartFragment extends Fragment {
     }
 
     private void place_order() {
+        progressDialog.show();
 
+        // Create a new document in the Orders collection
+        DocumentReference newOrderRef = ordersRef.document();
+        int selectedId = checkout_payment_method.getCheckedRadioButtonId();
+        String paymentMethod = paymentMethods[selectedId];
+        // Set the data to the fields of the new document
+        newOrderRef.set(new HashMap<String, Object>() {{
+            put("email", checkout_email.getText().toString());
+            put("address", checkout_address.getText().toString());
+            put("contact_number", checkout_contact_number.getText().toString());
+            put("total_price", checkout_totalPrice.getText().toString());
+            put("payment_method", paymentMethod);
+            put("products", cartItems); // Assuming you want to save the list of products
+        }}).addOnCompleteListener(task -> {
+            progressDialog.dismiss();
+            if (task.isSuccessful()) {
+                cartRef.get().addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        // Delete all items in the Cart collection
+                        WriteBatch batch = db.batch();
+                        for (DocumentSnapshot doc : task1.getResult()) {
+                            batch.delete(doc.getReference());
+                        }
+                        batch.commit();
+                    } else {
+                        Log.e(TAG, "Error getting cart items", task1.getException());
+                    }
+                });
+                dialog.dismiss();
+            } else {
+                Log.e(TAG, "Error placing order", task.getException());
+            }
+        });
     }
 }

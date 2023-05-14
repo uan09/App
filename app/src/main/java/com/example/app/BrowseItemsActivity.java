@@ -34,7 +34,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     ProductsAdapter productsAdapter;
     TextView products_empty, menu_options, connector;
-    ImageView menu_search1, menu_cart1, menu_back;
+    ImageView menu_cart1, menu_back;
     CollectionReference productsRef;
     FirebaseFirestore db;
     String layout_style, email;

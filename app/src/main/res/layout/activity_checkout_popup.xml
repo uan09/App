@@ -207,50 +207,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
 
-                    <RadioButton
-                        android:id="@+id/credit_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Credit/Debit Card"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeColor="@color/white" />
 
-                    <RadioButton
-                        android:id="@+id/online_banking"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Online Banking"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeColor="@color/white" />
-
-                    <RadioButton
-                        android:id="@+id/gcash"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="GCash"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeColor="@color/white" />
-
-                    <RadioButton
-                        android:id="@+id/paymaya"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Paymaya"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeColor="@color/white" />
-
-                    <RadioButton
-                        android:id="@+id/cash_on_delivery"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Cash on Delivery"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeColor="@color/white" />
                 </RadioGroup>
 
                 <LinearLayout
