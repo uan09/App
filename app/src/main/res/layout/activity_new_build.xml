@@ -9,7 +9,7 @@
     android:background="@color/lighter">
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerview_view"
+    android:id="@+id/nb_recyclerview_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"

@@ -25,7 +25,7 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_build);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_view);
+        RecyclerView recyclerView = findViewById(R.id.nb_recyclerview_view);
 
         setUpComponentsModel();
 

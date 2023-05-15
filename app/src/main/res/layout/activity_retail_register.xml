@@ -7,166 +7,95 @@
     tools:context=".Retail_RegisterActivity"
     android:background="@color/lighter">
 
-    <!-- Bird Image Background Design -->
-    <ImageView
-        android:id="@+id/birdImage1"
-        android:layout_width="700dp"
-        android:layout_height="900dp"
-        android:contentDescription="@string/reg_background"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bird_image"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/custom_edittext"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.764" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- Welcome Text -->
-    <TextView
-        android:id="@+id/Welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/graduate"
-        android:text="@string/reg_welcome"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <!-- First Name TextBox -->
-    <EditText
-        android:id="@+id/register_retailer_storename"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/reg_retailer_name"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@+id/Welcome"
-        tools:layout_editor_absoluteX="5dp"
-        android:inputType="textPersonName"
-        android:autofillHints="name" />
+            <TextView
+                android:id="@+id/regasretail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graduate"
+                android:text="REGISTER AS RETAILER"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
 
-    <!-- Contact Number TextBox -->
-    <EditText
-        android:id="@+id/register_retailer_contactNum"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/reg_retailer_contact_number"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@+id/register_retailer_storename"
-        tools:layout_editor_absoluteX="5dp"
-        android:autofillHints="phone"
-        android:inputType="phone" />
+            <EditText
+                android:id="@+id/retail_register"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Username"
+                android:fontFamily="@font/graduate"
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/lighter" />
 
-    <!-- Address TextBox -->
-    <EditText
-        android:id="@+id/register_retailer_address"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="12dp"
-        android:hint="@string/reg_retailer_address"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@+id/register_retailer_contactNum"
-        tools:layout_editor_absoluteX="5dp"
-        android:autofillHints="postalAddress"
-        android:inputType="textPostalAddress" />
+            <EditText
+                android:id="@+id/retail_regpassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Password"
+                android:fontFamily="@font/graduate"
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/lighter" />
 
-    <!-- Password TextBox -->
-    <EditText
-        android:id="@+id/register_retailer_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/reg_retailer_password"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/register_retailer_address"
-        app:passwordToggleEnabled="true"
-        tools:layout_editor_absoluteX="5dp"
-        android:autofillHints="password"
-        android:inputType="textVisiblePassword" />
+            <EditText
+                android:id="@+id/retail_regconfirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Confirm Password"
+                android:fontFamily="@font/graduate"
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/lighter" />
 
-    <!-- Confirm Password TextBox -->
-    <EditText
-        android:id="@+id/register_retailer_confirm_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/reg_retailer_confirm_password"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/register_retailer_password"
-        app:passwordToggleEnabled="true"
-        tools:layout_editor_absoluteX="5dp"
-        android:autofillHints="password"
-        android:inputType="textVisiblePassword" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/retail_registerbutton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:background="@drawable/custom_buttontwo"
+                android:fontFamily="@font/graduate"
+                android:backgroundTint="@color/black"
+                android:layout_marginTop="40dp"/>
 
-    <!-- Registration Button
-            -> Redirects to the LoginActivity (Once the user has filled in the blanks with
-               the correct information) -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/retailer_registerbutton"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:background="@drawable/custom_button"
-        android:fontFamily="@font/graduate"
-        android:text="@string/reg_retailer_register_button"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_retailer_confirm_password"
-        app:layout_constraintVertical_bias="0.055" />
+            <TextView
+                android:id="@+id/tologinasretail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graduate"
+                android:text="Already Have An Account? Login Here"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
 
-    <!-- Login Text
-           -> Redirects to the LoginActivity -->
-    <TextView
-        android:id="@+id/retailer_loginhere"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/graduate"
-        android:text="@string/reg_retailer_login_here"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retailer_registerbutton"
-        app:layout_constraintVertical_bias="0.229" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

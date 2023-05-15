@@ -99,4 +99,10 @@ dependencies {
     configurations.implementation {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
+
+    //TF IDF implementations
+    implementation 'org.apache.lucene:lucene-core:8.10.1'
+    implementation 'org.apache.lucene:lucene-queryparser:8.10.1'
+    implementation 'org.apache.lucene:lucene-core:8.11.1'
+    implementation 'org.apache.lucene:lucene-analyzers-common:8.11.1'
 }
