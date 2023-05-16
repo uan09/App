@@ -118,14 +118,14 @@ public class User_DisplayProductActivity extends AppCompatActivity {
             Product_image.setAdapter(new ProductImageAdapter(context, product.getProduct_image()));
         }
         Product_name.setText(product.getProduct_name());
-        Product_description.setText("Description: " + product.getProduct_description());
-        Product_type.setText("Type: " + product.getProduct_type());
+        Product_description.setText(product.getProduct_description());
+        Product_type.setText(product.getProduct_type());
         store_name.setText(product.getStore_name());
         Product_id.setText(product.getProduct_id());
-        Product_quantity.setText("Quantity: " + product.getProduct_quantity());
+        Product_quantity.setText(product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String)product.getProduct_price()));
-        Product_price.setText("P"+formattedNumber);
+        Product_price.setText(formattedNumber);
         add_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
