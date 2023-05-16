@@ -309,7 +309,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
                 });
     }
 
-
     private void check_order() {
         Intent intent = new Intent(getContext(), OrdersActivity.class);
         startActivity(intent);
