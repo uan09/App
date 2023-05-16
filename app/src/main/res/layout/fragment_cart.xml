@@ -58,7 +58,7 @@
         android:layout_below="@+id/text_layout">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -71,6 +71,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/products_empty"
+            android:layout_width="match_parent"
+            android:layout_height="668dp"
+            android:text="No Products Added"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/graduate"
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/connector"

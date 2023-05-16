@@ -48,6 +48,7 @@
                     android:id="@+id/profile_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/profile_image"
                     android:src="@drawable/profile_icon_image" />
@@ -60,9 +61,11 @@
                     android:layout_marginTop="55dp"
                     android:layout_toEndOf="@id/profile_image"
                     android:contentDescription="@string/username"
+                    android:hint="Username"
+                    android:textColorHint="@color/white"
                     android:fontFamily="@font/graduate"
                     android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textview2"
@@ -73,9 +76,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_toEndOf="@id/profile_image"
                     android:contentDescription="@string/userID"
+                    android:hint="user ID"
+                    android:textColorHint="@color/white"
                     android:fontFamily="@font/graduate"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/connector"
@@ -89,57 +94,10 @@
                     android:layout_marginEnd="141dp"
                     android:layout_marginBottom="58dp"
                     android:layout_toEndOf="@+id/Back"
-                    android:textColor="#5D4037"
-                    android:visibility="invisible" />
+                    android:visibility="gone"
+                    android:textColor="#5D4037"/>
 
             </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-80dp"
-                android:padding="20dp">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cart_card"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/yellow"
-                    app:cardElevation="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/yellow"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:id="@+id/profile_cart"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="8dp"
-                            android:contentDescription="@string/cart1"
-                            android:src="@drawable/ic_outline_cart_24" />
-
-                        <TextView
-                            android:id="@+id/some_text5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="45dp"
-                            android:fontFamily="@font/graduate"
-                            android:includeFontPadding="true"
-                            android:text="@string/purchase_history"
-                            android:textColor="@color/lighter"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,7 +110,7 @@
                     android:id="@+id/first"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/graduate"
                     android:text="@string/first_name"
                     android:textColor="@color/white"
@@ -286,7 +244,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/custom_yellow_button"
                     android:text="@string/modify_profile" />
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.context = context;
     }
 
+    public interface OnDeleteItemClickListener {
+        void onDeleteItemClick(CartModel cart);
+    }
+
+    private OnDeleteItemClickListener deleteItemClickListener;
+
+    public void setDeleteItemClickListener(OnDeleteItemClickListener listener) {
+        deleteItemClickListener = listener;
+    }
+
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +53,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Glide.with(context)
                 .load(cart.getProduct_image_url())
                 .into(holder.productImage);
+        holder.deleteButton.setOnClickListener(v -> {
+            if (deleteItemClickListener != null) {
+                deleteItemClickListener.onDeleteItemClick(cart);
+            }
+        });
     }
 
     @Override
@@ -52,6 +68,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public class CartViewHolder extends RecyclerView.ViewHolder {
         TextView productName, productType, productPrice, productNumber;
         ImageView productImage;
+        ImageButton deleteButton;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +77,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             productPrice = itemView.findViewById(R.id.cart_product_price);
             productNumber = itemView.findViewById(R.id.cart_product_number);
             productImage = itemView.findViewById(R.id.cart_product_image);
+            deleteButton = itemView.findViewById(R.id.delete_item_button);
         }
     }
 }

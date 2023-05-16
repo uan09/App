@@ -1,5 +1,14 @@
 package com.example.app;
 
-public class OrdersActivity {
+import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+public class OrdersActivity extends AppCompatActivity {
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_orders);
+
+    }
 }

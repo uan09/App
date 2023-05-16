@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class tf_idf {
-
     public static void calculateTFIDF() {
         //Path to the index directory
         String indexPath = Environment.getExternalStorageDirectory().getPath() + File.separator + "MyAppIndex";

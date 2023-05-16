@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ import com.example.app.OrdersActivity;
 import com.example.app.R;
 import com.example.app.ui.adapters.CartAdapter;
 import com.example.app.ui.models.CartModel;
+import com.example.app.ui.models.ProductModel;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,15 +39,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemClickListener{
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartRef = db.collection("Cart");
     CollectionReference ordersRef = db.collection("Orders");
     CartAdapter adapter;
     List<CartModel> cartItems = new ArrayList<>();
-    TextView totalTextView, menu_options;
+    List<ProductModel> products = new ArrayList<>();
+    TextView totalTextView, menu_options, products_empty;
     EditText checkout_email, checkout_address, checkout_contact_number, checkout_totalPrice;
     Button checkout_cancel_order, checkout_place_order;
     RadioGroup checkout_payment_method;
@@ -69,13 +73,20 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         totalTextView = view.findViewById(R.id.total_price);
+        adapter.setDeleteItemClickListener(this);
 
         menu_options = view.findViewById(R.id.menu_options);
         menu_options.setOnClickListener(view1 -> check_order());
+
         Button checkoutButton = view.findViewById(R.id.place_order_button);
         checkoutButton.setOnClickListener(view1 -> checkout_popup());
 
-        cartRef.addSnapshotListener((value, error) -> {
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
+
+        cartRef.whereEqualTo("user_Email", email).addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.e(TAG, "Error fetching cart items", error);
                 return;
@@ -109,9 +120,42 @@ public class CartFragment extends Fragment {
             } else {
                 totalTextView.setText("Total: P0.00");
             }
+            View productsEmptyView = view.findViewById(R.id.products_empty);
+            if (cartItems.isEmpty()) {
+                productsEmptyView.setVisibility(View.VISIBLE);
+            } else {
+                productsEmptyView.setVisibility(View.GONE);
+            }
         });
-
         return view;
+    }
+
+    public void onDeleteItemClick(CartModel cart) {
+        // Handle the delete item click event here
+        deleteCartItem(cart);
+    }
+
+    private void deleteCartItem(CartModel cart) {
+        String cartId = cart.getCart_id();
+        // Remove the item from the RecyclerView
+        int position = cartItems.indexOf(cart);
+        cartItems.remove(position);
+        adapter.notifyItemRemoved(position);
+
+        // Remove the item from the Firestore collection
+        cartRef.document(cartId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    // Item deleted successfully from Firestore
+                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Error occurred while deleting the item from Firestore
+                    Toast.makeText(getContext(), "Error deleting item", Toast.LENGTH_SHORT).show();
+                    // Add the item back to the RecyclerView (in case of deletion failure)
+                    cartItems.add(position, cart);
+                    adapter.notifyItemInserted(position);
+                });
     }
 
     private void checkout_popup() {
@@ -166,7 +210,8 @@ public class CartFragment extends Fragment {
         checkout_place_order = contactPopupView.findViewById(R.id.checkout_place_order);
         checkout_place_order.setOnClickListener(view -> place_order());
 
-        cartRef.addSnapshotListener((value, error) -> {
+
+        cartRef.whereEqualTo("user_Email", email).addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.e(TAG, "Error fetching cart items", error);
                 return;
@@ -210,39 +255,61 @@ public class CartFragment extends Fragment {
     private void place_order() {
         progressDialog.show();
         checkout_payment_method = contactPopupView.findViewById(R.id.checkout_payment_method);
-        // Create a new document in the Orders collection
-        DocumentReference newOrderRef = ordersRef.document();
+
+        // Get the selected payment method
         int selectedId = checkout_payment_method.getCheckedRadioButtonId();
         String paymentMethod = paymentMethods[selectedId];
-        // Set the data to the fields of the new document
-        newOrderRef.set(new HashMap<String, Object>() {{
-            put("email", checkout_email.getText().toString());
-            put("address", checkout_address.getText().toString());
-            put("contact_number", checkout_contact_number.getText().toString());
-            put("total_price", checkout_totalPrice.getText().toString());
-            put("payment_method", paymentMethod);
-            put("products", cartItems); // Assuming you want to save the list of products
-        }}).addOnCompleteListener(task -> {
-            progressDialog.dismiss();
-            if (task.isSuccessful()) {
-                cartRef.get().addOnCompleteListener(task1 -> {
-                    if (task1.isSuccessful()) {
-                        // Delete all items in the Cart collection
-                        WriteBatch batch = db.batch();
-                        for (DocumentSnapshot doc : task1.getResult()) {
-                            batch.delete(doc.getReference());
-                        }
-                        batch.commit();
+
+        // Set the data to the fields of the new order document
+        Map<String, Object> orderData = new HashMap<>();
+        orderData.put("email", checkout_email.getText().toString());
+        orderData.put("address", checkout_address.getText().toString());
+        orderData.put("contact_number", checkout_contact_number.getText().toString());
+        orderData.put("total_price", checkout_totalPrice.getText().toString());
+        orderData.put("payment_method", paymentMethod);
+        orderData.put("status", "pending");
+
+        // Save the order data in the Orders collection using an auto-generated document ID
+        ordersRef.add(orderData)
+                .addOnCompleteListener(orderTask -> {
+                    progressDialog.dismiss();
+                    if (orderTask.isSuccessful()) {
+                        DocumentReference orderRef = orderTask.getResult();
+                        String orderId = orderRef.getId(); // get the auto-generated document ID
+                        orderRef.update("order_id", orderId);
+                        // Get all items from the Cart collection under the user's email
+                        cartRef.whereEqualTo("user_Email", checkout_email.getText().toString())
+                                .get()
+                                .addOnCompleteListener(cartTask -> {
+                                    if (cartTask.isSuccessful()) {
+                                        WriteBatch batch = db.batch();
+                                        for (DocumentSnapshot doc : cartTask.getResult()) {
+                                            // Get the item data and set it to a new document in the 'items' subcollection of the order document
+                                            Map<String, Object> itemData = doc.getData();
+                                            String productId = doc.getString("product_id");
+                                            batch.set(orderRef.collection("items").document(productId), itemData);
+                                            // Delete the item from the Cart collection
+                                            batch.delete(doc.getReference());
+                                        }
+                                        batch.commit().addOnCompleteListener(deleteTask -> {
+                                            if (deleteTask.isSuccessful()) {
+                                                Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getContext(), "Error deleting cart items", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(getContext(), "Error getting cart items", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        dialog.dismiss();
                     } else {
-                        Log.e(TAG, "Error getting cart items", task1.getException());
+                        Toast.makeText(getContext(), "Error placing order", Toast.LENGTH_SHORT).show();
                     }
                 });
-                dialog.dismiss();
-            } else {
-                Log.e(TAG, "Error placing order", task.getException());
-            }
-        });
     }
+
+
     private void check_order() {
         Intent intent = new Intent(getContext(), OrdersActivity.class);
         startActivity(intent);

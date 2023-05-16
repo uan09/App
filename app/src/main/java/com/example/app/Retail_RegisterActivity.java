@@ -1,8 +1,5 @@
 package com.example.app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class Retail_RegisterActivity extends AppCompatActivity {
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     //Initialize edit texts, date picker and radio group, buttons and textview
     private EditText storeName, contactNumber, address, password, confirmPassword;

@@ -35,7 +35,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
     ViewPager Product_image;
     EditText quantity;
     ImageView BackButton;
-    TextView Product_id, Product_name, Product_description, Product_quantity, Product_status, Product_price, Product_type;
+    TextView Product_id, Product_name, Product_description, Product_quantity, Product_status, Product_price, Product_type, store_name;
     Button add_item;
     ProductModel product = new ProductModel();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -53,7 +53,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         if (bundle != null && bundle.containsKey("Email")) {
             email = bundle.getString("Email");
         }
-        Toast.makeText(User_DisplayProductActivity.this, email, Toast.LENGTH_SHORT).show();
+        Toast.makeText(User_DisplayProductActivity.this, "Email: "+email, Toast.LENGTH_SHORT).show();
 
         BackButton = findViewById(R.id.backbutton19);
         BackButton.setOnClickListener(view -> {
@@ -86,6 +86,8 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         Product_status = findViewById(R.id.product_status);
         Product_price = findViewById(R.id.product_price);
         quantity = findViewById(R.id.user_quantity);
+        Product_id = findViewById(R.id.product_id);
+        store_name = findViewById(R.id.store_name);
         add_item = findViewById(R.id.add_to_cart);
     }
 
@@ -118,6 +120,8 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         Product_name.setText(product.getProduct_name());
         Product_description.setText("Description: " + product.getProduct_description());
         Product_type.setText("Type: " + product.getProduct_type());
+        store_name.setText(product.getStore_name());
+        Product_id.setText(product.getProduct_id());
         Product_quantity.setText("Quantity: " + product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String)product.getProduct_price()));
@@ -133,6 +137,8 @@ public class User_DisplayProductActivity extends AppCompatActivity {
 
     private void add_item() {
         String product_name = Product_name.getText().toString();
+        String product_id = Product_id.getText().toString();
+        String Store_name = store_name.getText().toString();
         String product_type = Product_type.getText().toString();
         String product_price = Product_price.getText().toString();
         String product_number = quantity.getText().toString();
@@ -150,8 +156,11 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         CollectionReference cartRef = FirebaseFirestore.getInstance().collection("Cart");
 
         Map<String, Object> cart_item = new HashMap<>();
+        cart_item.put("user_Email", email);
+        cart_item.put("product_id", product_id);
         cart_item.put("product_name", product_name);
         cart_item.put("product_type", product_type);
+        cart_item.put("store_name", Store_name);
         cart_item.put("product_price", product_price);
         cart_item.put("product_number", product_number);
         if (product_image_url != null) {
@@ -161,7 +170,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                       Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -169,7 +178,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(context, "Product failed to cart", Toast.LENGTH_SHORT).show();
                     }
-                  });
+                });
         // Create a batch operation to update the product quantity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         WriteBatch batch = db.batch();
