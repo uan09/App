@@ -27,24 +27,37 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/ic_back_7"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_back_black"
                         tools:ignore="ContentDescription,ImageContrastCheck" />
 
                     <TextView
                         android:id="@+id/retail_manageproducts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
+                        android:layout_marginStart="40dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="20dp"
                         android:fontFamily="@font/graduate"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical|center_horizontal"
                         android:gravity="center"
                         android:text="MANAGE PRODUCTS"
-                        android:textColor="#616161"
-                        android:textSize="30sp"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/menu_options"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:text="Check Orders"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
                     <TextView
                         android:id="@+id/connector"
@@ -54,9 +67,9 @@
                         android:layout_gravity="center"
                         android:text="Check Orders"
                         android:textColor="#000000"
-                        android:textSize="10dp"
+                        android:textSize="10sp"
                         android:visibility="gone"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText,SmallSp" />
                 </LinearLayout>
 
             <RelativeLayout
