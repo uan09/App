@@ -26,7 +26,6 @@ import com.example.app.OrdersActivity;
 import com.example.app.R;
 import com.example.app.ui.adapters.CartAdapter;
 import com.example.app.ui.models.CartModel;
-import com.example.app.ui.models.ProductModel;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,8 +47,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
     CollectionReference ordersRef = db.collection("Orders");
     CartAdapter adapter;
     List<CartModel> cartItems = new ArrayList<>();
-    List<ProductModel> products = new ArrayList<>();
-    TextView totalTextView, menu_options, products_empty;
+    TextView totalTextView, menu_options;
     EditText checkout_email, checkout_address, checkout_contact_number, checkout_totalPrice;
     Button checkout_cancel_order, checkout_place_order;
     RadioGroup checkout_payment_method;
@@ -67,6 +65,11 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
         NumberFormat formatter = new DecimalFormat("###,###,###");
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.cart_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CartAdapter(cartItems, getContext());
@@ -76,15 +79,17 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
         adapter.setDeleteItemClickListener(this);
 
         menu_options = view.findViewById(R.id.menu_options);
-        menu_options.setOnClickListener(view1 -> check_order());
+        menu_options.setOnClickListener(view1 -> {
+        assert bundle != null;
+        bundle.putString("Email", email);
+        Intent intent = new Intent(getContext(), OrdersActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        });
 
         Button checkoutButton = view.findViewById(R.id.place_order_button);
         checkoutButton.setOnClickListener(view1 -> checkout_popup());
 
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("Email")) {
-            email = bundle.getString("Email");
-        }
 
         cartRef.whereEqualTo("user_Email", email).addSnapshotListener((value, error) -> {
             if (error != null) {
@@ -181,7 +186,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
         checkout_contact_number = contactPopupView.findViewById(R.id.checkout_contact_number);
         checkout_address = contactPopupView.findViewById(R.id.checkout_address);
         checkout_totalPrice = contactPopupView.findViewById(R.id.checkout_totalPrice);
-
 
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("Email")) {
@@ -310,7 +314,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
     }
 
     private void check_order() {
-        Intent intent = new Intent(getContext(), OrdersActivity.class);
-        startActivity(intent);
+
     }
 }
