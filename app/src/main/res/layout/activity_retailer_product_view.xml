@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/lyt_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="226dp"
         android:clickable="true"
         android:longClickable="true"
         android:orientation="vertical"
@@ -52,7 +52,9 @@
                     android:layout_marginTop="@dimen/spacing_xmedium"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
+                    android:ellipsize="end"
                     android:text="Product Name"
+                    android:singleLine="true"
                     android:fontFamily="@font/graduate"
                     android:textColor="@color/white"
                     android:textSize="20sp" />

@@ -125,7 +125,7 @@ public class User_DisplayProductActivity extends AppCompatActivity {
         Product_quantity.setText(product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
         String formattedNumber = formatter.format(Long.valueOf((String)product.getProduct_price()));
-        Product_price.setText("P"+formattedNumber);
+        Product_price.setText(formattedNumber);
         add_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
