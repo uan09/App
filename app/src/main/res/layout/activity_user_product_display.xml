@@ -111,6 +111,52 @@
                 android:textSize="18dp" />
 
             <TextView
+                android:id="@+id/product_brand_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/yellow"
+                android:textStyle="bold"
+                android:text="Brand:"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/product_brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/white"
+                android:text="Brand"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/product_category_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/yellow"
+                android:textStyle="bold"
+                android:text="Category:"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/product_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/white"
+                android:text="Category"
+                android:textSize="18dp" />
+
+            <TextView
                 android:id="@+id/store_name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

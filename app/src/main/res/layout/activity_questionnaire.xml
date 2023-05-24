@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationActivity"
+    android:background="#343434">
+
+    <ImageView
+        android:id="@+id/birdImage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bird_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e0af1f"
+                android:padding="20dp"
+                tools:ignore="ExtraText">
+
+                <TextView
+                    android:id="@+id/Welcome"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="none"
+                    android:fontFamily="@font/graduate"
+                    android:text="Questionnaire"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/product_category_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ellipsize="none"
+                android:fontFamily="@font/graduate"
+                android:text="@string/questionCategory"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/CategoryRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/GamingRadio"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/GamingRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Gaming"
+                    android:fontFamily="@font/graduate"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/OfficeRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Office"
+                    android:fontFamily="@font/graduate"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/EditingRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Editing"
+                    android:fontFamily="@font/graduate"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/MusicRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Music Composition"
+                    android:fontFamily="@font/graduate"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/ProgrammingRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Programming"
+                    android:fontFamily="@font/graduate"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white" />
+            </RadioGroup>
+
+
+
+            <TextView
+                android:id="@+id/product_brand_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:ellipsize="none"
+                android:fontFamily="@font/graduate"
+                android:text="@string/questionBrand"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/answer_brand"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="8dp"
+                android:autofillHints="password"
+                android:hint="Intel, AMD etc."
+                android:inputType="textVisiblePassword"
+                android:minHeight="48dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/graduate"
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/register_lastname"
+                app:passwordToggleEnabled="true"
+                tools:layout_editor_absoluteX="5dp"
+                android:required="true"
+                />
+
+
+
+
+
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textview"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginhere"
+                app:layout_constraintVertical_bias="0.238" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerbutton"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_yellow_button"
+                android:fontFamily="@font/graduate"
+                android:text="@string/register"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_address"
+                app:layout_constraintVertical_bias="0.142" />
+
+            <TextView
+                android:id="@+id/loginhere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graduate"
+                android:text="@string/already_have_an_account_log_in_here"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerbutton"
+                app:layout_constraintVertical_bias="0.229" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

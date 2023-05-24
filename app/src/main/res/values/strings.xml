@@ -2,6 +2,8 @@
     <string name="app_name">App</string>
     <string name="log_in">LOG IN</string>
     <string name="register">REGISTER</string>
+    <string name="questionCategory">Which computer category would you prefer: Gaming, Office, or editing?</string>
+    <string name="questionBrand">What brand or manufacturer do you prefer the most?</string>
     <string name="todo">TODO</string>
     <string name="username">Username</string>
     <string name="welcome">WELCOME</string>
