@@ -143,7 +143,7 @@
                     android:backgroundTint="@color/white"
                     android:ems="25"
                     android:fontFamily="@font/graduate"
-                    android:hint="Product's Type"
+                    android:hint="Processor, MOtherboard etc."
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:minHeight="48dp"
@@ -223,7 +223,7 @@
                     android:backgroundTint="@color/white"
                     android:ems="25"
                     android:fontFamily="@font/graduate"
-                    android:hint="Product's Brand"
+                    android:hint="Product's Brand (Intel, AMD etc.)"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:minHeight="48dp"
@@ -259,7 +259,7 @@
                     android:id="@+id/CategoryRadio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checkedButton="@+id/GamingRadio"
+                    android:required = "true"
                     android:orientation="vertical">
 
                     <RadioButton

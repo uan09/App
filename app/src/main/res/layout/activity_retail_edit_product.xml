@@ -116,7 +116,7 @@
                     android:backgroundTint="@color/white"
                     android:ems="25"
                     android:fontFamily="@font/graduate"
-                    android:hint="Product's Type"
+                    android:hint="Processor, Motherboard etc."
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:minHeight="48dp"
@@ -170,6 +170,124 @@
                     app:layout_constraintTop_toBottomOf="@+id/update_last_name_text"
                     tools:ignore="LabelFor" />
 
+                <TextView
+                    android:id="@+id/add_item_brand_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Brand :"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_input_first_name" />
+
+                <EditText
+                    android:id="@+id/add_item_brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="@color/white"
+                    android:ems="25"
+                    android:fontFamily="@font/graduate"
+                    android:hint="Product's Brand (Intel, AMD)"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:minHeight="48dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="13sp"
+                    android:required="true"
+                    app:boxStrokeColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.326"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_last_name_text"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/add_item_category_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Category :"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/update_input_first_name" />
+
+                <RadioGroup
+                    android:id="@+id/CategoryRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:required = "true">
+
+                    <RadioButton
+                        android:id="@+id/GamingRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:text="Gaming"
+                        android:fontFamily="@font/graduate"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/OfficeRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:text="Office"
+                        android:fontFamily="@font/graduate"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/EditingRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:text="Editing"
+                        android:fontFamily="@font/graduate"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/MusicRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:text="Music Composition"
+                        android:fontFamily="@font/graduate"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/ProgrammingRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:text="Programming"
+                        android:fontFamily="@font/graduate"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:boxStrokeColor="@color/white" />
+                </RadioGroup>
                 <TextView
                     android:id="@+id/add_item_price_text"
                     android:layout_width="wrap_content"
