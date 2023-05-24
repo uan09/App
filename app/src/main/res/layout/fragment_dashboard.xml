@@ -20,8 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.1"
-        />
+        app:layout_constraintVertical_bias="1.1" />
 
     <ImageView
         android:id="@+id/yellowabstractshape1"

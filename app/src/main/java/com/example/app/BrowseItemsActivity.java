@@ -71,7 +71,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         });
 
-
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -79,18 +78,16 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
         categoryModelList.add(new CategoryModel("home", "Home", R.drawable.home_icon));
-        categoryModelList.add(new CategoryModel("motherboard", "Motherboards", R.drawable.post_add_icon));
         categoryModelList.add(new CategoryModel("processor", "Processors", R.drawable.processor_icon));
+        categoryModelList.add(new CategoryModel("motherboard", "Motherboards", R.drawable.post_add_icon));
         categoryModelList.add(new CategoryModel("graphics card", "Graphics Cards", R.drawable.blur_icon));
         categoryModelList.add(new CategoryModel("RAM", "Memory (RAMs)", R.drawable.ram_icon));
         categoryModelList.add(new CategoryModel("HDD", "Hard Disk Drives", R.drawable.hd_icon));
         categoryModelList.add(new CategoryModel("SDD", "Solid State Drives", R.drawable.sd_icon));
+        categoryModelList.add(new CategoryModel("cooling fan", "Cooling Fans", R.drawable.fan_icon));
         categoryModelList.add(new CategoryModel("PSU", "Power Supply Units", R.drawable.power_icon));
-        categoryModelList.add(new CategoryModel("monitor", "Monitors", R.drawable.monitor_icon));
-        categoryModelList.add(new CategoryModel("keyboard", "Keyboards", R.drawable.keyboard_icon));
-        categoryModelList.add(new CategoryModel("mouse", "Mouses", R.drawable.mouse_icon));
         categoryModelList.add(new CategoryModel("pc case", "Computer Cases", R.drawable.pc_case_icon));
-        categoryModelList.add(new CategoryModel("accessory", "Others", R.drawable.more_horiz_icon));
+        categoryModelList.add(new CategoryModel("others", "Others", R.drawable.more_horiz_icon));
 
         categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecyclerView.setAdapter(categoryAdapter);

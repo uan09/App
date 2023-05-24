@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app.CategoryActivity;
+import com.example.app.BrowseItemsActivity;
 import com.example.app.R;
 import com.example.app.ui.models.CategoryModel;
 
@@ -63,7 +63,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
            itemView.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   Intent categoryIntent = new Intent(itemView.getContext(), CategoryActivity.class);
+                   Intent categoryIntent = new Intent(itemView.getContext(), BrowseItemsActivity.class);
                    categoryIntent.putExtra("CategoryName", name);
                    categoryIntent.putExtra("CategoryType", type);
                    itemView.getContext().startActivity(categoryIntent);
