@@ -1,10 +1,10 @@
 package com.example.app;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.example.app.ui.adapters.CpuAdapter;
 import com.example.app.ui.models.CpuModel;
@@ -29,6 +29,7 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
         CpuAdapter adapter = new CpuAdapter(this, cpuModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void setUpCpuModels() {
