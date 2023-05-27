@@ -41,9 +41,9 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     View contactPopupView;
-    EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_category;
-    TextView Product_name, Product_description, Product_quantity, Product_status, Product_price, Product_type, Store_name;
-    RadioGroup status;
+    EditText add_item_product_name, add_item_type, add_item_brand, add_item_description, add_item_price, add_item_quantity;
+    TextView Product_name, Product_description, Product_brand, Product_quantity, Product_status, Product_category, Product_price, Product_type, Store_name;
+    RadioGroup status, CategoryRadio;
     Button add_item_cancel_button, add_item_add_button;
     RadioButton radioButton;
     Button edit_item;
@@ -82,11 +82,14 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         Product_name = findViewById(R.id.product_name);
         Product_type = findViewById(R.id.product_type);
         Product_description = findViewById(R.id.product_description);
+        Product_brand = findViewById(R.id.product_brand);
         Product_quantity = findViewById(R.id.product_quantity);
         Product_status = findViewById(R.id.product_status);
         Product_price = findViewById(R.id.product_price);
+        Product_category = findViewById(R.id.product_category);
         edit_item = findViewById(R.id.edit_item);
         Store_name = findViewById(R.id.store_name);
+
     }
 
     private void get_data() {
@@ -114,14 +117,18 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         if (product.getProduct_image() != null && !product.getProduct_image().isEmpty()) {
             Product_image.setAdapter(new ProductImageAdapter(context, product.getProduct_image()));
         }
+
         Product_name.setText(product.getProduct_name());
         Product_description.setText(product.getProduct_description());
         Product_type.setText(product.getProduct_type());
+        Product_brand.setText(product.getProduct_brand());
         Store_name.setText(product.getStore_name());
         Product_quantity.setText(product.getProduct_quantity());
         Product_status.setText(product.getProduct_status());
+        Product_category.setText(product.getProduct_category());
         String formattedNumber = formatter.format(Long.valueOf((String) product.getProduct_price()));
         Product_price.setText(formattedNumber);
+
         edit_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,12 +146,15 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
         StorageReference storagereference = mStorage.getReference();
 
-        add_item_product_name = (EditText) contactPopupView.findViewById(R.id.add_item_product_name);
-        add_item_category = (EditText) contactPopupView.findViewById(R.id.add_item_category);
-        add_item_description = (EditText) contactPopupView.findViewById(R.id.add_item_description);
-        add_item_price = (EditText) contactPopupView.findViewById(R.id.add_item_price);
-        add_item_quantity = (EditText) contactPopupView.findViewById(R.id.add_item_quantity);
+        add_item_product_name = contactPopupView.findViewById(R.id.add_item_product_name);
+        add_item_type = contactPopupView.findViewById(R.id.add_item_type);
+        add_item_brand = contactPopupView.findViewById(R.id.add_item_brand);
+        add_item_description = contactPopupView.findViewById(R.id.add_item_description);
+        add_item_price = contactPopupView.findViewById(R.id.add_item_price);
+        add_item_quantity = contactPopupView.findViewById(R.id.add_item_quantity);
+
         status = (RadioGroup) contactPopupView.findViewById(R.id.status);
+        CategoryRadio = (RadioGroup) contactPopupView.findViewById(R.id.CategoryRadio);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading Data");
@@ -165,12 +175,23 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
 
     private void edit_item() {
 
-        String product_name = add_item_product_name.getText().toString();
-        String product_type = add_item_category.getText().toString();
-        String product_desc = add_item_description.getText().toString();
-        String product_price = add_item_price.getText().toString();
-        String product_number = add_item_quantity.getText().toString();
+        String product_name = add_item_product_name != null ? add_item_product_name.getText().toString() : "";
+        String product_type = add_item_type != null ? add_item_type.getText().toString() : "";
+        String product_desc = add_item_description != null ? add_item_description.getText().toString() : "";
+        String product_price = add_item_price != null ? add_item_price.getText().toString() : "";
+        String product_brand = add_item_brand != null ? add_item_brand.getText().toString() : "";
+        String product_number = add_item_quantity != null ? add_item_quantity.getText().toString() : "";
+
         String statusText = "";
+        String categoryText = "";
+
+        if (CategoryRadio != null) {
+            int radioID = CategoryRadio.getCheckedRadioButtonId();
+            if (radioID != -1) {
+                radioButton = (RadioButton) contactPopupView.findViewById(radioID);
+                categoryText = radioButton.getText().toString();
+            }
+        }
         if (status != null) {
             int radioID = status.getCheckedRadioButtonId();
             if (radioID != -1) {
@@ -186,10 +207,12 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         Map<String, Object> updates = new HashMap<>();
         updates.put("product_name", product_name);
         updates.put("product_type", product_type);
+        updates.put("product_brand", product_brand);
         updates.put("product_description", product_desc);
         updates.put("product_price", product_price);
         updates.put("product_number", product_number);
         updates.put("product_status", statusText);
+        updates.put("product_category", categoryText);
 
         batch.update(productRef, updates);
         batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {

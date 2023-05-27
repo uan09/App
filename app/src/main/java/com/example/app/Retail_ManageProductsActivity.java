@@ -56,9 +56,9 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     ImageButton add_button;
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
-    EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_category;
+    EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_brand, add_item_type;
     ViewPager viewPager;
-    RadioGroup status;
+    RadioGroup status, CategoryRadio;
     RadioButton radioButton;
     AppCompatButton upload_photo;
     Button add_item_cancel_button, add_item_add_button;
@@ -168,9 +168,12 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
             CheckPermission();
         });
 
+
         add_item_product_name = (EditText) contactPopupView.findViewById(R.id.add_item_product_name);
-        add_item_category = (EditText) contactPopupView.findViewById(R.id.add_item_category);
+        add_item_type = (EditText) contactPopupView.findViewById(R.id.add_item_type);
+        CategoryRadio = (RadioGroup) contactPopupView.findViewById(R.id.CategoryRadio);
         add_item_description = (EditText) contactPopupView.findViewById(R.id.add_item_description);
+        add_item_brand = (EditText) contactPopupView.findViewById(R.id.add_item_brand);
         add_item_price = (EditText) contactPopupView.findViewById(R.id.add_item_price);
         add_item_quantity = (EditText) contactPopupView.findViewById(R.id.add_item_quantity);
         status = (RadioGroup) contactPopupView.findViewById(R.id.status);
@@ -263,11 +266,23 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
 
         String store_name = email;
         String product_name = add_item_product_name.getText().toString();
-        String product_type = add_item_category.getText().toString();
+        String product_type = add_item_type.getText().toString();
+        String product_brand = add_item_brand.getText().toString();
         String product_description = add_item_description.getText().toString();
         String product_price = add_item_price.getText().toString();
         String product_quantity = add_item_quantity.getText().toString();
         String statusText = "";
+        String categoryText = "";
+
+
+        if (CategoryRadio != null) {
+            int radioID = CategoryRadio.getCheckedRadioButtonId();
+            if (radioID != -1) {
+                radioButton = (RadioButton) contactPopupView.findViewById(radioID);
+                categoryText = radioButton.getText().toString();
+            }
+        }
+
         if (status != null) {
             int radioID = status.getCheckedRadioButtonId();
             if (radioID != -1) {
@@ -277,7 +292,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
         }
 
         if (!TextUtils.isEmpty(store_name) && !TextUtils.isEmpty(product_name) && !TextUtils.isEmpty(product_description)  && !TextUtils.isEmpty(product_price) && !TextUtils.isEmpty(product_quantity) && !TextUtils.isEmpty(statusText) && ImageUri != null && !TextUtils.isEmpty(product_type)) {
-            ItemModel model = new ItemModel(store_name, product_name, product_type, product_description, product_price, statusText, product_quantity, " ", UrlsList);
+            ItemModel model = new ItemModel(store_name, product_name, product_type, product_description, product_brand, categoryText, product_price, statusText, product_quantity, " ", UrlsList);
 
             // Add the model to "Products" collection in Firestore
             db.collection("Products").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
