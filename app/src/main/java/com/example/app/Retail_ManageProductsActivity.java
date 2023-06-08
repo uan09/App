@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,8 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_brand, add_item_type;
+
+    Spinner Product_type_dropdown;
     ViewPager viewPager;
     RadioGroup status, CategoryRadio;
     RadioButton radioButton;
@@ -170,7 +173,9 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
 
 
         add_item_product_name = (EditText) contactPopupView.findViewById(R.id.add_item_product_name);
-        add_item_type = (EditText) contactPopupView.findViewById(R.id.add_item_type);
+
+        Product_type_dropdown = contactPopupView.findViewById(R.id.spinner_dropdown);
+
         CategoryRadio = (RadioGroup) contactPopupView.findViewById(R.id.CategoryRadio);
         add_item_description = (EditText) contactPopupView.findViewById(R.id.add_item_description);
         add_item_brand = (EditText) contactPopupView.findViewById(R.id.add_item_brand);
@@ -264,9 +269,13 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
 
     private void StoreLinks(ArrayList<String> UrlsList) {
 
+        Spinner spinner = findViewById(R.id.spinner_dropdown);
+
         String store_name = email;
         String product_name = add_item_product_name.getText().toString();
-        String product_type = add_item_type.getText().toString();
+        String product_type = Product_type_dropdown.getSelectedItem().toString();
+
+        //String product_type = add_item_type.getText().toString();
         String product_brand = add_item_brand.getText().toString();
         String product_description = add_item_description.getText().toString();
         String product_price = add_item_price.getText().toString();

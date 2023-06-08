@@ -1,10 +1,20 @@
 package com.example.app.ui.models;
 
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import java.util.List;
 
 public class ProductModel {
     private String Store_name, Product_id, Product_name, Product_brand, Product_type, Product_description, Product_price, Product_quantity, Product_status, Product_category, First_image_url;
     private List<String> Product_image;
+
+    private Spinner spinnerDropdown;
+
     private boolean selected;
     public ProductModel() {
     }
@@ -56,6 +66,16 @@ public class ProductModel {
     public void setProduct_name(String product_name) {
         Product_name = product_name;
     }
+
+    public Spinner getSpinnerDropdown() {
+        return spinnerDropdown;
+    }
+
+    public void setSpinnerDropdown(Spinner spinnerDropdown) {
+        this.spinnerDropdown = spinnerDropdown;
+    }
+
+
 
     public String getProduct_type() {
         return Product_type;
@@ -131,6 +151,7 @@ public class ProductModel {
     public void setFirst_image_url(String first_image_url) {
         First_image_url = first_image_url;
     }
+
 
 
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SpinnerDropdownStyle" parent="@style/Widget.AppCompat.Spinner.DropDown">
+        <item name="android:dropDownItemStyle">@style/SpinnerDropdownItemStyle</item>
+    </style>
+
+    <style name="SpinnerDropdownItemStyle" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#e0af1f</item>
+    </style>
+
+</resources>

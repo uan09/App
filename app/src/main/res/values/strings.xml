@@ -60,6 +60,21 @@
     //FORGOT PASSWORD ACTIVITY
     <string name="forgot_password_message"> Select which detail should be used to reset your password. </string>
 
+    //add product
+    <string-array name="dropdown_items">
+        <item>Processor</item>
+        <item>CPU Cooler</item>
+        <item>Motherboard</item>
+        <item>Graphics Card</item>
+        <item>Random Access Memory</item>
+        <item>Solid State Drive</item>
+        <item>Hard Disk Drive</item>
+        <item>Power Supply Unit</item>
+        <item>Computer Case</item>
+        <item>Peripherals</item>
+        <!-- Add more items as needed -->
+    </string-array>
+
     //SMS TEXT (FORGOT PASSWORD)
     <string name="sms_message"> via SMS </string>
 

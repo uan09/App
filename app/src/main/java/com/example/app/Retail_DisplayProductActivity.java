@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,8 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
     AlertDialog dialog;
     View contactPopupView;
     EditText add_item_product_name, add_item_type, add_item_brand, add_item_description, add_item_price, add_item_quantity;
-    TextView Product_name, Product_description, Product_brand, Product_quantity, Product_status, Product_category, Product_price, Product_type, Store_name;
+    TextView Product_name, Product_description, Product_brand, Product_quantity, Product_type, Product_status, Product_category, Product_price, Store_name;
+    Spinner Product_type_dropdown;
     RadioGroup status, CategoryRadio;
     Button add_item_cancel_button, add_item_add_button;
     RadioButton radioButton;
@@ -81,6 +84,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         Product_image = findViewById(R.id.product_image);
         Product_name = findViewById(R.id.product_name);
         Product_type = findViewById(R.id.product_type);
+        Product_type_dropdown = findViewById(R.id.spinner_dropdown);
         Product_description = findViewById(R.id.product_description);
         Product_brand = findViewById(R.id.product_brand);
         Product_quantity = findViewById(R.id.product_quantity);
@@ -118,9 +122,10 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
             Product_image.setAdapter(new ProductImageAdapter(context, product.getProduct_image()));
         }
 
+        Product_type.setText(product.getProduct_type());
+
         Product_name.setText(product.getProduct_name());
         Product_description.setText(product.getProduct_description());
-        Product_type.setText(product.getProduct_type());
         Product_brand.setText(product.getProduct_brand());
         Store_name.setText(product.getStore_name());
         Product_quantity.setText(product.getProduct_quantity());
@@ -135,9 +140,8 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
                 edit_item_popup();
             }
         });
-
-
     }
+
     private void edit_item_popup() {
         dialogBuilder = new AlertDialog.Builder(this);
         contactPopupView = getLayoutInflater().inflate(R.layout.activity_retail_edit_product, null);
@@ -147,7 +151,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
         StorageReference storagereference = mStorage.getReference();
 
         add_item_product_name = contactPopupView.findViewById(R.id.add_item_product_name);
-        add_item_type = contactPopupView.findViewById(R.id.add_item_type);
+        Product_type_dropdown = contactPopupView.findViewById(R.id.spinner_dropdown);
         add_item_brand = contactPopupView.findViewById(R.id.add_item_brand);
         add_item_description = contactPopupView.findViewById(R.id.add_item_description);
         add_item_price = contactPopupView.findViewById(R.id.add_item_price);
@@ -155,6 +159,7 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
 
         status = (RadioGroup) contactPopupView.findViewById(R.id.status);
         CategoryRadio = (RadioGroup) contactPopupView.findViewById(R.id.CategoryRadio);
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading Data");
@@ -175,8 +180,17 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
 
     private void edit_item() {
 
+        Spinner spinner = contactPopupView.findViewById(R.id.spinner_dropdown);
+        String selectedItem = null;
+        if (spinner != null) {
+            selectedItem = spinner.getSelectedItem().toString();
+            // Rest of the code
+        }
+
+
+        String product_type_dropdown = "selected_item";
+
         String product_name = add_item_product_name != null ? add_item_product_name.getText().toString() : "";
-        String product_type = add_item_type != null ? add_item_type.getText().toString() : "";
         String product_desc = add_item_description != null ? add_item_description.getText().toString() : "";
         String product_price = add_item_price != null ? add_item_price.getText().toString() : "";
         String product_brand = add_item_brand != null ? add_item_brand.getText().toString() : "";
@@ -206,13 +220,14 @@ public class Retail_DisplayProductActivity extends AppCompatActivity {
 
         Map<String, Object> updates = new HashMap<>();
         updates.put("product_name", product_name);
-        updates.put("product_type", product_type);
+        updates.put("product_type", selectedItem);
         updates.put("product_brand", product_brand);
         updates.put("product_description", product_desc);
         updates.put("product_price", product_price);
         updates.put("product_number", product_number);
         updates.put("product_status", statusText);
         updates.put("product_category", categoryText);
+
 
         batch.update(productRef, updates);
         batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
