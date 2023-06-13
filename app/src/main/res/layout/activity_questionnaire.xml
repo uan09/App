@@ -68,7 +68,7 @@
                 android:layout_marginBottom="10dp"
                 android:ellipsize="none"
                 android:fontFamily="@font/graduate"
-                android:text="@string/questionCategory"
+                android:text="which computer category do you need a personal computer for?"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -118,8 +118,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="50dp"
-                    android:text="Music Composition"
                     android:fontFamily="@font/graduate"
+                    android:text="Music Production"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white" />

@@ -2,8 +2,6 @@ package com.example.app;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -20,8 +18,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import java.util.Random;
 public class RegistrationActivity extends AppCompatActivity {
     EditText register_username, register_password, confirm_register_password, register_email, register_firstname, register_lastname, register_contactNum, register_birthdate, register_address;
     TextView user_id, loginhere;
-    Button registerbutton;
+    Button proceedButton;
     RadioGroup gender;
     RadioButton radioButton;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -87,8 +87,8 @@ public class RegistrationActivity extends AppCompatActivity {
             register_birthdate.setText(date);
         };
 
-        registerbutton = findViewById(R.id.registerbutton);
-        registerbutton.setOnClickListener(view -> Register());
+        proceedButton = findViewById(R.id.proceedbutton);
+        proceedButton.setOnClickListener(view -> Register());
     }
 
     @SuppressLint("DefaultLocale")
@@ -151,26 +151,17 @@ public class RegistrationActivity extends AppCompatActivity {
             db.collection("UserAccounts")
                     .add(UserAccounts)
                     .addOnSuccessListener(documentReference -> {
-                        openLoginActivity();
-                        Toast.makeText(RegistrationActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                        openQuestionnaireActivity();
                     }).addOnFailureListener(e -> Toast.makeText(RegistrationActivity.this, "Failed", Toast.LENGTH_SHORT).show());
 
-           /*
-            db.collection("UserAccounts")
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot doc : task.getResult()) {
-                                String a = doc.getString("user_ID");
-                                if (register_user_id.equals(a)) {
-
-                                    Toast.makeText(RegistrationActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }).addOnFailureListener(e -> Toast.makeText(RegistrationActivity.this, "User ID already existed", Toast.LENGTH_SHORT).show());
-            */
         }
+    }
+
+    public void openQuestionnaireActivity() {
+        Intent intent = new Intent(this, QuestionnaireActivity.class);
+        intent.putExtra("email", register_email.getText().toString());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public void openLoginActivity() {

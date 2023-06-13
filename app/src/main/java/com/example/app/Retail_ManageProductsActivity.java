@@ -49,6 +49,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Retail_ManageProductsActivity extends AppCompatActivity {
     ActivityRetailManageProductsBinding binding;
@@ -318,6 +319,25 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
                                     Toast.makeText(Retail_ManageProductsActivity.this, "Product Added", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                     recreate();
+
+                                    // Retrieve document from ProcessorSpecsDB collection based on product name
+                                    db.collection("ProcessorSpecsDB").document(product_name)
+                                            .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    if (documentSnapshot.exists()) {
+                                                        // Get all data fields from the retrieved document
+                                                        Map<String, Object> data = documentSnapshot.getData();
+
+                                                        // Add all the data fields to the model object
+                                                        model.addAllDataFields(data);
+
+                                                        // Update the document again with the updated model object
+                                                        db.collection("Products").document(model.getProduct_id())
+                                                                .set(model, SetOptions.merge());
+                                                    }
+                                                }
+                                            });
                                 }
                             });
                 }
