@@ -1,6 +1,7 @@
 package com.example.app;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class CentralProcessingUnitActivity extends AppCompatActivity {
 
     ArrayList<CpuModel> cpuModels = new ArrayList<>();
-
+    String email;
     int[] cpuProductImages = {R.drawable.intelcorei55600_image, R.drawable.amdryzen75700_image, R.drawable.amdryzen55600_image};
 
     @Override
@@ -22,6 +23,10 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central_processing_unit);
 
+        email = getIntent().getStringExtra("email");
+        if (email != null) {
+            Toast.makeText(CentralProcessingUnitActivity.this, "email"+email, Toast.LENGTH_SHORT).show();
+        }
         RecyclerView recyclerView = findViewById(R.id.cpu_recyclerview_view);
 
         setUpCpuModels();

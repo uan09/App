@@ -44,7 +44,11 @@ public class DashboardFragment extends Fragment {
         //Direct to New Build Activity
         CardView dashboard_build = (CardView) build.findViewById(R.id.new_build_card);
         dashboard_build.setOnClickListener(view -> {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("Email", email);
             Intent intent = new Intent(build, NewBuildActivity.class);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 
@@ -56,7 +60,6 @@ public class DashboardFragment extends Fragment {
             Intent intent = new Intent(build, BrowseItemsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
-
         });
 
         //Direct to Assistance Activity

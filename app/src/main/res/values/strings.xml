@@ -185,15 +185,14 @@
     //NEW BUILD RECYCLERVIEW
     <string-array name="new_builds">
         <item>Central Processing Unit</item>
-        <item>CPU Cooler</item>
-        <item>Graphics Processing Unit</item>
-        <item>Hard Disk Drive</item>
-        <item>Random Access Memory</item>
         <item>Motherboard</item>
-        <item>PC Case</item>
-        <item>Peripherals</item>
-        <item>Power Supply Unit</item>
+        <item>Graphics Processing Unit</item>
+        <item>Random Access Memory</item>
+        <item>Hard Disk Drive</item>
         <item>Solid State Drive</item>
+        <item>CPU Cooler</item>
+        <item>Power Supply Unit</item>
+        <item>PC Case</item>
     </string-array>
     //--------------------------------------------------------------------
     //CENTRAL PROCESSING UNIT RECYCLERVIEW

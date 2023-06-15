@@ -6,7 +6,8 @@ import java.util.Map;
 public class ItemModel {
     private String product_name, product_type, product_description, product_brand, product_category, product_price, Product_status, product_quantity, Product_id, store_name;
     private ArrayList<String> Product_image;
-    private String cpu_name, cpu_socket, cpu_clock, cpu_turbo, cpu_cores, cpu_threads;
+    private String CPU_Name, CPU_Socket, CPU_Core_Clock, CPU_Cores;
+    private String Motherboard_Name, Motherboard_Socket, Motherboard_Form_Factor, Motherboard_PCIe_Slot, Motherboard_SATA_Port, Motherboard_M2_Port, Motherboard_Memory_Type;
 
     public ItemModel(String product_name, String product_type, String product_description, String product_brand, String categoryText, String product_price, String statusText, String product_quantity, ArrayList<String> urlsList) {
     }
@@ -27,58 +28,97 @@ public class ItemModel {
 
     // Add a method to add all data fields from a Map to the ItemModel object
     public void addAllDataFields(Map<String, Object> data) {
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            String key = entry.getKey();
-            String value = (String) entry.getValue();
+        // Set the common fields of ItemModel
+        setCommonFields(data);
 
-            // Set the value of the corresponding field in ItemModel
-            switch (key) {
-                case "product_name":
-                    setProduct_name(value);
+        // Check the product type and call the corresponding method to add the fields
+        String productType = (String) data.get("product_type");
+        if (productType != null) {
+            switch (productType) {
+                case "processor":
+                    processorAddAllDataFields(data);
                     break;
-                case "product_type":
-                    setProduct_type(value);
+                case "motherboard":
+                    motherboardAddAllDataFields(data);
                     break;
-                case "product_description":
-                    setProduct_description(value);
-                    break;
-                case "product_brand":
-                    setProduct_brand(value);
-                    break;
-                case "product_category":
-                    setProduct_category(value);
-                    break;
-                case "product_price":
-                    setProduct_price(value);
-                    break;
-                case "product_status":
-                    setProduct_status(value);
-                    break;
-                case "product_quantity":
-                    setProduct_quantity(value);
-                    break;
-                case "cpu_name":
-                    setCpu_name(value);
-                    break;
-                case "cpu_socket":
-                    setCpu_socket(value);
-                    break;
-                case "cpu_clock":
-                    setCpu_clock(value);
-                    break;
-                case "cpu_turbo":
-                    setCpu_turbo(value);
-                    break;
-                case "cpu_cores":
-                    setCpu_cores(value);
-                    break;
-                case "cpu_threads":
-                    setCpu_threads(value);
-                    break;
-                // Add more cases for other fields if needed
-                // ...
+                // Add cases for other product types as needed
             }
         }
+    }
+
+    private void setCommonFields(Map<String, Object> data) {
+        // Set the common fields of ItemModel
+        if (data.containsKey("product_name")) {
+            setProduct_name((String) data.get("product_name"));
+        }
+        if (data.containsKey("product_type")) {
+            setProduct_type((String) data.get("product_type"));
+        }
+        if (data.containsKey("product_description")) {
+            setProduct_description((String) data.get("product_description"));
+        }
+        if (data.containsKey("product_brand")) {
+            setProduct_brand((String) data.get("product_brand"));
+        }
+        if (data.containsKey("product_category")) {
+            setProduct_category((String) data.get("product_category"));
+        }
+        if (data.containsKey("product_price")) {
+            setProduct_price((String) data.get("product_price"));
+        }
+        if (data.containsKey("product_status")) {
+            setProduct_status((String) data.get("product_status"));
+        }
+        if (data.containsKey("product_quantity")) {
+            setProduct_quantity((String) data.get("product_quantity"));
+        }
+        if (data.containsKey("Product_id")) {
+            setProduct_id((String) data.get("Product_id"));
+        }
+        if (data.containsKey("Product_image")) {
+            setProduct_image((ArrayList<String>) data.get("Product_image"));
+        }
+    }
+
+    private void processorAddAllDataFields(Map<String, Object> data) {
+        if (data.containsKey("CPU_Name")) {
+            setCPU_Name((String) data.get("CPU_Name"));
+        }
+        if (data.containsKey("CPU_Socket")) {
+            setCPU_Socket((String) data.get("CPU_Socket"));
+        }
+        if (data.containsKey("CPU_Core_Clock")) {
+            setCPU_Core_Clock((String) data.get("CPU_Core_Clock"));
+        }
+        if (data.containsKey("CPU_Cores")) {
+            setCPU_Cores((String) data.get("CPU_Cores"));
+        }
+        // Add other fields of the Processor model class here
+    }
+
+    private void motherboardAddAllDataFields(Map<String, Object> data) {
+        if (data.containsKey("Motherboard_Name")) {
+            setMotherboard_Name((String) data.get("Motherboard_Name"));
+        }
+        if (data.containsKey("Motherboard_Socket")) {
+            setMotherboard_Socket((String) data.get("Motherboard_Socket"));
+        }
+        if (data.containsKey("Motherboard_Form_Factor")) {
+            setMotherboard_Form_Factor((String) data.get("Motherboard_Form_Factor"));
+        }
+        if (data.containsKey("Motherboard_PCIe_Slot")) {
+            setMotherboard_PCIe_Slot((String) data.get("Motherboard_PCIe_Slot"));
+        }
+        if (data.containsKey("Motherboard_SATA_Port")) {
+            setMotherboard_SATA_Port((String) data.get("Motherboard_SATA_Port"));
+        }
+        if (data.containsKey("Motherboard_M2_Port")) {
+            setMotherboard_M2_Port((String) data.get("Motherboard_M2_Port"));
+        }
+        if (data.containsKey("Motherboard_Memory_Type")) {
+            setMotherboard_Memory_Type((String) data.get("Motherboard_Memory_Type"));
+        }
+        // Add other fields of the Motherboard model class here
     }
 
     public String getStore_name() {
@@ -167,51 +207,93 @@ public class ItemModel {
         Product_image = product_image;
     }
 
-    public String getCpu_name() {
-        return cpu_name;
+    public String getCPU_Name() {
+        return CPU_Name;
     }
 
-    public void setCpu_name(String cpu_name) {
-        this.cpu_name = cpu_name;
+    public void setCPU_Name(String cpu_Name) {
+        this.CPU_Name = cpu_Name;
     }
 
-    public String getCpu_socket() {
-        return cpu_socket;
+    public String getCPU_Socket() {
+        return CPU_Socket;
     }
 
-    public void setCpu_socket(String cpu_socket) {
-        this.cpu_socket = cpu_socket;
+    public void setCPU_Socket(String cpu_Socket) {
+        this.CPU_Socket = cpu_Socket;
     }
 
-    public String getCpu_clock() {
-        return cpu_clock;
+    public String getCPU_Core_Clock() {
+        return CPU_Core_Clock;
     }
 
-    public void setCpu_clock(String cpu_clock) {
-        this.cpu_clock = cpu_clock;
+    public void setCPU_Core_Clock(String cpu_Core_Clock) {
+        this.CPU_Core_Clock = cpu_Core_Clock;
     }
 
-    public String getCpu_turbo() {
-        return cpu_turbo;
+    public String getCPU_Cores() {
+        return CPU_Cores;
     }
 
-    public void setCpu_turbo(String cpu_turbo) {
-        this.cpu_turbo = cpu_turbo;
+    public void setCPU_Cores(String cpu_Cores) {
+        this.CPU_Cores = cpu_Cores;
     }
 
-    public String getCpu_cores() {
-        return cpu_cores;
+
+    // Getter and Setter methods for Motherboard fields
+    public String getMotherboard_Name() {
+        return Motherboard_Name;
     }
 
-    public void setCpu_cores(String cpu_cores) {
-        this.cpu_cores = cpu_cores;
+    public void setMotherboard_Name(String motherboard_Name) {
+        this.Motherboard_Name = motherboard_Name;
     }
 
-    public String getCpu_threads() {
-        return cpu_threads;
+    public String getMotherboard_Socket() {
+        return Motherboard_Socket;
     }
 
-    public void setCpu_threads(String cpu_threads) {
-        this.cpu_threads = cpu_threads;
+    public void setMotherboard_Socket(String motherboard_Socket) {
+        this.Motherboard_Socket = motherboard_Socket;
+    }
+
+    public String getMotherboard_Form_Factor() {
+        return Motherboard_Form_Factor;
+    }
+
+    public void setMotherboard_Form_Factor(String motherboard_Form_Factor) {
+        this.Motherboard_Form_Factor = motherboard_Form_Factor;
+    }
+
+    public String getMotherboard_PCIe_Slot() {
+        return Motherboard_PCIe_Slot;
+    }
+
+    public void setMotherboard_PCIe_Slot(String motherboard_PCIe_Slot) {
+        this.Motherboard_PCIe_Slot = motherboard_PCIe_Slot;
+    }
+
+    public String getMotherboard_SATA_Port() {
+        return Motherboard_SATA_Port;
+    }
+
+    public void setMotherboard_SATA_Port(String motherboard_SATA_Port) {
+        this.Motherboard_SATA_Port = motherboard_SATA_Port;
+    }
+
+    public String getMotherboard_M2_Port() {
+        return Motherboard_M2_Port;
+    }
+
+    public void setMotherboard_M2_Port(String motherboard_M2_Port) {
+        this.Motherboard_M2_Port = motherboard_M2_Port;
+    }
+
+    public String getMotherboard_Memory_Type() {
+        return Motherboard_Memory_Type;
+    }
+
+    public void setMotherboard_Memory_Type(String motherboard_Memory_Type) {
+        this.Motherboard_Memory_Type = motherboard_Memory_Type;
     }
 }

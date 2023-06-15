@@ -140,6 +140,7 @@
                     android:id="@+id/spinner_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:entries="@array/dropdown_items"
                     android:popupBackground="#424242"
                     android:fontFamily="@font/graduate"
