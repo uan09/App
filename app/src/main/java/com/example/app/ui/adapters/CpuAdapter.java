@@ -10,15 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app.ui.models.CpuModel;
+import com.bumptech.glide.Glide;
 import com.example.app.R;
+import com.example.app.ui.models.CpuModel;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.MyViewHolder> {
+public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
 
-    Context context;
-    ArrayList<CpuModel> cpuModels;
+    private Context context;
+    private ArrayList<CpuModel> cpuModels;
 
     public CpuAdapter(Context context, ArrayList<CpuModel> cpuModels) {
         this.context = context;
@@ -27,18 +30,27 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.MyViewHolder> {
 
     @NonNull
     @Override
-    public CpuAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cpu_recyclerview_row, parent, false);
-
-        return new CpuAdapter.MyViewHolder(view);
+    public CpuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_cpu, parent, false);
+        return new CpuViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CpuAdapter.MyViewHolder holder, int position) {
-        holder.cpuName.setText(cpuModels.get(position).getCpuProductName());
-        holder.cpuPrice.setText(cpuModels.get(position).getCpuProductPrice());
-        holder.imageView.setImageResource(cpuModels.get(position).getImage());
+    public void onBindViewHolder(@NonNull CpuViewHolder holder, int position) {
+        CpuModel cpuModel = cpuModels.get(position);
+
+        NumberFormat formatter = new DecimalFormat("###,###,###");
+        holder.txtProductName.setText(cpuModel.getProduct_name());
+        String formattedNumber = formatter.format(Long.valueOf(cpuModel.getProduct_price()));
+        holder.txtPrice.setText("P"+formattedNumber+".00");
+        holder.txtCpuCores.setText(cpuModel.getCpu_Cores());
+        holder.txtCpuSocket.setText(cpuModel.getCpu_Socket());
+
+        // Load the product image using Picasso or any other image loading library
+        Glide.with(context)
+                .load(cpuModel.getProduct_image())
+                .centerCrop()
+                .into(holder.imgProduct);
     }
 
     @Override
@@ -46,17 +58,17 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.MyViewHolder> {
         return cpuModels.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class CpuViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgProduct;
+        TextView txtProductName, txtPrice, txtCpuCores, txtCpuSocket;
 
-        ImageView imageView;
-        TextView cpuName, cpuPrice;
-
-        public MyViewHolder(@NonNull View itemView) {
+        public CpuViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            imageView = itemView.findViewById(R.id.cpu_modelImage_image);
-            cpuName = itemView.findViewById(R.id.cpu_modelname_text);
-            cpuPrice = itemView.findViewById(R.id.cpu_modelprice_text);
+            imgProduct = itemView.findViewById(R.id.imgProduct);
+            txtProductName = itemView.findViewById(R.id.ProductName);
+            txtPrice = itemView.findViewById(R.id.Price);
+            txtCpuCores = itemView.findViewById(R.id.CpuCores);
+            txtCpuSocket = itemView.findViewById(R.id.CpuSocket);
         }
     }
 }
