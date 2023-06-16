@@ -23,6 +23,7 @@ import com.example.app.UpdateProfileActivity;
 public class ManagerFragment extends Fragment {
 
     Activity notifications, edit, retailer, technician, terms, about, logout;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +36,11 @@ public class ManagerFragment extends Fragment {
         terms = getActivity();
         about = getActivity();
         logout = getActivity();
+
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("Email")) {
+            email = bundle.getString("Email");
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_manager, container, false);
@@ -49,6 +55,7 @@ public class ManagerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(notifications, NotificationActivity.class);
+                intent.putExtra("Email", email);
                 startActivity(intent);
             }
         });

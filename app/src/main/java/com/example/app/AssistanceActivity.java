@@ -34,13 +34,9 @@ import java.util.Map;
 public class AssistanceActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    EditText input_assitance, input_description;
-    Button showMap, showNearest;
-
-    tech_NearMe_fragment tech_Fragment = new tech_NearMe_fragment();
-
-    ImageView backbutton6;
+    private EditText input_assitance, input_description;
+    private Button showMap, showNearest;
+    private ImageView backbutton6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +91,6 @@ public class AssistanceActivity extends AppCompatActivity {
         showNearest.setOnClickListener(new View.OnClickListener() {
             final String technician = "Computer Technician";
             final int radius = 1000; // Radius in meters (adjust as needed)
-
             @Override
             public void onClick(View view) {
                 // construct the Google Maps URI to search for nearby places
@@ -125,7 +120,7 @@ public class AssistanceActivity extends AppCompatActivity {
                     }
                 }
 
-                // Return the current location as a string in the format "latitude,longitude"
+                // return the current location as a string in the format "latitude,longitude"
                 return latitude + "," + longitude;
             }
         });
