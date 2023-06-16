@@ -2,9 +2,15 @@ package com.example.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,20 +91,44 @@ public class AssistanceActivity extends AppCompatActivity {
             }
         });
 
-
         showNearest = findViewById(R.id.show_nearest_button);
-
         showNearest.setOnClickListener(new View.OnClickListener() {
+            final String technician = "Computer Technician";
+            final int radius = 1000; // Radius in meters (adjust as needed)
+
             @Override
             public void onClick(View view) {
+                // construct the Google Maps URI to search for nearby places
+                String uri = "http://maps.google.com/maps/search/" + technician + "/nearby?location=" + getCurrentLocation() + "&radius=" + radius + "&rankby=distance";
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.techMap, tech_Fragment);
-                transaction.commit();
+                // create an intent to launch Google Maps with the constructed URI
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
 
+                // start the activity to open Google Maps and display the search results
+                startActivity(intent);
+            }
+
+            private String getCurrentLocation() {
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                String latitude = "";
+                String longitude = "";
+
+                if (ActivityCompat.checkSelfPermission(AssistanceActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // get the last known location from the GPS provider
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                    if (location != null) {
+                        // retrieve the latitude and longitude values from the location object
+                        latitude = String.valueOf(location.getLatitude());
+                        longitude = String.valueOf(location.getLongitude());
+                    }
+                }
+
+                // Return the current location as a string in the format "latitude,longitude"
+                return latitude + "," + longitude;
             }
         });
-
     }
 
     private void needAssistance(String assistance, String description) {
@@ -123,16 +153,4 @@ public class AssistanceActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
