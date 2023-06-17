@@ -34,6 +34,7 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
     public CpuAdapter(Context context, ArrayList<CpuModel> cpuModels) {
         this.context = context;
         this.cpuModels = cpuModels;
+        this.firestore = FirebaseFirestore.getInstance();
     }
 
     @NonNull

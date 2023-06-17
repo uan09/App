@@ -11,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.app.ui.models.MotherboardModel;
 import com.example.app.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.MotherboardViewHolder> {
@@ -35,11 +38,19 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
     @Override
     public void onBindViewHolder(@NonNull MotherboardViewHolder holder, int position) {
         MotherboardModel motherboardModel = motherboardModels.get(position);
+        NumberFormat formatter = new DecimalFormat("###,###,###");
 
         // Set the data to the corresponding views in the item layout
         holder.txtMotherboardName.setText(motherboardModel.getMotherboardName());
         holder.txtMotherboardSocket.setText(motherboardModel.getMotherboardSocket());
-
+        holder.txtMotherboardFormFactor.setText(motherboardModel.getMotherboardFormFactor());
+        holder.txtMotherboardMemoryType.setText(motherboardModel.getMotherboardMemoryType());
+        String formattedNumber = formatter.format(Long.valueOf(motherboardModel.getProduct_price()));
+        holder.txtPrice.setText("P"+formattedNumber+".00");
+        Glide.with(context)
+                .load(motherboardModel.getProduct_image())
+                .centerCrop()
+                .into(holder.imgProduct);
         // You can add any additional logic or functionality here as needed
     }
 
@@ -50,18 +61,19 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
 
     public static class MotherboardViewHolder extends RecyclerView.ViewHolder {
         TextView txtMotherboardName;
-        TextView txtMotherboardSocket, txtMotherboardFormFactor;
+        TextView txtMotherboardSocket, txtMotherboardFormFactor, txtMotherboardMemoryType;
         ImageView imgProduct;
-        TextView txtProductName, txtPrice;
+        TextView txtPrice;
         ImageButton add_item_button;
         public MotherboardViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgProduct = itemView.findViewById(R.id.imgProduct);
-            txtProductName = itemView.findViewById(R.id.ProductName);
+            txtMotherboardName = itemView.findViewById(R.id.ProductName);
             txtPrice = itemView.findViewById(R.id.Price);
-            txtMotherboardFormFactor = itemView.findViewById(R.id.txtMotherboardFormFactor);
-            txtMotherboardSocket = itemView.findViewById(R.id.txtMotherboardSocket);
+            txtMotherboardFormFactor = itemView.findViewById(R.id.MotherboardFormFactor);
+            txtMotherboardSocket = itemView.findViewById(R.id.MotherboardSocket);
+            txtMotherboardMemoryType = itemView.findViewById(R.id.MemoryType);
             add_item_button = itemView.findViewById(R.id.add_item_button);
         }
     }
