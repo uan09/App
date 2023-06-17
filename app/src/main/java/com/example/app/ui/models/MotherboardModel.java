@@ -1,25 +1,33 @@
 package com.example.app.ui.models;
 
 public class MotherboardModel {
-    String motherboardProductName;
-    String motherboardProductPrice;
-    int image;
+    private String motherboardName;
+    private String motherboardSocket;
+    private String motherboardFormFactor;
+    private String product_name;
+    private String product_image;
+    private String product_price;
 
-    public MotherboardModel(String motherboardProductName, String motherboardProductPrice, int image) {
-        this.motherboardProductName = motherboardProductName;
-        this.motherboardProductPrice = motherboardProductPrice;
-        this.image = image;
+
+
+    public MotherboardModel(String motherboardName, String motherboardSocket, String motherboardFormFactor, String product_name, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.product_image = product_image;
+        this.product_price = product_price;
+        this.motherboardName = motherboardName;
+        this.motherboardSocket = motherboardSocket;
+        this.motherboardFormFactor = motherboardFormFactor;
     }
 
-    public String getMotherboardProductName() {
-        return motherboardProductName;
+    public String getMotherboardName() {
+        return motherboardName;
     }
 
-    public String getMotherboardProductPrice() {
-        return motherboardProductPrice;
+    public String getMotherboardSocket() {
+        return motherboardSocket;
     }
 
-    public int getImage() {
-        return image;
+    public String getMotherboardFormFactor() {
+        return motherboardFormFactor;
     }
 }

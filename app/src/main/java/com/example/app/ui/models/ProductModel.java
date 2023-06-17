@@ -1,10 +1,5 @@
 package com.example.app.ui.models;
 
-import android.app.Activity;
-import android.content.Context;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.List;
@@ -12,14 +7,14 @@ import java.util.List;
 public class ProductModel {
     private String Store_name, Product_id, Product_name, Product_brand, Product_type, Product_description, Product_price, Product_quantity, Product_status, Product_category, First_image_url;
     private List<String> Product_image;
-
+    private String Prod_image;
     private Spinner spinnerDropdown;
 
     private boolean selected;
     public ProductModel() {
     }
 
-    public ProductModel(String store_name, String product_id, String product_name, String product_brand, String product_type, String product_description, String product_price, String product_quantity, String product_status, String product_category,List<String> product_image) {
+    public ProductModel(String store_name, String product_id, String product_name, String product_brand, String product_type, String product_description, String product_price, String product_quantity, String product_status, String product_category, List<String> product_image) {
         this.Store_name = store_name;
         this.Product_id = product_id;
         this.Product_name = product_name;
@@ -36,6 +31,15 @@ public class ProductModel {
         }
         this.selected = false;
     }
+
+
+
+    public ProductModel(String product_name, String product_price, String prod_image) {
+        this.Product_name = product_name;
+        this.Product_price = product_price;
+        this.Prod_image = prod_image;
+    }
+
     public String getStore_name() {
         return Store_name;
     }
@@ -75,8 +79,6 @@ public class ProductModel {
         this.spinnerDropdown = spinnerDropdown;
     }
 
-
-
     public String getProduct_type() {
         return Product_type;
     }
@@ -92,8 +94,6 @@ public class ProductModel {
     public void setProduct_description(String product_description) {
         Product_description = product_description;
     }
-
-
 
     public String getProduct_price() {
         return Product_price;
@@ -152,6 +152,12 @@ public class ProductModel {
         First_image_url = first_image_url;
     }
 
+    public String getProd_image() {
+        return Prod_image;
+    }
 
+    public void setProd_image(String prod_image) {
+        Prod_image = prod_image;
+    }
 
 }

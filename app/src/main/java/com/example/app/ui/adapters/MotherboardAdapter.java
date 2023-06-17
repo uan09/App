@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,10 +16,9 @@ import com.example.app.R;
 
 import java.util.ArrayList;
 
-public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.MyViewHolder> {
-
-    Context context;
-    ArrayList<MotherboardModel> motherboardModels;
+public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.MotherboardViewHolder> {
+    private Context context;
+    private ArrayList<MotherboardModel> motherboardModels;
 
     public MotherboardAdapter(Context context, ArrayList<MotherboardModel> motherboardModels) {
         this.context = context;
@@ -27,18 +27,20 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
 
     @NonNull
     @Override
-    public MotherboardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.motherboard_recyclerview_row, parent, false);
-
-        return new MotherboardAdapter.MyViewHolder(view);
+    public MotherboardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_motherboard, parent, false);
+        return new MotherboardViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MotherboardAdapter.MyViewHolder holder, int position) {
-        holder.motherboardName.setText(motherboardModels.get(position).getMotherboardProductName());
-        holder.motherboardPrice.setText(motherboardModels.get(position).getMotherboardProductPrice());
-        holder.imageView.setImageResource(motherboardModels.get(position).getImage());
+    public void onBindViewHolder(@NonNull MotherboardViewHolder holder, int position) {
+        MotherboardModel motherboardModel = motherboardModels.get(position);
+
+        // Set the data to the corresponding views in the item layout
+        holder.txtMotherboardName.setText(motherboardModel.getMotherboardName());
+        holder.txtMotherboardSocket.setText(motherboardModel.getMotherboardSocket());
+
+        // You can add any additional logic or functionality here as needed
     }
 
     @Override
@@ -46,17 +48,21 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
         return motherboardModels.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView imageView;
-        TextView motherboardName, motherboardPrice;
-
-        public MyViewHolder(@NonNull View itemView) {
+    public static class MotherboardViewHolder extends RecyclerView.ViewHolder {
+        TextView txtMotherboardName;
+        TextView txtMotherboardSocket, txtMotherboardFormFactor;
+        ImageView imgProduct;
+        TextView txtProductName, txtPrice;
+        ImageButton add_item_button;
+        public MotherboardViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.motherboard_modelImage_image);
-            motherboardName = itemView.findViewById(R.id.motherboard_modelname_text);
-            motherboardPrice = itemView.findViewById(R.id.motherboard_modelprice_text);
+            imgProduct = itemView.findViewById(R.id.imgProduct);
+            txtProductName = itemView.findViewById(R.id.ProductName);
+            txtPrice = itemView.findViewById(R.id.Price);
+            txtMotherboardFormFactor = itemView.findViewById(R.id.txtMotherboardFormFactor);
+            txtMotherboardSocket = itemView.findViewById(R.id.txtMotherboardSocket);
+            add_item_button = itemView.findViewById(R.id.add_item_button);
         }
     }
 }
