@@ -46,9 +46,4 @@ public class MotherboardModel {
         return product_image;
     }
 
-    public void setProductDetails(String product_name, String product_price, String product_image) {
-        this.product_name = product_name;
-        this.product_price = product_price;
-        this.product_image = product_image;
-    }
 }

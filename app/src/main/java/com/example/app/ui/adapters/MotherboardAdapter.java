@@ -7,13 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.app.ui.models.MotherboardModel;
 import com.example.app.R;
+import com.example.app.ui.models.MotherboardModel;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -22,10 +25,12 @@ import java.util.ArrayList;
 public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.MotherboardViewHolder> {
     private Context context;
     private ArrayList<MotherboardModel> motherboardModels;
+    private FirebaseFirestore firestore;
 
     public MotherboardAdapter(Context context, ArrayList<MotherboardModel> motherboardModels) {
         this.context = context;
         this.motherboardModels = motherboardModels;
+        this.firestore = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -41,17 +46,65 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
         // Set the data to the corresponding views in the item layout
-        holder.txtMotherboardName.setText(motherboardModel.getMotherboardName());
+        String motherboardName = motherboardModel.getMotherboardName();
+        holder.txtMotherboardName.setText(motherboardName);
         holder.txtMotherboardSocket.setText(motherboardModel.getMotherboardSocket());
         holder.txtMotherboardFormFactor.setText(motherboardModel.getMotherboardFormFactor());
         holder.txtMotherboardMemoryType.setText(motherboardModel.getMotherboardMemoryType());
         String formattedNumber = formatter.format(Long.valueOf(motherboardModel.getProduct_price()));
-        holder.txtPrice.setText("P"+formattedNumber+".00");
+        holder.txtPrice.setText("P" + formattedNumber + ".00");
         Glide.with(context)
                 .load(motherboardModel.getProduct_image())
                 .centerCrop()
                 .into(holder.imgProduct);
-        // You can add any additional logic or functionality here as needed
+
+        // Set OnClickListener to the add_item_button
+        holder.add_item_button.setOnClickListener(v -> {
+            // Find the document in the Motherboard_DB collection using the document ID
+            firestore.collection("Motherboard_DB")
+                    .document(motherboardName)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            DocumentReference motherboardDocumentRef = documentSnapshot.getReference();
+
+                            // Save the data to the TempItems collection under the Temp document
+                            firestore.collection("TempItems")
+                                    .document("Temp")
+                                    .set(motherboardDocumentRef.get())
+                                    .addOnSuccessListener(aVoid -> {
+                                        // Data saved successfully to TempItems collection
+                                        Toast.makeText(context, "Data saved to TempItems collection", Toast.LENGTH_SHORT).show();
+
+                                        // Create an intent to start the NewBuildActivity
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Handle any errors that occurred while saving data to TempItems collection
+                                        Toast.makeText(context, "Failed to save data to TempItems collection", Toast.LENGTH_SHORT).show();
+                                    });
+
+                            // Save the data to the NewBuild collection under the Motherboard document
+                            firestore.collection("NewBuild")
+                                    .document("Motherboard")
+                                    .set(motherboardDocumentRef.get())
+                                    .addOnSuccessListener(aVoid -> {
+                                        // Data saved successfully to NewBuild collection under Motherboard document
+                                        Toast.makeText(context, "Data saved to NewBuild collection", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Handle any errors that occurred while saving data to NewBuild collection
+                                        Toast.makeText(context, "Failed to save data to NewBuild collection", Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            // No matching document found in the Motherboard_DB collection
+                            Toast.makeText(context, "No matching motherboard found", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle any errors that occurred while fetching the document from Motherboard_DB collection
+                        Toast.makeText(context, "Failed to fetch document from Motherboard_DB collection", Toast.LENGTH_SHORT).show();
+                    });
+        });
     }
 
     @Override
@@ -65,6 +118,7 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
         ImageView imgProduct;
         TextView txtPrice;
         ImageButton add_item_button;
+
         public MotherboardViewHolder(@NonNull View itemView) {
             super(itemView);
 

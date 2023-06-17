@@ -1,7 +1,6 @@
 package com.example.app;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,38 +48,49 @@ public class MotherboardActivity extends AppCompatActivity {
                                 .addOnSuccessListener(queryDocumentSnapshots -> {
                                     List<Task<QuerySnapshot>> tasks = new ArrayList<>();
                                     for (DocumentSnapshot motherboardDocumentSnapshot : queryDocumentSnapshots) {
-                                        String motherboardName = motherboardDocumentSnapshot.getString("Motherboard_Name");
+                                        String motherboardId = motherboardDocumentSnapshot.getId();
 
                                         Task<QuerySnapshot> task = firestore.collection("Products")
-                                                .whereEqualTo("product_name", motherboardName)
+                                                .whereEqualTo("product_name", motherboardId)
+                                                .whereEqualTo("store_name", "BitoyPc")
+                                                .whereEqualTo("product_type", "Motherboard")
                                                 .get();
                                         tasks.add(task);
                                     }
+
                                     // Wait for all the queries to complete
                                     Task<List<QuerySnapshot>> combinedTask = Tasks.whenAllSuccess(tasks);
                                     combinedTask.addOnSuccessListener(querySnapshotsList -> {
                                         motherboardModels.clear(); // Clear the previous data
                                         for (QuerySnapshot querySnapshot : querySnapshotsList) {
+                                            if (!querySnapshot.isEmpty()) {
+                                                for (DocumentSnapshot productDocumentSnapshot : querySnapshot.getDocuments()) {
+                                                    String productName = productDocumentSnapshot.getString("product_name");
 
-                                            for (DocumentSnapshot productDocumentSnapshot : querySnapshot.getDocuments()) {
-                                                Toast.makeText(MotherboardActivity.this, "Hi hello" , Toast.LENGTH_SHORT).show();
-                                                String motherboardName = productDocumentSnapshot.getString("product_name");
-                                                String motherboardSocket = productDocumentSnapshot.getString("Motherboard_Socket");
-                                                String motherboardFormFactor = productDocumentSnapshot.getString("Motherboard_Form_Factor");
-                                                String motherboardMemoryType = productDocumentSnapshot.getString("Motherboard_Memory_Type");
-                                                String product_price = productDocumentSnapshot.getString("product_price");
-                                                List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
-                                                String product_image = null;
-                                                if (productImages != null && !productImages.isEmpty()) {
-                                                    product_image = productImages.get(0);
+                                                    // Retrieve motherboardSocket, motherboardFormFactor, and motherboardMemoryType
+                                                    DocumentSnapshot motherboardDocumentSnapshot = queryDocumentSnapshots.getDocuments().stream()
+                                                            .filter(doc -> doc.getId().equals(productName))
+                                                            .findFirst()
+                                                            .orElse(null);
+                                                    if (motherboardDocumentSnapshot != null) {
+                                                        String motherboardSocket = motherboardDocumentSnapshot.getString("Motherboard_Socket");
+                                                        String motherboardFormFactor = motherboardDocumentSnapshot.getString("Motherboard_Form_Factor");
+                                                        String motherboardMemoryType = motherboardDocumentSnapshot.getString("Motherboard_Memory_Type");
+
+                                                        String productPrice = productDocumentSnapshot.getString("product_price");
+                                                        List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
+                                                        String productImage = null;
+                                                        if (productImages != null && !productImages.isEmpty()) {
+                                                            productImage = productImages.get(0);
+                                                        }
+
+                                                        MotherboardModel motherboardModel = new MotherboardModel(productName, motherboardSocket, motherboardFormFactor, motherboardMemoryType, productPrice, productImage);
+                                                        motherboardModels.add(motherboardModel);
+                                                    }
                                                 }
-
-                                                MotherboardModel motherboardModel = new MotherboardModel(motherboardName, motherboardSocket, motherboardFormFactor, motherboardMemoryType, product_price, product_image);
-                                                motherboardModels.add(motherboardModel);
                                             }
                                         }
                                         adapter.notifyDataSetChanged();
-
                                         // Check if any products were found
                                         if (motherboardModels.isEmpty()) {
                                             // No products found, handle the case
