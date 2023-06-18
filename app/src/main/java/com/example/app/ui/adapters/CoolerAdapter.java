@@ -15,7 +15,7 @@ import com.example.app.R;
 
 import java.util.ArrayList;
 
-public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.MyViewHolder> {
+public class    CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<CoolerModel> coolerModels;

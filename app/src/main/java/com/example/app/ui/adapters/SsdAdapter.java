@@ -60,7 +60,7 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
                 .centerCrop()
                 .into(holder.imgProduct);
         holder.add_item_button.setOnClickListener(v -> {
-            firestore.collection("RAM_DB")
+            firestore.collection("SSD_DB")
                     .document(ssdName)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
@@ -68,11 +68,11 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
                             DocumentSnapshot ramDocument = documentSnapshot;
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
-                                    .document("RAM")
+                                    .document("SSD")
                                     .set(ramDocument.getData())
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
-                                        Toast.makeText(context, "RAM Selected", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "SSD Selected", Toast.LENGTH_SHORT).show();
                                     })
                                     .addOnFailureListener(e -> {
                                         // Handle any errors that occurred while saving data to NewBuild collection
