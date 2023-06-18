@@ -6,10 +6,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.ui.adapters.Components_RecyclerViewAdapter;
+import com.example.app.ui.fragments.DashboardFragment;
+import com.example.app.ui.fragments.ProfileFragment;
 import com.example.app.ui.models.ComponentsModel;
 
 import java.util.ArrayList;
@@ -20,6 +24,8 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
     String email;
     int[] componentImages = {R.drawable.processor_image, R.drawable.motherboard_image, R.drawable.gpu_image, R.drawable.ram_image,
             R.drawable.hdd_image, R.drawable.ssd_image, R.drawable.cpucooler_image, R.drawable.psu_image, R.drawable.pccase_image};
+
+    DashboardFragment dashboardFragment = new DashboardFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +48,17 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
 
         ImageView menuBack = findViewById(R.id.menu_back);
         menuBack.setOnClickListener(view -> {
+            ProfileFragment fragment = new ProfileFragment();
+            Bundle args = new Bundle();
+            args.putString("Email", email);
+            fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,dashboardFragment).commit();
 
-            Intent intent = new Intent(this, NewBuildActivity.class);
-            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
-            startActivity(intent);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.frame_layout, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
 
         });
 

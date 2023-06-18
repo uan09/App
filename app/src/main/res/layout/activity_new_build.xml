@@ -38,6 +38,19 @@
         android:textColor="#000000"
         android:textSize="20dp"
         tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/new_build"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="100dp"
+        android:layout_gravity="right|center"
+        android:fontFamily="@font/graduate"
+        android:text="Check Build"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        tools:ignore="HardcodedText" />
   </LinearLayout>
 
 
