@@ -1,7 +1,7 @@
 package com.example.app.ui.adapters;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.app.NewBuildActivity;
 import com.example.app.R;
 import com.example.app.ui.models.CpuModel;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -86,28 +87,25 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
                 .document("Processor")
                 .set(productData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "Product saved to NewBuild", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Processor Selected", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, NewBuildActivity.class);
+                    context.startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Failed to save product to NewBuild", Toast.LENGTH_SHORT).show();
-                    Log.e("CpuAdapter", "Error saving product to NewBuild", e);
                 });
     }
 
 
     private void saveCpuSocketToTempItems(String cpuSocket) {
         Map<String, Object> tempItemData = new HashMap<>();
-        tempItemData.put("CPU_Socket", cpuSocket);
+        tempItemData.put("Motherboard_Socket", cpuSocket);
 
         firestore.collection("TempItems")
                 .document("Temp")
                 .set(tempItemData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "CPU Socket saved to TempItems", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Failed to save CPU Socket to TempItems", Toast.LENGTH_SHORT).show();
-                    Log.e("CpuAdapter", "Error saving CPU Socket to TempItems", e);
                 });
     }
     public static class CpuViewHolder extends RecyclerView.ViewHolder {

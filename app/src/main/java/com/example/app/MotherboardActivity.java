@@ -40,7 +40,7 @@ public class MotherboardActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(tempDocumentSnapshot -> {
                     if (tempDocumentSnapshot.exists()) {
-                        String cpuSocket = tempDocumentSnapshot.getString("CPU_Socket");
+                        String cpuSocket = tempDocumentSnapshot.getString("Motherboard_Socket");
 
                         firestore.collection("Motherboard_DB")
                                 .whereEqualTo("Motherboard_Socket", cpuSocket)
@@ -52,7 +52,6 @@ public class MotherboardActivity extends AppCompatActivity {
 
                                         Task<QuerySnapshot> task = firestore.collection("Products")
                                                 .whereEqualTo("product_name", motherboardId)
-                                                .whereEqualTo("store_name", "BitoyPc")
                                                 .whereEqualTo("product_type", "Motherboard")
                                                 .get();
                                         tasks.add(task);

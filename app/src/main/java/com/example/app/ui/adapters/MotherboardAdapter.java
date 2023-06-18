@@ -1,6 +1,7 @@
 package com.example.app.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.app.NewBuildActivity;
 import com.example.app.R;
 import com.example.app.ui.models.MotherboardModel;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
@@ -66,43 +68,38 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            DocumentReference motherboardDocumentRef = documentSnapshot.getReference();
+                            DocumentSnapshot motherboardDocument = documentSnapshot;
 
                             // Save the data to the TempItems collection under the Temp document
                             firestore.collection("TempItems")
                                     .document("Temp")
-                                    .set(motherboardDocumentRef.get())
+                                    .set(motherboardDocument.getData())
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to TempItems collection
-                                        Toast.makeText(context, "Data saved to TempItems collection", Toast.LENGTH_SHORT).show();
-
-                                        // Create an intent to start the NewBuildActivity
                                     })
                                     .addOnFailureListener(e -> {
                                         // Handle any errors that occurred while saving data to TempItems collection
-                                        Toast.makeText(context, "Failed to save data to TempItems collection", Toast.LENGTH_SHORT).show();
                                     });
 
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("Motherboard")
-                                    .set(motherboardDocumentRef.get())
+                                    .set(motherboardDocument.getData())
                                     .addOnSuccessListener(aVoid -> {
-                                        // Data saved successfully to NewBuild collection under Motherboard document
-                                        Toast.makeText(context, "Data saved to NewBuild collection", Toast.LENGTH_SHORT).show();
+                                        // Data saved successfully to NewBuild collection
+                                        Toast.makeText(context, "Motherboard Selected", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(context, NewBuildActivity.class);
+                                        context.startActivity(intent);
                                     })
                                     .addOnFailureListener(e -> {
                                         // Handle any errors that occurred while saving data to NewBuild collection
-                                        Toast.makeText(context, "Failed to save data to NewBuild collection", Toast.LENGTH_SHORT).show();
                                     });
                         } else {
                             // No matching document found in the Motherboard_DB collection
-                            Toast.makeText(context, "No matching motherboard found", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(e -> {
                         // Handle any errors that occurred while fetching the document from Motherboard_DB collection
-                        Toast.makeText(context, "Failed to fetch document from Motherboard_DB collection", Toast.LENGTH_SHORT).show();
                     });
         });
     }

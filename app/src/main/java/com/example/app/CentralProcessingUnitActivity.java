@@ -66,7 +66,6 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
                                             firestore.collection("Products")
                                                     .whereEqualTo("product_type", "Processor")
                                                     .whereEqualTo("product_category", preferenceCategory)
-                                                    .whereEqualTo("store_name", "BitoyPc")
                                                     .get()
                                                     .addOnCompleteListener(productTask -> {
                                                         if (productTask.isSuccessful() && !productTask.getResult().isEmpty()) {

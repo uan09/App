@@ -1,25 +1,37 @@
 package com.example.app.ui.models;
 
 public class GpuModel {
-    String gpuProductName;
-    String gpuProductPrice;
-    int image;
+    private String productName;
+    private String gpuMemoryType;
+    private String gpuChipset;
+    private String productPrice;
+    private String productImage;
 
-    public GpuModel(String gpuProductName, String gpuProductPrice, int image) {
-        this.gpuProductName = gpuProductName;
-        this.gpuProductPrice = gpuProductPrice;
-        this.image = image;
+    public GpuModel(String productName, String gpuMemoryType, String gpuChipset, String productPrice, String productImage) {
+        this.productName = productName;
+        this.gpuMemoryType = gpuMemoryType;
+        this.gpuChipset = gpuChipset;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
     }
 
-    public String getGpuProductName() {
-        return gpuProductName;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getGpuProductPrice() {
-        return gpuProductPrice;
+    public String getGpuMemoryType() {
+        return gpuMemoryType;
     }
 
-    public int getImage() {
-        return image;
+    public String getGpuChipset() {
+        return gpuChipset;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public String getProductImage() {
+        return productImage;
     }
 }
