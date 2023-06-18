@@ -59,7 +59,7 @@
                     android:id="@+id/txtCoolerSocket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Compatible Sockets: "
+                    android:text="Socket: "
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"/>
                 <TextView
@@ -68,6 +68,29 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:hint="AM4"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtCoolerRPM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Compatible Sockets: "
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"/>
+                <TextView
+                    android:id="@+id/CoolerRPM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:hint="RPM"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"/>
             </LinearLayout>

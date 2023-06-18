@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.ui.adapters.CoolerAdapter;
 import com.example.app.ui.models.CoolerModel;
-import com.example.app.ui.models.SsdModel;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -63,7 +62,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                         String motherboardSocket = tempDocumentSnapshot.getString("Motherboard_Socket");
 
                         // Get all documents in the GPU_DB collection with GPU_Memory_Type equal to motherboardMemoryType
-                        firestore.collection("CPU_Cooler_DB")
+                        firestore.collection("CPUCoolersDB")
                                 .whereIn("Cooler_Socket", Collections.singletonList(motherboardSocket))
                                 .get()
                                 .addOnSuccessListener(coolerDocumentSnapshots -> {
@@ -73,7 +72,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
 
                                         Task<QuerySnapshot> task = firestore.collection("Products")
                                                 .whereEqualTo("product_name", gpuId)
-                                                .whereEqualTo("product_type", "Solid State Drive")
+                                                .whereEqualTo("product_type", "CPU Cooler")
                                                 .get();
                                         tasks.add(task);
                                     }
@@ -94,6 +93,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                                             .orElse(null);
                                                     if (coolerDocumentSnapshot != null) {
                                                         String coolerSocket = coolerDocumentSnapshot.getString("Cooler_Socket");
+                                                        String coolerRPM = coolerDocumentSnapshot.getString("Cooler_RPM");
 
                                                         String productPrice = productDocumentSnapshot.getString("product_price");
                                                         List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
@@ -102,7 +102,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                                             productImage = productImages.get(0);
                                                         }
 
-                                                        CoolerModel coolerModel = new CoolerModel(productName, coolerSocket, productPrice, productImage);
+                                                        CoolerModel coolerModel = new CoolerModel(productName, coolerSocket, coolerRPM, productPrice, productImage);
                                                         coolerModels.add(coolerModel);
                                                     }
                                                 }

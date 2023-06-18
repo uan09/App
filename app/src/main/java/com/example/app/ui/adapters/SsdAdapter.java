@@ -59,8 +59,9 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
                 .load(ssdModel.getProductImage())
                 .centerCrop()
                 .into(holder.imgProduct);
+
         holder.add_item_button.setOnClickListener(v -> {
-            firestore.collection("SSD_DB")
+            firestore.collection("PSU_DB")
                     .document(ssdName)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
