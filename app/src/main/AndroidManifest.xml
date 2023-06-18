@@ -27,6 +27,9 @@
         android:theme="@style/Theme.App"
         tools:replace="android:icon">
         <activity
+            android:name=".CheckBuildActivity"
+            android:exported="false" />
+        <activity
             android:name=".User_OrderDetailsActivity"
             android:exported="false" />
         <activity
@@ -195,13 +198,6 @@
         </activity>
         <activity
             android:name=".CentralProcessingUnitActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MotherboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

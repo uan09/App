@@ -3,6 +3,7 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +61,14 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
+        });
+
+        TextView checkBuild = findViewById(R.id.new_build);
+        checkBuild.setOnClickListener(view -> {
+            Intent check = new Intent(this, CheckBuildActivity.class);
+            check.putExtra("email", email);
+            check.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(check);
         });
 
         RecyclerView recyclerView = findViewById(R.id.nb_recyclerview_view);
