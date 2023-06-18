@@ -1,7 +1,6 @@
 package com.example.app.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.app.NewBuildActivity;
 import com.example.app.R;
 import com.example.app.ui.models.CpuModel;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -88,8 +86,6 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
                 .set(productData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(context, "Processor Selected", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, NewBuildActivity.class);
-                    context.startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
                 });

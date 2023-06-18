@@ -63,7 +63,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"/>
                 <TextView
-                    android:id="@+id/HDDCapacity"
+                    android:id="@+id/hddCapacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -85,7 +85,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"/>
                 <TextView
-                    android:id="@+id/SSDInterface"
+                    android:id="@+id/hddInterface"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"

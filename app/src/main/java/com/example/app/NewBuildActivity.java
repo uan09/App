@@ -31,6 +31,7 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
         }
         Toast.makeText(NewBuildActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
 
+
         RecyclerView recyclerView = findViewById(R.id.nb_recyclerview_view);
 
         setUpComponentsModel();

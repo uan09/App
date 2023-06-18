@@ -3,7 +3,6 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,20 +23,12 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
     private static final String TAG = "CPUActivity";
     private FirebaseFirestore firestore;
     private ArrayList<CpuModel> cpuModels;
-
-    private static final int REQUEST_CODE_BUILD = 1;
-
-    Button backbutton;
-
-    ImageView menu_back;
     String preferenceCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central_processing_unit);
-
-
 
         String email = getIntent().getStringExtra("email");
         if (email != null) {
