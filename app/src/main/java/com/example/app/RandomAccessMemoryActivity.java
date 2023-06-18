@@ -111,6 +111,9 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // Handle any errors that occurred while reading the Temp document
                 });
+
+        //testing git commit from rr
+
     }
 
 }
