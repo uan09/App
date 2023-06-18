@@ -1,7 +1,10 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,12 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
     private static final String TAG = "CPUActivity";
     private FirebaseFirestore firestore;
     private ArrayList<CpuModel> cpuModels;
+
+    private static final int REQUEST_CODE_BUILD = 1;
+
+    Button backbutton;
+
+    ImageView menu_back;
     String preferenceCategory;
 
     @Override
@@ -28,10 +37,21 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central_processing_unit);
 
+
+
         String email = getIntent().getStringExtra("email");
         if (email != null) {
-            Toast.makeText(CentralProcessingUnitActivity.this, "email" + email, Toast.LENGTH_SHORT).show();
+            Toast.makeText(CentralProcessingUnitActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
         }
+
+        ImageView menuBack = findViewById(R.id.menu_back);
+        menuBack.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, NewBuildActivity.class);
+            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
+            startActivity(intent);
+
+        });
 
         firestore = FirebaseFirestore.getInstance();
         cpuModels = new ArrayList<>();
@@ -121,4 +141,8 @@ public class CentralProcessingUnitActivity extends AppCompatActivity {
                 });
 
     }
-    }
+
+
+
+}
+
