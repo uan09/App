@@ -2,6 +2,7 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,12 +26,28 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_build);
 
+
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null && bundle.containsKey("Email")) {
             email = bundle.getString("Email");
         }
         Toast.makeText(NewBuildActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
 
+
+        String email = getIntent().getStringExtra("email");
+        if (email != null) {
+            Toast.makeText(NewBuildActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
+        }
+
+        ImageView menuBack = findViewById(R.id.menu_back);
+        menuBack.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, NewBuildActivity.class);
+            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
+            startActivity(intent);
+
+        });
 
         RecyclerView recyclerView = findViewById(R.id.nb_recyclerview_view);
 
