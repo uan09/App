@@ -1,7 +1,6 @@
 package com.example.app.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.app.NewBuildActivity;
 import com.example.app.R;
 import com.example.app.ui.models.MotherboardModel;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -88,8 +86,6 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "Motherboard Selected", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(context, NewBuildActivity.class);
-                                        context.startActivity(intent);
                                     })
                                     .addOnFailureListener(e -> {
                                         // Handle any errors that occurred while saving data to NewBuild collection
