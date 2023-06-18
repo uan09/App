@@ -1,6 +1,10 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +24,25 @@ public class GraphicsProcessingUnitActivity extends AppCompatActivity {
     private ArrayList<GpuModel> gpuModels;
     private GpuAdapter adapter;
 
+    ImageView menu_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphics_processing_unit);
+
+        String email = getIntent().getStringExtra("email");
+        if (email != null) {
+            Toast.makeText(GraphicsProcessingUnitActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
+        }
+
+        ImageView menuBack = findViewById(R.id.menu_back);
+        menuBack.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, NewBuildActivity.class);
+            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
+            startActivity(intent);
+
+        });
 
         firestore = FirebaseFirestore.getInstance();
         gpuModels = new ArrayList<>();

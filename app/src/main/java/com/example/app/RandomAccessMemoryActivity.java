@@ -1,6 +1,9 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +29,20 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_access_memory);
+
+        String email = getIntent().getStringExtra("email");
+        if (email != null) {
+            Toast.makeText(RandomAccessMemoryActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
+        }
+
+        ImageView menuBack = findViewById(R.id.menu_back);
+        menuBack.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, NewBuildActivity.class);
+            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
+            startActivity(intent);
+
+        });
 
         RecyclerView recyclerView = findViewById(R.id.ram_recyclerview_view);
 
