@@ -102,7 +102,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                                             productImage = productImages.get(0);
                                                         }
 
-                                                        CoolerModel coolerModel = new CoolerModel(productName, coolerSocket, coolerRPM, productPrice, productImage);
+                                                        CoolerModel coolerModel = new CoolerModel(productName, coolerSocket, productPrice, productImage, coolerRPM);
                                                         coolerModels.add(coolerModel);
                                                     }
                                                 }

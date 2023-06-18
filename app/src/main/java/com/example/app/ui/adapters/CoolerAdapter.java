@@ -48,10 +48,9 @@ public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerView
 
         String coolerName = (coolerModel.getProductName());
         holder.coolerNameTextView.setText(coolerName);
-        String formattedNumber = formatter.format(Long.valueOf(coolerModel.getProductPrice()));
-        holder.coolerRPMTextView.setText(coolerModel.getCoolerRPM());
-        holder.coolerNameTextView.setText(coolerModel.getProductName());
         holder.coolerSocketTextView.setText(coolerModel.getCoolerSocket());
+        holder.coolerRPMTextView.setText(coolerModel.getCoolerRPM());
+        String formattedNumber = formatter.format(Long.valueOf(coolerModel.getProductPrice()));
         holder.productPriceTextView.setText("P" + formattedNumber + ".00");
 
         // Load product image using Glide or any other image loading library
@@ -65,11 +64,11 @@ public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerView
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            DocumentSnapshot ramDocument = documentSnapshot;
+                            DocumentSnapshot coolerDocument = documentSnapshot;
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("CPU Cooler")
-                                    .set(ramDocument.getData())
+                                    .set(coolerDocument.getData())
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "CPU Cooler Selected", Toast.LENGTH_SHORT).show();
