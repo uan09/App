@@ -1,36 +1,38 @@
 package com.example.app.ui.models;
 
 public class CoolerModel {
-    private String productName;
-    private String coolerSocket;
-    private String productPrice;
-    private String productImage;
-    private String coolerRPM;
+    private String product_name;
+    private String Cooler_Socket;
+    private String product_price;
+    private String product_image;
+    private String Cooler_RPM;
 
-    public CoolerModel(String productName, String coolerSocket, String productPrice, String productImage, String coolerRPM) {
-        this.productName = productName;
-        this.coolerSocket = coolerSocket;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
-        this.coolerRPM = coolerRPM;
+    public CoolerModel(String product_name, String Cooler_Socket, String product_price, String product_image, String Cooler_RPM) {
+        this.product_name = product_name;
+        this.Cooler_Socket = Cooler_Socket;
+        this.product_price = product_price;
+        this.product_image = product_image;
+        this.Cooler_RPM = Cooler_RPM;
+    }
+    public CoolerModel() {
+        // Default constructor required for Firebase Firestore deserialization
+    }
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getCooler_Socket() {
+        return Cooler_Socket;
+    }
+    public String getCooler_RPM() {
+        return Cooler_RPM;
     }
 
-    public String getCoolerSocket() {
-        return coolerSocket;
-    }
-    public String getCoolerRPM() {
-        return coolerRPM;
+    public String getProduct_price() {
+        return product_price;
     }
 
-    public String getProductPrice() {
-        return productPrice;
-    }
-
-    public String getProductImage() {
-        return productImage;
+    public String getProduct_image() {
+        return product_image;
     }
 }

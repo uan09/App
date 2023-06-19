@@ -21,12 +21,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerViewHolder> {
     private Context context;
     private ArrayList<CoolerModel> coolerModels;
     private FirebaseFirestore firestore;
-
+    private List<CoolerModel> cpuCoolerModels;
     public CoolerAdapter(Context context, ArrayList<CoolerModel> coolerModels) {
         this.context = context;
         this.coolerModels = coolerModels;
@@ -46,19 +49,27 @@ public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerView
 
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
-        String coolerName = (coolerModel.getProductName());
+        String coolerName = (coolerModel.getProduct_name());
         holder.coolerNameTextView.setText(coolerName);
-        holder.coolerSocketTextView.setText(coolerModel.getCoolerSocket());
-        holder.coolerRPMTextView.setText(coolerModel.getCoolerRPM());
-        String formattedNumber = formatter.format(Long.valueOf(coolerModel.getProductPrice()));
+        holder.coolerSocketTextView.setText(coolerModel.getCooler_Socket());
+        holder.coolerRPMTextView.setText(coolerModel.getCooler_RPM());
+        String formattedNumber = formatter.format(Long.valueOf(coolerModel.getProduct_price()));
         holder.productPriceTextView.setText("P" + formattedNumber + ".00");
 
         // Load product image using Glide or any other image loading library
         Glide.with(context)
-                .load(coolerModel.getProductImage())
+                .load(coolerModel.getProduct_image())
                 .centerCrop()
                 .into(holder.productImageView);
+
         holder.add_item_button.setOnClickListener(v -> {
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", coolerModel.getProduct_name());
+            productData.put("product_image", coolerModel.getProduct_image());
+            productData.put("product_price", coolerModel.getProduct_price());
+            productData.put("Cooler_Socket", coolerModel.getCooler_Socket());
+            productData.put("Cooler_RPM", coolerModel.getCooler_RPM());
+
             firestore.collection("CPUCoolersDB")
                     .document(coolerName)
                     .get()
@@ -68,7 +79,7 @@ public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerView
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("CPU Cooler")
-                                    .set(coolerDocument.getData())
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "CPU Cooler Selected", Toast.LENGTH_SHORT).show();
@@ -89,6 +100,11 @@ public class CoolerAdapter extends RecyclerView.Adapter<CoolerAdapter.CoolerView
     @Override
     public int getItemCount() {
         return coolerModels.size();
+    }
+
+    public void setCPUCoolerModels(List<CoolerModel> cpuCoolers) {
+        this.cpuCoolerModels = cpuCoolers;
+        notifyDataSetChanged();
     }
 
     static class CoolerViewHolder extends RecyclerView.ViewHolder {

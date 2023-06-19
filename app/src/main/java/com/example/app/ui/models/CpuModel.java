@@ -14,6 +14,9 @@ public class CpuModel {
         this.CPU_Cores = CPU_Cores;
         this.CPU_Socket = CPU_Socket;
     }
+    public CpuModel() {
+        // Default constructor required for Firebase Firestore deserialization
+    }
 
     public String getProduct_name() {
         return product_name;
@@ -30,11 +33,11 @@ public class CpuModel {
         return product_price;
     }
 
-    public String getCpu_Cores() {
+    public String getCPU_Cores() {
         return CPU_Cores;
     }
 
-    public String getCpu_Socket() {
+    public String getCPU_Socket() {
         return CPU_Socket;
     }
 }

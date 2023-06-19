@@ -3,37 +3,41 @@
 package com.example.app.ui.models;
 
 public class SsdModel {
-    private String productName;
-    private String ssdInterface;
-    private String ssdCapacity;
-    private String productPrice;
-    private String productImage;
+    private String product_name;
+    private String SSD_Interface;
+    private String SSD_Capacity;
+    private String product_price;
+    private String product_image;
 
-    public SsdModel(String productName, String ssdInterface, String ssdCapacity, String productPrice, String productImage) {
-        this.productName = productName;
-        this.ssdInterface = ssdInterface;
-        this.ssdCapacity = ssdCapacity;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
+    public SsdModel(String product_name, String SSD_Interface, String SSD_Capacity, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.SSD_Interface = SSD_Interface;
+        this.SSD_Capacity = SSD_Capacity;
+        this.product_price = product_price;
+        this.product_image = product_image;
     }
 
-    public String getProductName() {
-        return productName;
+    public SsdModel() {
+        // Default constructor required for Firebase Firestore deserialization
     }
 
-    public String getSsdInterface() {
-        return ssdInterface;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public String getSsdCapacity() {
-        return ssdCapacity;
+    public String getSSD_Interface() {
+        return SSD_Interface;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getSSD_Capacity() {
+        return SSD_Capacity;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getProduct_price() {
+        return product_price;
+    }
+
+    public String getProduct_image() {
+        return product_image;
     }
 }

@@ -1,37 +1,41 @@
 package com.example.app.ui.models;
 
 public class MotherboardModel {
-    private String motherboardName;
-    private String motherboardSocket;
-    private String motherboardFormFactor;
-    private String motherboardMemoryType;
+    private String Motherboard_Name;
+    private String Motherboard_Socket;
+    private String Motherboard_Form_Factor;
+    private String Motherboard_Memory_Type;
     private String product_name;
     private String product_price;
     private String product_image;
 
-    public MotherboardModel(String motherboardName, String motherboardSocket, String motherboardFormFactor, String motherboardMemoryType, String product_price, String product_image) {
-        this.motherboardName = motherboardName;
-        this.motherboardSocket = motherboardSocket;
-        this.motherboardFormFactor = motherboardFormFactor;
-        this.motherboardMemoryType = motherboardMemoryType;
+    public MotherboardModel(String product_name, String Motherboard_Socket, String Motherboard_Form_Factor, String Motherboard_Memory_Type, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.Motherboard_Socket = Motherboard_Socket;
+        this.Motherboard_Form_Factor = Motherboard_Form_Factor;
+        this.Motherboard_Memory_Type = Motherboard_Memory_Type;
         this.product_price = product_price;
         this.product_image = product_image;
     }
 
-    public String getMotherboardName() {
-        return motherboardName;
+    public MotherboardModel() {
+        // Default constructor required for Firebase Firestore deserialization
     }
 
-    public String getMotherboardSocket() {
-        return motherboardSocket;
+    public String getMotherboard_Name() {
+        return Motherboard_Name;
     }
 
-    public String getMotherboardFormFactor() {
-        return motherboardFormFactor;
+    public String getMotherboard_Socket() {
+        return Motherboard_Socket;
     }
 
-    public String getMotherboardMemoryType() {
-        return motherboardMemoryType;
+    public String getMotherboard_Form_Factor() {
+        return Motherboard_Form_Factor;
+    }
+
+    public String getMotherboard_Memory_Type() {
+        return Motherboard_Memory_Type;
     }
 
     public String getProduct_name() {

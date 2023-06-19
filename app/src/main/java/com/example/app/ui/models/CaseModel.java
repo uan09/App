@@ -1,58 +1,61 @@
 package com.example.app.ui.models;
 
 public class CaseModel {
-    private String productName;
-    private String caseType;
-    private String caseFormFactor;
-    private String productPrice;
-    private String productImage;
+    private String product_name;
+    private String Case_Type;
+    private String Case_Form_Factor;
+    private String product_price;
+    private String product_image;
 
-    public CaseModel(String productName, String caseType, String caseFormFactor, String productPrice, String productImage) {
-        this.productName = productName;
-        this.caseType = caseType;
-        this.caseFormFactor = caseFormFactor;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
+    public CaseModel(String product_name, String Case_Type, String Case_Form_Factor, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.Case_Type = Case_Type;
+        this.Case_Form_Factor = Case_Form_Factor;
+        this.product_price = product_price;
+        this.product_image = product_image;
+    }
+    public CaseModel() {
+        // Default constructor required for Firebase Firestore deserialization
     }
 
     // Getters and setters for the model attributes
-    public String getProductName() {
-        return productName;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
-    public String getCaseType() {
-        return caseType;
+    public String getCase_Type() {
+        return Case_Type;
     }
 
-    public void setCaseType(String caseType) {
-        this.caseType = caseType;
+    public void setCase_Type(String Case_Type) {
+        this.Case_Type = Case_Type;
     }
 
-    public String getCaseFormFactor() {
-        return caseFormFactor;
+    public String getCase_Form_Factor() {
+        return Case_Form_Factor;
     }
 
-    public void setCaseFormFactor(String caseFormFactor) {
-        this.caseFormFactor = caseFormFactor;
+    public void setCase_Form_Factor(String Case_Form_Factor) {
+        this.Case_Form_Factor = Case_Form_Factor;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getProduct_price() {
+        return product_price;
     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
+    public void setProduct_price(String product_price) {
+        this.product_price = product_price;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getProduct_image() {
+        return product_image;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setProduct_image(String product_image) {
+        this.product_image = product_image;
     }
 }

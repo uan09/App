@@ -21,12 +21,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
 
     private Context context;
     private FirebaseFirestore firestore;
     private ArrayList<CaseModel> caseModels;
+    private List<CaseModel> computerCases;
 
     public CaseAdapter(Context context, ArrayList<CaseModel> caseModels) {
         this.context = context;
@@ -46,20 +50,28 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
         CaseModel caseModel = caseModels.get(position);
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
-        String caseName = (caseModel.getProductName());
+        String caseName = (caseModel.getProduct_name());
         holder.caseName.setText(caseName);
-        String formattedNumber = formatter.format(Long.valueOf(caseModel.getProductPrice()));
+        String formattedNumber = formatter.format(Long.valueOf(caseModel.getProduct_price()));
         holder.casePrice.setText("P" + formattedNumber + ".00");
-        holder.caseType.setText(caseModel.getCaseType());
-        holder.caseFormFactor.setText(caseModel.getCaseFormFactor());
+        holder.caseType.setText(caseModel.getCase_Type());
+        holder.caseFormFactor.setText(caseModel.getCase_Form_Factor());
 
 
         // Load product image using Glide or any other image loading library
         Glide.with(context)
-                .load(caseModel.getProductImage())
+                .load(caseModel.getProduct_image())
                 .centerCrop()
                 .into(holder.caseImage);
         holder.add_item_button.setOnClickListener(v -> {
+
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", caseModel.getProduct_name());
+            productData.put("product_image", caseModel.getProduct_image());
+            productData.put("product_price", caseModel.getProduct_price());
+            productData.put("Case_Type", caseModel.getCase_Type());
+            productData.put("Case_Form_Factor", caseModel.getCase_Form_Factor());
+
             firestore.collection("PC_Case_DB")
                     .document(caseName)
                     .get()
@@ -68,8 +80,8 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
                             DocumentSnapshot ramDocument = documentSnapshot;
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
-                                    .document("Power Supply Unit")
-                                    .set(ramDocument.getData())
+                                    .document("Computer Case")
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "PC Case Selected", Toast.LENGTH_SHORT).show();
@@ -90,6 +102,11 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return caseModels.size();
+    }
+
+    public void setCaseModels(List<CaseModel> computerCases) {
+        this.computerCases = computerCases;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -92,8 +92,8 @@ public class SolidStateDriveActivity extends AppCompatActivity {
                                                             .findFirst()
                                                             .orElse(null);
                                                     if (ssdDocumentSnapshot != null) {
-                                                        String hddCapacity = ssdDocumentSnapshot.getString("HDD_Capacity");
-                                                        String hddInterface = ssdDocumentSnapshot.getString("HDD_Interface");
+                                                        String ssdCapacity = ssdDocumentSnapshot.getString("SSD_Capacity");
+                                                        String ssdInterface = ssdDocumentSnapshot.getString("SSD_Interface");
 
                                                         String productPrice = productDocumentSnapshot.getString("product_price");
                                                         List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
@@ -102,7 +102,7 @@ public class SolidStateDriveActivity extends AppCompatActivity {
                                                             productImage = productImages.get(0);
                                                         }
 
-                                                        SsdModel ssdModel = new SsdModel(productName, hddInterface, hddCapacity, productPrice, productImage);
+                                                        SsdModel ssdModel = new SsdModel(productName, ssdInterface, ssdCapacity, productPrice, productImage);
                                                         ssdModels.add(ssdModel);
                                                     }
                                                 }

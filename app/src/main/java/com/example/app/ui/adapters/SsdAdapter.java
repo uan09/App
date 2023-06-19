@@ -23,12 +23,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
 
     private Context context;
     private ArrayList<SsdModel> ssdModels;
     private FirebaseFirestore firestore;
+    private List<SsdModel> ssds;
 
     public SsdAdapter(Context context, ArrayList<SsdModel> ssdModels) {
         this.context = context;
@@ -48,19 +52,27 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
         SsdModel ssdModel = ssdModels.get(position);
 
         NumberFormat formatter = new DecimalFormat("###,###,###");
-        String ssdName = (ssdModel.getProductName());
+        String ssdName = (ssdModel.getProduct_name());
         holder.txtProductName.setText(ssdName);
-        String formattedNumber = formatter.format(Long.valueOf(ssdModel.getProductPrice()));
+        String formattedNumber = formatter.format(Long.valueOf(ssdModel.getProduct_price()));
         holder.txtPrice.setText("P" + formattedNumber + ".00");
-        holder.txtSsdInterface.setText(ssdModel.getSsdInterface());
-        holder.txtSsdCapacity.setText(ssdModel.getSsdCapacity());
+        holder.txtSsdInterface.setText(ssdModel.getSSD_Interface());
+        holder.txtSsdCapacity.setText(ssdModel.getSSD_Capacity());
 
         Glide.with(context)
-                .load(ssdModel.getProductImage())
+                .load(ssdModel.getProduct_image())
                 .centerCrop()
                 .into(holder.imgProduct);
 
         holder.add_item_button.setOnClickListener(v -> {
+
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", ssdModel.getProduct_name());
+            productData.put("product_image", ssdModel.getProduct_image());
+            productData.put("product_price", ssdModel.getProduct_price());
+            productData.put("SSD_Interface", ssdModel.getSSD_Interface());
+            productData.put("SSD_Capacity", ssdModel.getSSD_Capacity());
+
             firestore.collection("SSD_DB")
                     .document(ssdName)
                     .get()
@@ -70,7 +82,7 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("SSD")
-                                    .set(ramDocument.getData())
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "SSD Selected", Toast.LENGTH_SHORT).show();
@@ -88,10 +100,14 @@ public class SsdAdapter extends RecyclerView.Adapter<SsdAdapter.SsdViewHolder> {
         });
     }
 
-
     @Override
     public int getItemCount() {
         return ssdModels.size();
+    }
+
+    public void setSSDModels(List<SsdModel> ssds) {
+        this.ssds = ssds;
+        notifyDataSetChanged();
     }
 
     public static class SsdViewHolder extends RecyclerView.ViewHolder {

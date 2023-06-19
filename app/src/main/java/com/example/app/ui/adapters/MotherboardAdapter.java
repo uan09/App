@@ -21,11 +21,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.MotherboardViewHolder> {
     private Context context;
     private ArrayList<MotherboardModel> motherboardModels;
     private FirebaseFirestore firestore;
+    private List<MotherboardModel> motherboards;
 
     public MotherboardAdapter(Context context, ArrayList<MotherboardModel> motherboardModels) {
         this.context = context;
@@ -46,11 +50,11 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
         // Set the data to the corresponding views in the item layout
-        String motherboardName = motherboardModel.getMotherboardName();
+        String motherboardName = motherboardModel.getProduct_name();
         holder.txtMotherboardName.setText(motherboardName);
-        holder.txtMotherboardSocket.setText(motherboardModel.getMotherboardSocket());
-        holder.txtMotherboardFormFactor.setText(motherboardModel.getMotherboardFormFactor());
-        holder.txtMotherboardMemoryType.setText(motherboardModel.getMotherboardMemoryType());
+        holder.txtMotherboardSocket.setText(motherboardModel.getMotherboard_Socket());
+        holder.txtMotherboardFormFactor.setText(motherboardModel.getMotherboard_Form_Factor());
+        holder.txtMotherboardMemoryType.setText(motherboardModel.getMotherboard_Memory_Type());
         String formattedNumber = formatter.format(Long.valueOf(motherboardModel.getProduct_price()));
         holder.txtPrice.setText("P" + formattedNumber + ".00");
         Glide.with(context)
@@ -60,6 +64,13 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
 
         // Set OnClickListener to the add_item_button
         holder.add_item_button.setOnClickListener(v -> {
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", motherboardModel.getProduct_name());
+            productData.put("product_image", motherboardModel.getProduct_image());
+            productData.put("product_price", motherboardModel.getProduct_price());
+            productData.put("Motherboard_Form_Factor", motherboardModel.getMotherboard_Form_Factor());
+            productData.put("Motherboard_Socket", motherboardModel.getMotherboard_Socket());
+            productData.put("Motherboard_Memory_Type", motherboardModel.getMotherboard_Memory_Type());
             // Find the document in the Motherboard_DB collection using the document ID
             firestore.collection("Motherboard_DB")
                     .document(motherboardName)
@@ -82,7 +93,7 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("Motherboard")
-                                    .set(motherboardDocument.getData())
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "Motherboard Selected", Toast.LENGTH_SHORT).show();
@@ -103,6 +114,11 @@ public class MotherboardAdapter extends RecyclerView.Adapter<MotherboardAdapter.
     @Override
     public int getItemCount() {
         return motherboardModels.size();
+    }
+
+    public void setMotherboardModels(List<MotherboardModel> motherboards) {
+        this.motherboards = motherboards;
+        notifyDataSetChanged();
     }
 
     public static class MotherboardViewHolder extends RecyclerView.ViewHolder {

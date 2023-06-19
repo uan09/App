@@ -3,37 +3,41 @@
 package com.example.app.ui.models;
 
 public class HddModel {
-    private String productName;
-    private String hddInterface;
-    private String hddCapacity;
-    private String productPrice;
-    private String productImage;
+    private String product_name;
+    private String HDD_Interface;
+    private String HDD_Capacity;
+    private String product_price;
+    private String product_image;
 
-    public HddModel(String productName, String hddInterface, String hddCapacity, String productPrice, String productImage) {
-        this.productName = productName;
-        this.hddInterface = hddInterface;
-        this.hddCapacity = hddCapacity;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
+    public HddModel(String product_name, String HDD_Interface, String HDD_Capacity, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.HDD_Interface = HDD_Interface;
+        this.HDD_Capacity = HDD_Capacity;
+        this.product_price = product_price;
+        this.product_image = product_image;
     }
 
-    public String getProductName() {
-        return productName;
+    public HddModel() {
+        // Default constructor required for Firebase Firestore deserialization
     }
 
-    public String getHddInterface() {
-        return hddInterface;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public String getHddCapacity() {
-        return hddCapacity;
+    public String getHDD_Interface() {
+        return HDD_Interface;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getHDD_Capacity() {
+        return HDD_Capacity;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getProduct_price() {
+        return product_price;
+    }
+
+    public String getProduct_image() {
+        return product_image;
     }
 }

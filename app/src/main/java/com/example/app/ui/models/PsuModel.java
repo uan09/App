@@ -1,37 +1,40 @@
 package com.example.app.ui.models;
 
 public class PsuModel {
-    private String productName;
-    private String psuFormFactor;
-    private String psuWattage;
-    private String productPrice;
-    private String productImage;
+    private String product_name;
+    private String PSU_Form_Factor;
+    private String PSU_Wattage;
+    private String product_price;
+    private String product_image;
 
-    public PsuModel(String productName, String psuFormFactor, String psuWattage, String productPrice, String productImage) {
-        this.productName = productName;
-        this.psuFormFactor = psuFormFactor;
-        this.psuWattage = psuWattage;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
+    public PsuModel(String product_name, String PSU_Form_Factor, String PSU_Wattage, String product_price, String product_image) {
+        this.product_name = product_name;
+        this.PSU_Form_Factor = PSU_Form_Factor;
+        this.PSU_Wattage = PSU_Wattage;
+        this.product_price = product_price;
+        this.product_image = product_image;
     }
 
-    public String getProductName() {
-        return productName;
+    public PsuModel() {
+        // Default constructor required for Firebase Firestore deserialization
+    }
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public String getPsuFormFactor() {
-        return psuFormFactor;
+    public String getPSU_Form_Factor() {
+        return PSU_Form_Factor;
     }
 
-    public String getPsuWattage() {
-        return psuWattage;
+    public String getPSU_Wattage() {
+        return PSU_Wattage;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getProduct_price() {
+        return product_price;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getProduct_image() {
+        return product_image;
     }
 }

@@ -21,11 +21,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RamAdapter extends RecyclerView.Adapter<RamAdapter.RamViewHolder> {
     private Context context;
     private ArrayList<RamModel> ramModels;
     private FirebaseFirestore firestore;
+    private List<RamModel> rams;
     public RamAdapter(Context context, ArrayList<RamModel> ramModels) {
         this.context = context;
         this.ramModels = ramModels;
@@ -45,17 +49,25 @@ public class RamAdapter extends RecyclerView.Adapter<RamAdapter.RamViewHolder> {
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
         // Set the data to the corresponding views in the item layout
-        String ramName = (ramModel.getMemoryName());
+        String ramName = (ramModel.getProduct_name());
         holder.txtMemoryName.setText(ramName);
-        holder.txtMemoryType.setText(ramModel.getMemoryType());
-        holder.txtMemoryCapacity.setText(ramModel.getMemoryCapacity());
-        String formattedNumber = formatter.format(Long.valueOf(ramModel.getProductPrice()));
+        holder.txtMemoryType.setText(ramModel.getMemory_Type());
+        holder.txtMemoryCapacity.setText(ramModel.getMemory_Capacity());
+        String formattedNumber = formatter.format(Long.valueOf(ramModel.getProduct_price()));
         holder.txtPrice.setText("P" + formattedNumber + ".00");
         Glide.with(context)
-                .load(ramModel.getProductImage())
+                .load(ramModel.getProduct_image())
                 .centerCrop()
                 .into(holder.imgProduct);
         holder.add_item_button.setOnClickListener(v -> {
+
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", ramModel.getProduct_name());
+            productData.put("product_image", ramModel.getProduct_image());
+            productData.put("product_price", ramModel.getProduct_price());
+            productData.put("Memory_Capacity", ramModel.getMemory_Capacity());
+            productData.put("Memory_Type", ramModel.getMemory_Type());
+
         firestore.collection("RAM_DB")
                 .document(ramName)
                 .get()
@@ -65,7 +77,7 @@ public class RamAdapter extends RecyclerView.Adapter<RamAdapter.RamViewHolder> {
                         // Save the data to the NewBuild collection under the Motherboard document
                         firestore.collection("NewBuild")
                                 .document("RAM")
-                                .set(ramDocument.getData())
+                                .set(productData)
                                 .addOnSuccessListener(aVoid -> {
                                     // Data saved successfully to NewBuild collection
                                     Toast.makeText(context, "RAM Selected", Toast.LENGTH_SHORT).show();
@@ -87,6 +99,11 @@ public class RamAdapter extends RecyclerView.Adapter<RamAdapter.RamViewHolder> {
     @Override
     public int getItemCount() {
         return ramModels.size();
+    }
+
+    public void setRAMModels(List<RamModel> rams) {
+        this.rams = rams;
+        notifyDataSetChanged();
     }
 
     public static class RamViewHolder extends RecyclerView.ViewHolder {

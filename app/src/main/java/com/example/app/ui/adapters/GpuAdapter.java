@@ -21,11 +21,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GpuAdapter extends RecyclerView.Adapter<GpuAdapter.GpuViewHolder> {
     private Context context;
     private ArrayList<GpuModel> gpuModels;
     private FirebaseFirestore firestore;
+    private List<GpuModel> gpus;
 
     public GpuAdapter(Context context, ArrayList<GpuModel> gpuModels) {
         this.context = context;
@@ -46,17 +50,25 @@ public class GpuAdapter extends RecyclerView.Adapter<GpuAdapter.GpuViewHolder> {
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
         // Set the data to the corresponding views in the item layout
-        String gpuName = (gpuModel.getProductName());
+        String gpuName = (gpuModel.getProduct_name());
         holder.txtProductName.setText(gpuName);
-        holder.txtGpuMemoryType.setText(gpuModel.getGpuMemoryType());
-        holder.txtGpuChipset.setText(gpuModel.getGpuChipset());
-        String formattedNumber = formatter.format(Long.valueOf(gpuModel.getProductPrice()));
+        holder.txtGpuMemoryType.setText(gpuModel.getGPU__Memory_Type());
+        holder.txtGpuChipset.setText(gpuModel.getGPU_Chipset());
+        String formattedNumber = formatter.format(Long.valueOf(gpuModel.getProduct_price()));
         holder.txtPrice.setText("P" + formattedNumber + ".00");
         Glide.with(context)
-                .load(gpuModel.getProductImage())
+                .load(gpuModel.getProduct_image())
                 .centerCrop()
                 .into(holder.imgProduct);
+
         holder.add_item_button.setOnClickListener(v -> {
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", gpuModel.getProduct_name());
+            productData.put("product_image", gpuModel.getProduct_image());
+            productData.put("product_price", gpuModel.getProduct_price());
+            productData.put("GPU__Memory_Type", gpuModel.getGPU__Memory_Type());
+            productData.put("GPU_Chipset", gpuModel.getGPU_Chipset());
+
             // Find the document in the Motherboard_DB collection using the document ID
             firestore.collection("GPU_DB")
                     .document(gpuName)
@@ -67,7 +79,7 @@ public class GpuAdapter extends RecyclerView.Adapter<GpuAdapter.GpuViewHolder> {
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("Graphics Card")
-                                    .set(gpuDocument.getData())
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "Graphics Card Selected", Toast.LENGTH_SHORT).show();
@@ -88,6 +100,11 @@ public class GpuAdapter extends RecyclerView.Adapter<GpuAdapter.GpuViewHolder> {
     @Override
     public int getItemCount() {
         return gpuModels.size();
+    }
+
+    public void setGPUModels(List<GpuModel> gpus) {
+        this.gpus = gpus;
+        notifyDataSetChanged();
     }
 
     public static class GpuViewHolder extends RecyclerView.ViewHolder {

@@ -23,12 +23,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HddAdapter extends RecyclerView.Adapter<HddAdapter.HddViewHolder> {
 
     private Context context;
     private ArrayList<HddModel> hddModels;
     private FirebaseFirestore firestore;
+    private List<HddModel> hdds;
 
     public HddAdapter(Context context, ArrayList<HddModel> hddModels) {
         this.context = context;
@@ -48,18 +52,27 @@ public class HddAdapter extends RecyclerView.Adapter<HddAdapter.HddViewHolder> {
         HddModel hddModel = hddModels.get(position);
         NumberFormat formatter = new DecimalFormat("###,###,###");
 
-        String hddName = (hddModel.getProductName());
+        String hddName = (hddModel.getProduct_name());
         holder.txtProductName.setText(hddName);
-        String formattedNumber = formatter.format(Long.valueOf(hddModel.getProductPrice()));
+        String formattedNumber = formatter.format(Long.valueOf(hddModel.getProduct_price()));
         holder.txtPrice.setText("P" + formattedNumber + ".00");
-        holder.txtHddInterface.setText(hddModel.getHddInterface());
-        holder.txtHddCapacity.setText(hddModel.getHddCapacity());
+        holder.txtHddInterface.setText(hddModel.getHDD_Interface());
+        holder.txtHddCapacity.setText(hddModel.getHDD_Capacity());
 
         Glide.with(context)
-                .load(hddModel.getProductImage())
+                .load(hddModel.getProduct_image())
                 .centerCrop()
                 .into(holder.imgProduct);
+
         holder.add_item_button.setOnClickListener(v -> {
+
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", hddModel.getProduct_name());
+            productData.put("product_image", hddModel.getProduct_image());
+            productData.put("product_price", hddModel.getProduct_price());
+            productData.put("HDD_Interface", hddModel.getHDD_Interface());
+            productData.put("HDD_Capacity", hddModel.getHDD_Capacity());
+
         firestore.collection("HDD_DB")
                 .document(hddName)
                 .get()
@@ -69,7 +82,7 @@ public class HddAdapter extends RecyclerView.Adapter<HddAdapter.HddViewHolder> {
                         // Save the data to the NewBuild collection under the Motherboard document
                         firestore.collection("NewBuild")
                                 .document("HDD")
-                                .set(ramDocument.getData())
+                                .set(productData)
                                 .addOnSuccessListener(aVoid -> {
                                     // Data saved successfully to NewBuild collection
                                     Toast.makeText(context, "HDD Selected", Toast.LENGTH_SHORT).show();
@@ -90,6 +103,11 @@ public class HddAdapter extends RecyclerView.Adapter<HddAdapter.HddViewHolder> {
     @Override
     public int getItemCount() {
         return hddModels.size();
+    }
+
+    public void setHDDModels(List<HddModel> hdds) {
+        this.hdds = hdds;
+        notifyDataSetChanged();
     }
 
     public static class HddViewHolder extends RecyclerView.ViewHolder {

@@ -20,13 +20,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PsuAdapter extends RecyclerView.Adapter<PsuAdapter.PsuViewHolder> {
     private Context context;
     private List<PsuModel> psuModels;
     private FirebaseFirestore firestore;
-
+    private List<PsuModel> psu;
 
     public PsuAdapter(Context context, List<PsuModel> psuModels) {
         this.context = context;
@@ -45,20 +47,28 @@ public class PsuAdapter extends RecyclerView.Adapter<PsuAdapter.PsuViewHolder> {
     public void onBindViewHolder(@NonNull PsuViewHolder holder, int position) {
         PsuModel psuModel = psuModels.get(position);
         NumberFormat formatter = new DecimalFormat("###,###,###");
-        String psuName = (psuModel.getProductName());
+        String psuName = (psuModel.getProduct_name());
         holder.productNameTextView.setText(psuName);
-        holder.psuFormFactorTextView.setText(psuModel.getPsuFormFactor());
-        holder.psuWattageTextView.setText(psuModel.getPsuWattage());
-        String formattedNumber = formatter.format(Long.valueOf(psuModel.getProductPrice()));
+        holder.psuFormFactorTextView.setText(psuModel.getPSU_Form_Factor());
+        holder.psuWattageTextView.setText(psuModel.getPSU_Wattage());
+        String formattedNumber = formatter.format(Long.valueOf(psuModel.getProduct_price()));
         holder.productPriceTextView.setText("P" + formattedNumber + ".00");
 
         // Load product image using Glide or any other image loading library
         Glide.with(context)
-                .load(psuModel.getProductImage())
+                .load(psuModel.getProduct_image())
                 .centerCrop() // Placeholder image resource
                 .into(holder.productImageView);
 
         holder.add_item_button.setOnClickListener(v -> {
+
+            Map<String, Object> productData = new HashMap<>();
+            productData.put("product_name", psuModel.getProduct_name());
+            productData.put("product_image", psuModel.getProduct_image());
+            productData.put("product_price", psuModel.getProduct_price());
+            productData.put("PSU_Wattage", psuModel.getPSU_Wattage());
+            productData.put("PSU_Form_Factor", psuModel.getPSU_Form_Factor());
+
             firestore.collection("PSU_DB")
                     .document(psuName)
                     .get()
@@ -68,7 +78,7 @@ public class PsuAdapter extends RecyclerView.Adapter<PsuAdapter.PsuViewHolder> {
                             // Save the data to the NewBuild collection under the Motherboard document
                             firestore.collection("NewBuild")
                                     .document("PSU")
-                                    .set(psuDocument.getData())
+                                    .set(productData)
                                     .addOnSuccessListener(aVoid -> {
                                         // Data saved successfully to NewBuild collection
                                         Toast.makeText(context, "PSU Selected", Toast.LENGTH_SHORT).show();
@@ -89,6 +99,11 @@ public class PsuAdapter extends RecyclerView.Adapter<PsuAdapter.PsuViewHolder> {
     @Override
     public int getItemCount() {
         return psuModels.size();
+    }
+
+    public void setPSUModels(List<PsuModel> psu) {
+        this.psu = psu;
+        notifyDataSetChanged();
     }
 
     static class PsuViewHolder extends RecyclerView.ViewHolder {

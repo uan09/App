@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
@@ -28,6 +29,7 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
     private Context context;
     private ArrayList<CpuModel> cpuModels;
     private FirebaseFirestore firestore;
+    private List<CpuModel> processor;
 
     public CpuAdapter(Context context, ArrayList<CpuModel> cpuModels) {
         this.context = context;
@@ -50,8 +52,8 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
         holder.txtProductName.setText(cpuModel.getProduct_name());
         String formattedNumber = formatter.format(Long.valueOf(cpuModel.getProduct_price()));
         holder.txtPrice.setText("P"+formattedNumber+".00");
-        holder.txtCpuCores.setText(cpuModel.getCpu_Cores());
-        holder.txtCpuSocket.setText(cpuModel.getCpu_Socket());
+        holder.txtCpuCores.setText(cpuModel.getCPU_Cores());
+        holder.txtCpuSocket.setText(cpuModel.getCPU_Socket());
 
         // Load the product image using Picasso or any other image loading library
         Glide.with(context)
@@ -61,7 +63,7 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
 
         holder.add_item_button.setOnClickListener(v -> {
             // Save CPU_Socket to TempItems collection
-            saveCpuSocketToTempItems(cpuModel.getCpu_Socket());
+            saveCpuSocketToTempItems(cpuModel.getCPU_Socket());
 
             // Save the entire product under the Processor document in NewBuild collection
             saveProductToNewBuild(cpuModel);
@@ -77,8 +79,8 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
         productData.put("product_name", cpuModel.getProduct_name());
         productData.put("product_image", cpuModel.getProduct_image());
         productData.put("product_price", cpuModel.getProduct_price());
-        productData.put("CPU_Cores", cpuModel.getCpu_Cores());
-        productData.put("CPU_Socket", cpuModel.getCpu_Socket());
+        productData.put("CPU_Cores", cpuModel.getCPU_Cores());
+        productData.put("CPU_Socket", cpuModel.getCPU_Socket());
 
         firestore.collection("NewBuild")
                 .document("Processor")
@@ -103,6 +105,12 @@ public class CpuAdapter extends RecyclerView.Adapter<CpuAdapter.CpuViewHolder> {
                 .addOnFailureListener(e -> {
                 });
     }
+
+    public void setProcessorModels(List<CpuModel> processors) {
+        this.processor = processors;
+        notifyDataSetChanged();
+    }
+
     public static class CpuViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduct;
         TextView txtProductName, txtPrice, txtCpuCores, txtCpuSocket;
