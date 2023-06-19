@@ -7,15 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".CheckBuildActivity"
     android:background="@color/lighter">
+
     <LinearLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
-        android:background="@color/mustard"
-        app:layout_constraintTop_toTopOf="parent">
-
-
+        android:background="@color/mustard">
         <ImageView
             android:id="@+id/menu_back"
             android:layout_width="25dp"
@@ -45,100 +43,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/toolbar_layout"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_below="@id/toolbar_layout">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/toolbar_layout"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_below="@id/toolbar_layout">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/processor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grey"
-                    android:elevation="3dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/motherboard"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/gpu"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ram"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hdd"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ssd"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cooler"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/psu"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/pccase"
                     android:background="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_recyclerView" />
+                    android:elevation="3dp"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
