@@ -55,60 +55,49 @@
                 android:layout_below="@id/toolbar_layout">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/processor"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/grey"
                     android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/motherboard"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
+
+                <TextView
+                    android:id="@+id/txttotalPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gpu"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/graduate"
+                    android:text="Total Price:"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ram"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/hdd"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ssd"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cooler"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/psu"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/pccase"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="3dp"/>
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/graduate"
+                    android:hint="Total Price:"
+                    android:textColor="@color/orange"
+                    android:textColorHint="@color/orange"
+                    android:textSize="20dp"
+                    tools:ignore="HardcodedText" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buyButton"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/custom_yellow_button"
+                    android:fontFamily="@font/graduate"
+                    android:text="Buy Build"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 </RelativeLayout>

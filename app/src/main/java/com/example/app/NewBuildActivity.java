@@ -42,9 +42,9 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
         Toast.makeText(NewBuildActivity.this, "Email"+email, Toast.LENGTH_SHORT).show();
 
 
-        String email = getIntent().getStringExtra("email");
-        if (email != null) {
-            Toast.makeText(NewBuildActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
+       String emailFromBuild = getIntent().getStringExtra("email");
+        if (emailFromBuild != null) {
+            Toast.makeText(NewBuildActivity.this, "mail" + emailFromBuild, Toast.LENGTH_SHORT).show();
         }
 
         ImageView menuBack = findViewById(R.id.menu_back);
@@ -66,7 +66,7 @@ public class NewBuildActivity extends AppCompatActivity implements Components_Re
         TextView checkBuild = findViewById(R.id.new_build);
         checkBuild.setOnClickListener(view -> {
             Intent check = new Intent(this, CheckBuildActivity.class);
-            check.putExtra("email", email);
+            check.putExtra("value", email);
             check.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(check);
         });

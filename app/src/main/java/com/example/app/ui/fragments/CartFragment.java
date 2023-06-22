@@ -295,9 +295,30 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
                                             // Delete the item from the Cart collection
                                             batch.delete(doc.getReference());
                                         }
+
                                         batch.commit().addOnCompleteListener(deleteTask -> {
                                             if (deleteTask.isSuccessful()) {
                                                 Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
+                                                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                                firestore.collection("NewBuild")
+                                                        .get()
+                                                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                                                            List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+                                                            WriteBatch deleteBatch = firestore.batch();
+                                                            for (DocumentSnapshot document : documents) {
+                                                                deleteBatch.delete(document.getReference());
+                                                            }
+                                                            deleteBatch.commit()
+                                                                    .addOnSuccessListener(aVoid -> {
+                                                                        Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
+                                                                    });
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
+                                                        });
                                             } else {
                                                 Toast.makeText(getContext(), "Error deleting cart items", Toast.LENGTH_SHORT).show();
                                             }
@@ -311,9 +332,5 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
                         Toast.makeText(getContext(), "Error placing order", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    private void check_order() {
-
     }
 }

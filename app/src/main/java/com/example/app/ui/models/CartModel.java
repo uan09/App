@@ -1,7 +1,5 @@
 package com.example.app.ui.models;
 
-import java.util.List;
-
 public class CartModel {
     private String cart_id;
     private String product_name;
@@ -11,6 +9,7 @@ public class CartModel {
     private String product_image_url;
     private String product_id;
     private String store_name;
+    String userEmail;
     public CartModel() {}
 
 
@@ -85,5 +84,9 @@ public class CartModel {
 
     public void setProduct_image_url(String product_image_url) {
         this.product_image_url = product_image_url;
+    }
+
+    public void setUserEmail(String email) {
+        this.userEmail = email;
     }
 }

@@ -2,59 +2,48 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app.ui.adapters.CaseAdapter;
-import com.example.app.ui.adapters.CoolerAdapter;
-import com.example.app.ui.adapters.CpuAdapter;
-import com.example.app.ui.adapters.GpuAdapter;
-import com.example.app.ui.adapters.HddAdapter;
-import com.example.app.ui.adapters.MotherboardAdapter;
-import com.example.app.ui.adapters.PsuAdapter;
-import com.example.app.ui.adapters.RamAdapter;
-import com.example.app.ui.adapters.SsdAdapter;
-import com.example.app.ui.models.CaseModel;
-import com.example.app.ui.models.CoolerModel;
-import com.example.app.ui.models.CpuModel;
-import com.example.app.ui.models.GpuModel;
-import com.example.app.ui.models.HddModel;
-import com.example.app.ui.models.MotherboardModel;
-import com.example.app.ui.models.PsuModel;
-import com.example.app.ui.models.RamModel;
-import com.example.app.ui.models.SsdModel;
+import com.example.app.ui.adapters.NewBuildAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class CheckBuildActivity extends AppCompatActivity {
-    private RecyclerView processorRecyclerView, motherboardRecyclerView, gpuRecyclerView, ramRecyclerView, hddRecyclerView;
-    private RecyclerView ssdRecyclerView, cpuCoolerRecyclerView, psuRecyclerView, computerCaseRecyclerView;
 
-    private CpuAdapter processorAdapter;
-    private MotherboardAdapter motherboardAdapter;
-    private GpuAdapter gpuAdapter;
-    private RamAdapter ramAdapter;
-    private HddAdapter hddAdapter;
-    private SsdAdapter ssdAdapter;
-    private CoolerAdapter cpuCoolerAdapter;
-    private PsuAdapter psuAdapter;
-    private CaseAdapter computerCaseAdapter;
-
-    private FirebaseFirestore firestore;
+    private RecyclerView recyclerView;
+    private NewBuildAdapter newBuildAdapter;
+    private List<DocumentSnapshot> documents;
+    private Button buyBuild;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_build);
 
-        String email = getIntent().getStringExtra("email");
+        email = getIntent().getStringExtra("value");
         if (email != null) {
             Toast.makeText(CheckBuildActivity.this, "mail" + email, Toast.LENGTH_SHORT).show();
         }
@@ -63,362 +52,206 @@ public class CheckBuildActivity extends AppCompatActivity {
         back.setOnClickListener(view -> {
 
             Intent intent = new Intent(this, NewBuildActivity.class);
-            intent.putExtra("email", email); // Pass the email value to NewBuildActivity
+            intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
             startActivity(intent);
 
         });
 
-        processorRecyclerView = findViewById(R.id.processor);
-        motherboardRecyclerView = findViewById(R.id.motherboard);
-        gpuRecyclerView = findViewById(R.id.gpu);
-        ramRecyclerView = findViewById(R.id.ram);
-        hddRecyclerView = findViewById(R.id.hdd);
-        ssdRecyclerView = findViewById(R.id.ssd);
-        cpuCoolerRecyclerView = findViewById(R.id.cooler);
-        psuRecyclerView = findViewById(R.id.psu);
-        computerCaseRecyclerView = findViewById(R.id.pccase);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        processorRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        motherboardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        gpuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ramRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        hddRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ssdRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        cpuCoolerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        psuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        computerCaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        buyBuild = findViewById(R.id.buyButton);
+        buyBuild.setOnClickListener(view -> {
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-        processorAdapter = new CpuAdapter(this, new ArrayList<>());
-        motherboardAdapter = new MotherboardAdapter(this, new ArrayList<>());
-        gpuAdapter = new GpuAdapter(this, new ArrayList<>());
-        ramAdapter = new RamAdapter(this, new ArrayList<>());
-        hddAdapter = new HddAdapter(this, new ArrayList<>());
-        ssdAdapter = new SsdAdapter(this, new ArrayList<>());
-        cpuCoolerAdapter = new CoolerAdapter(this, new ArrayList<>());
-        psuAdapter = new PsuAdapter(this, new ArrayList<>());
-        computerCaseAdapter = new CaseAdapter(this, new ArrayList<>());
+            // Iterate over the documents in the RecyclerView
+            for (DocumentSnapshot document : documents) {
+                if (document.exists()) {
+                    String productName = document.getString("product_name");
+                    String productType = document.getId();
+                    String productPrice = document.getString("product_price");
+                    String productImage = document.getString("product_image");
+                    String productNumber = "1"; // Set the default value for product_number as 1
 
-        processorRecyclerView.setAdapter(processorAdapter);
-        motherboardRecyclerView.setAdapter(motherboardAdapter);
-        gpuRecyclerView.setAdapter(gpuAdapter);
-        ramRecyclerView.setAdapter(ramAdapter);
-        hddRecyclerView.setAdapter(hddAdapter);
-        ssdRecyclerView.setAdapter(ssdAdapter);
-        cpuCoolerRecyclerView.setAdapter(cpuCoolerAdapter);
-        psuRecyclerView.setAdapter(psuAdapter);
-        computerCaseRecyclerView.setAdapter(computerCaseAdapter);
+                    // Get the store_name from the Products collection based on the product_name
+                    firestore.collection("Products")
+                            .whereEqualTo("product_name", productName) // Assuming "product_name" is the field name in the Products collection
+                            .get()
+                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    // Assuming there's only one document with the matching product_name
+                                    DocumentSnapshot productDocument = queryDocumentSnapshots.getDocuments().get(0);
+                                    String storeName = productDocument.getString("store_name");
+                                    String productId = productDocument.getString("product_id");
 
-        firestore = FirebaseFirestore.getInstance();
+                                    // Create a new HashMap to store the cart item information
+                                    HashMap<String, Object> cartItem = new HashMap<>();
+                                    cartItem.put("store_name", storeName);
+                                    cartItem.put("product_id", productId);
+                                    cartItem.put("product_name", productName);
+                                    cartItem.put("product_type", productType);
+                                    cartItem.put("product_price", productPrice);
+                                    cartItem.put("product_number", productNumber);
+                                    cartItem.put("product_image_url", productImage);
+                                    cartItem.put("user_Email", email);
 
-        retrieveProcessors();
-        retrieveMotherboards();
-        retrieveGPUs();
-        retrieveRAMs();
-        retrieveHDDs();
-        retrieveSSDs();
-        retrieveCoolers();
-        retrievePSUs();
-        retrieveCases();
+                                    // Save the cart item in the Cart collection
+                                    firestore.collection("Cart")
+                                            .document()
+                                            .set(cartItem)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(CheckBuildActivity.this, "Product added to cart", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(CheckBuildActivity.this, "Failed to add product to cart", Toast.LENGTH_SHORT).show();
+                                            });
+                                } else {
+                                    // Handle the case where no matching document is found
+                                    Toast.makeText(CheckBuildActivity.this, "Product not found", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(CheckBuildActivity.this, "Failed to retrieve product", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            }
+
+            // Redirect the user back to the NavigationActivity
+            Intent intent = new Intent(CheckBuildActivity.this, NavigationActivity.class);
+            intent.putExtra("Value", email);
+            startActivity(intent);
+        });
+
+
+        documents = new ArrayList<>();
+        newBuildAdapter = new NewBuildAdapter(this, documents);
+        recyclerView.setAdapter(newBuildAdapter);
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        Query query = firestore.collection("NewBuild")
+                .whereIn(FieldPath.documentId(), Arrays.asList("Processor", "Motherboard", "Graphics Card",
+                        "RAM", "HDD", "SSD", "CPU Cooler", "PSU", "Computer Case"));
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null) {
+                        documents.addAll(querySnapshot.getDocuments());
+
+                        // Sort the documents based on document IDs
+                        Collections.sort(documents, new Comparator<DocumentSnapshot>() {
+                            @Override
+                            public int compare(DocumentSnapshot doc1, DocumentSnapshot doc2) {
+                                String id1 = doc1.getId();
+                                String id2 = doc2.getId();
+                                return getOrder(id1) - getOrder(id2);
+                            }
+
+                            private int getOrder(String documentId) {
+                                // Define the order of the documents based on their document IDs
+                                switch (documentId) {
+                                    case "Processor":
+                                        return 1;
+                                    case "Motherboard":
+                                        return 2;
+                                    case "Graphics Card":
+                                        return 3;
+                                    case "RAM":
+                                        return 4;
+                                    case "HDD":
+                                        return 5;
+                                    case "SSD":
+                                        return 6;
+                                    case "CPU Cooler":
+                                        return 7;
+                                    case "PSU":
+                                        return 8;
+                                    case "Computer Case":
+                                        return 9;
+                                    default:
+                                        return 0; // Default order for unrecognized document IDs
+                                }
+                            }
+                        });
+
+                        newBuildAdapter.notifyDataSetChanged();
+
+                        double totalPrice = calculateTotalPrice(documents);
+
+                        // Display the total price
+                        NumberFormat formatter = new DecimalFormat("###,###,###");
+                        TextView totalPriceTextView = findViewById(R.id.totalPrice);
+
+                        String formattedNumber = formatter.format(totalPrice);
+                        totalPriceTextView.setText("P " + formattedNumber +".00");
+                    }
+                } else {
+                    // Handle the failure to retrieve the documents
+                }
+            }
+        });
     }
 
-    private void retrieveProcessors() {
-        firestore.collection("NewBuild")
-                .document("Processor")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<CpuModel> processors = new ArrayList<>();
-                        String product_name = documentSnapshot.getString("product_name");
-                        String product_price = documentSnapshot.getString("product_price");
-                        
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String product_image = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            product_image = productImages.get(0);
-                        }
-                        final String finalProductImage = product_image;
+    private String searchProductIdInProductsCollection(String productName) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-                        String CPU_Cores = documentSnapshot.getString("CPU_Cores");
-                        String CPU_Socket = documentSnapshot.getString("CPU_Socket");
-                        CpuModel cpuModel = new CpuModel(product_name, finalProductImage, product_price, CPU_Cores, CPU_Socket);
-                        processors.add(cpuModel);
-                        processorAdapter.setProcessorModels(processors);
-                        processorAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No processor document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving processor document", e);
-                });
+        // Search for the store_name in the Products collection based on the product_name
+        Query query = firestore.collection("Products")
+                .whereEqualTo("product_name", productName)
+                .limit(1);
+
+        Task<QuerySnapshot> task = query.get();
+        try {
+            QuerySnapshot querySnapshot = Tasks.await(task);
+            if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                return documentSnapshot.getString("product_id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null; // Return null if store_name is not found
     }
 
-    private void retrieveMotherboards() {
-        firestore.collection("NewBuild")
-                .document("Motherboard")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<MotherboardModel> motherboards = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String motherboardSocket = documentSnapshot.getString("Motherboard_Socket");
-                        String motherboardFormFactor = documentSnapshot.getString("Motherboard_Form_Factor");
-                        String motherboardMemoryType = documentSnapshot.getString("Motherboard_Memory_Type");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        MotherboardModel motherboardModel = new MotherboardModel(productName, motherboardSocket, motherboardFormFactor, motherboardMemoryType, productPrice, productImage);
-                        motherboards.add(motherboardModel);
-                        motherboardAdapter.setMotherboardModels(motherboards);
-                        motherboardAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No motherboard document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving motherboard document", e);
-                });
+    private String searchStoreNameInProductsCollection(String productName) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        // Search for the store_name in the Products collection based on the product_name
+        Query query = firestore.collection("Products")
+                .whereEqualTo("product_name", productName)
+                .limit(1);
+
+        Task<QuerySnapshot> task = query.get();
+        try {
+            QuerySnapshot querySnapshot = Tasks.await(task);
+            if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                return documentSnapshot.getString("store_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null; // Return null if store_name is not found
     }
 
-    private void retrieveCoolers() {
-        firestore.collection("NewBuild")
-                .document("CPU Cooler")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<CoolerModel> coolers = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String coolerSocket = documentSnapshot.getString("Cooler_Socket");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        String coolerRPM = documentSnapshot.getString("Cooler_RPM");
-                        CoolerModel coolerModel = new CoolerModel(productName, coolerSocket, productPrice, productImage, coolerRPM);
-                        coolers.add(coolerModel);
-                        cpuCoolerAdapter.setCPUCoolerModels(coolers);
-                        cpuCoolerAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No cooler document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving cooler document", e);
-                });
-    }
-
-    private void retrieveGPUs() {
-        firestore.collection("NewBuild")
-                .document("Graphics Card")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<GpuModel> gpus = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String gpuMemoryType = documentSnapshot.getString("GPU__Memory_Type");
-                        String gpuChipset = documentSnapshot.getString("GPU_Chipset");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        GpuModel gpuModel = new GpuModel(productName, gpuMemoryType, gpuChipset, productPrice, productImage);
-                        gpus.add(gpuModel);
-                        gpuAdapter.setGPUModels(gpus);
-                        gpuAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No GPU document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving GPU document", e);
-                });
-    }
-
-    private void retrieveHDDs() {
-        firestore.collection("NewBuild")
-                .document("HDD")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<HddModel> hdds = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String hddInterface = documentSnapshot.getString("HDD_Interface");
-                        String hddCapacity = documentSnapshot.getString("HDD_Capacity");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        HddModel hddModel = new HddModel(productName, hddInterface, hddCapacity, productPrice, productImage);
-                        hdds.add(hddModel);
-                        hddAdapter.setHDDModels(hdds);
-                        hddAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No HDD document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving HDD document", e);
-                });
-    }
-
-    private void retrieveCases() {
-        firestore.collection("NewBuild")
-                .document("Computer Case")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<CaseModel> cases = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String caseType = documentSnapshot.getString("Case_Type");
-                        String caseFormFactor = documentSnapshot.getString("Case_Form_Factor");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        CaseModel caseModel = new CaseModel(productName, caseType, caseFormFactor, productPrice, productImage);
-                        cases.add(caseModel);
-                        computerCaseAdapter.setCaseModels(cases);
-                        computerCaseAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No case document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving case document", e);
-                });
-    }
-
-    private void retrievePSUs() {
-        firestore.collection("NewBuild")
-                .document("PSU")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<PsuModel> psus = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String psuFormFactor = documentSnapshot.getString("PSU_Form_Factor");
-                        String psuWattage = documentSnapshot.getString("PSU_Wattage");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        PsuModel psuModel = new PsuModel(productName, psuFormFactor, psuWattage, productPrice, productImage);
-                        psus.add(psuModel);
-                        psuAdapter.setPSUModels(psus);
-                        psuAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No PSU document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving PSU document", e);
-                });
-    }
-
-    private void retrieveRAMs() {
-        firestore.collection("NewBuild")
-                .document("RAM")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<RamModel> rams = new ArrayList<>();
-                        String memoryName = documentSnapshot.getString("product_name");
-                        String memoryType = documentSnapshot.getString("Memory_Type");
-                        String memoryCapacity = documentSnapshot.getString("Memory_Capacity");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        String productPrice = documentSnapshot.getString("product_price");
-                        RamModel ramModel = new RamModel(memoryName, memoryType, memoryCapacity, productImage, productPrice);
-                        rams.add(ramModel);
-                        ramAdapter.setRAMModels(rams);
-                        ramAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No RAM document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving RAM document", e);
-                });
-    }
-
-    private void retrieveSSDs() {
-        firestore.collection("NewBuild")
-                .document("SSD")
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        List<SsdModel> ssds = new ArrayList<>();
-                        String productName = documentSnapshot.getString("product_name");
-                        String ssdInterface = documentSnapshot.getString("SSD_Interface");
-                        String ssdCapacity = documentSnapshot.getString("SSD_Capacity");
-                        String productPrice = documentSnapshot.getString("product_price");
-                        Object productImagesObj = documentSnapshot.get("product_image");
-                        List<String> productImages = null;
-                        if (productImagesObj instanceof List) {
-                            productImages = (List<String>) productImagesObj;
-                        }
-                        String productImage = null;
-                        if (productImages != null && !productImages.isEmpty()) {
-                            productImage = productImages.get(0);
-                        }
-                        SsdModel ssdModel = new SsdModel(productName, ssdInterface, ssdCapacity, productPrice, productImage);
-                        ssds.add(ssdModel);
-                        ssdAdapter.setSSDModels(ssds);
-                        ssdAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d("CheckBuildActivity", "No SSD document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("CheckBuildActivity", "Error retrieving SSD document", e);
-                });
+    private double calculateTotalPrice(List<DocumentSnapshot> documents) {
+        double totalPrice = 0.00;
+        for (DocumentSnapshot document : documents) {
+            if (document.exists() && document.contains("product_price")) {
+                String priceString = document.getString("product_price");
+                try {
+                    double price = Double.parseDouble(priceString);
+                    totalPrice += price;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Handle the case where the priceString cannot be parsed as a double
+                }
+            }
+        }
+        return totalPrice;
     }
 }
