@@ -61,30 +61,39 @@
                     android:background="@color/grey"
                     android:elevation="3dp" />
 
-                <TextView
-                    android:id="@+id/txttotalPrice"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/toolbar4"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/graduate"
-                    android:text="Total Price:"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
-                    tools:ignore="HardcodedText" />
+                    android:orientation="horizontal"
+                    android:layout_below="@id/toolbar_layout">
+                    <TextView
+                        android:id="@+id/txttotalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/graduate"
+                        android:text="Total Price:"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/totalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/graduate"
-                    android:hint="Total Price:"
-                    android:textColor="@color/orange"
-                    android:textColorHint="@color/orange"
-                    android:textSize="20dp"
-                    tools:ignore="HardcodedText" />
+                    <TextView
+                        android:id="@+id/totalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="100dp"
+                        android:fontFamily="@font/graduate"
+                        android:hint="Total Price:"
+                        android:textColor="@color/orange"
+                        android:textColorHint="@color/orange"
+                        android:textSize="20dp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buyButton"
                     android:layout_width="250dp"
