@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RandomAccessMemoryActivity extends AppCompatActivity {
@@ -68,9 +69,9 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                         firestore.collection("RAM_DB")
                                 .whereEqualTo("Memory_Type", motherboardMemoryType)
                                 .get()
-                                .addOnSuccessListener(gpuDocumentSnapshots -> {
+                                .addOnSuccessListener(ramDocumentSnapshots -> {
                                     List<Task<QuerySnapshot>> tasks = new ArrayList<>();
-                                    for (DocumentSnapshot ramDocumentSnapshot : gpuDocumentSnapshots) {
+                                    for (DocumentSnapshot ramDocumentSnapshot : ramDocumentSnapshots) {
                                         String ramId = ramDocumentSnapshot.getId();
 
                                         Task<QuerySnapshot> task = firestore.collection("Products")
@@ -89,14 +90,14 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                                                 for (DocumentSnapshot productDocumentSnapshot : querySnapshot.getDocuments()) {
                                                     String memoryName = productDocumentSnapshot.getString("product_name");
 
-                                                    // Retrieve GPU_Memory_Type and GPU_Chipset
-                                                    DocumentSnapshot gpuDocumentSnapshot = gpuDocumentSnapshots.getDocuments().stream()
+                                                    // Retrieve Memory_Type, Memory_Capacity, and product_price
+                                                    DocumentSnapshot ramDocumentSnapshot = ramDocumentSnapshots.getDocuments().stream()
                                                             .filter(doc -> doc.getId().equals(memoryName))
                                                             .findFirst()
                                                             .orElse(null);
-                                                    if (gpuDocumentSnapshot != null) {
-                                                        String memoryType = gpuDocumentSnapshot.getString("Memory_Type");
-                                                        String memoryCapacity = gpuDocumentSnapshot.getString("Memory_Capacity");
+                                                    if (ramDocumentSnapshot != null) {
+                                                        String memoryType = ramDocumentSnapshot.getString("Memory_Type");
+                                                        String memoryCapacity = ramDocumentSnapshot.getString("Memory_Capacity");
 
                                                         String productPrice = productDocumentSnapshot.getString("product_price");
                                                         List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
@@ -105,12 +106,19 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                                                             productImage = productImages.get(0);
                                                         }
 
-                                                        RamModel ramModel = new RamModel( memoryName, memoryType, memoryCapacity, productImage, productPrice);
+                                                        RamModel ramModel = new RamModel(memoryName, memoryType, memoryCapacity, productImage, productPrice);
                                                         ramModels.add(ramModel);
                                                     }
                                                 }
                                             }
                                         }
+                                        // Sort the ramModels list by price in ascending order
+                                        Collections.sort(ramModels, (ram1, ram2) -> {
+                                            double price1 = Double.parseDouble(ram1.getProduct_price());
+                                            double price2 = Double.parseDouble(ram2.getProduct_price());
+                                            return Double.compare(price1, price2);
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });
@@ -119,7 +127,7 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                                     });
                                 })
                                 .addOnFailureListener(e -> {
-                                    // Handle any errors that occurred while querying the GPU_DB collection
+                                    // Handle any errors that occurred while querying the RAM_DB collection
                                 });
                     } else {
                         // Handle the case when the Temp document does not exist
@@ -128,6 +136,8 @@ public class RandomAccessMemoryActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // Handle any errors that occurred while reading the Temp document
                 });
-    }
+
+
+}
 
 }

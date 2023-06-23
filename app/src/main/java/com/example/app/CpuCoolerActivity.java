@@ -23,8 +23,8 @@ import java.util.List;
 
 public class CpuCoolerActivity extends AppCompatActivity {
 
-    ArrayList<CoolerModel> coolerModels = new ArrayList<>();
     private FirebaseFirestore firestore;
+    private ArrayList<CoolerModel> coolerModels;
     private CoolerAdapter adapter;
 
     @Override
@@ -61,17 +61,17 @@ public class CpuCoolerActivity extends AppCompatActivity {
                     if (tempDocumentSnapshot.exists()) {
                         String motherboardSocket = tempDocumentSnapshot.getString("Motherboard_Socket");
 
-                        // Get all documents in the GPU_DB collection with GPU_Memory_Type equal to motherboardMemoryType
+                        // Get all documents in the CPUCoolersDB collection with Cooler_Socket equal to motherboardSocket
                         firestore.collection("CPUCoolersDB")
-                                .whereIn("Cooler_Socket", Collections.singletonList(motherboardSocket))
+                                .whereEqualTo("Cooler_Socket", motherboardSocket)
                                 .get()
                                 .addOnSuccessListener(coolerDocumentSnapshots -> {
                                     List<Task<QuerySnapshot>> tasks = new ArrayList<>();
                                     for (DocumentSnapshot coolerDocumentSnapshot : coolerDocumentSnapshots) {
-                                        String gpuId = coolerDocumentSnapshot.getId();
+                                        String coolerId = coolerDocumentSnapshot.getId();
 
                                         Task<QuerySnapshot> task = firestore.collection("Products")
-                                                .whereEqualTo("product_name", gpuId)
+                                                .whereEqualTo("product_name", coolerId)
                                                 .whereEqualTo("product_type", "CPU Cooler")
                                                 .get();
                                         tasks.add(task);
@@ -86,7 +86,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                                 for (DocumentSnapshot productDocumentSnapshot : querySnapshot.getDocuments()) {
                                                     String productName = productDocumentSnapshot.getString("product_name");
 
-                                                    // Retrieve GPU_Memory_Type and GPU_Chipset
+                                                    // Retrieve Cooler_Socket and Cooler_RPM
                                                     DocumentSnapshot coolerDocumentSnapshot = coolerDocumentSnapshots.getDocuments().stream()
                                                             .filter(doc -> doc.getId().equals(productName))
                                                             .findFirst()
@@ -108,6 +108,14 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the coolerModels list by price in ascending order
+                                        Collections.sort(coolerModels, (cooler1, cooler2) -> {
+                                            double price1 = Double.parseDouble(cooler1.getProduct_price());
+                                            double price2 = Double.parseDouble(cooler2.getProduct_price());
+                                            return Double.compare(price1, price2);
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });
@@ -116,7 +124,7 @@ public class CpuCoolerActivity extends AppCompatActivity {
                                     });
                                 })
                                 .addOnFailureListener(e -> {
-                                    // Handle any errors that occurred while querying the GPU_DB collection
+                                    // Handle any errors that occurred while querying the CPUCoolersDB collection
                                 });
                     } else {
                         // Handle the case when the Temp document does not exist

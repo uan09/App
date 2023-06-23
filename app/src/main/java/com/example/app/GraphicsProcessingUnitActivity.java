@@ -16,6 +16,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GraphicsProcessingUnitActivity extends AppCompatActivity {
@@ -93,7 +95,7 @@ public class GraphicsProcessingUnitActivity extends AppCompatActivity {
                                                     if (gpuDocumentSnapshot != null) {
                                                         String gpuMemoryType = gpuDocumentSnapshot.getString("GPU__Memory_Type");
                                                         String gpuChipset = gpuDocumentSnapshot.getString("GPU_Chipset");
-    
+
                                                         String productPrice = productDocumentSnapshot.getString("product_price");
                                                         List<String> productImages = (List<String>) productDocumentSnapshot.get("product_image");
                                                         String productImage = null;
@@ -107,6 +109,17 @@ public class GraphicsProcessingUnitActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the gpuModels based on price in ascending order
+                                        Collections.sort(gpuModels, new Comparator<GpuModel>() {
+                                            @Override
+                                            public int compare(GpuModel gpu1, GpuModel gpu2) {
+                                                double price1 = Double.parseDouble(gpu1.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                double price2 = Double.parseDouble(gpu2.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                return Double.compare(price1, price2);
+                                            }
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });

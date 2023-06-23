@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PowerSupplyUnitActivity extends AppCompatActivity {
@@ -108,6 +110,18 @@ public class PowerSupplyUnitActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the psuModels list based on product price in ascending order
+                                        Collections.sort(psuModels, new Comparator<PsuModel>() {
+                                            @Override
+                                            public int compare(PsuModel psu1, PsuModel psu2) {
+                                                // Parse the product prices as double values for comparison
+                                                double price1 = Double.parseDouble(psu1.getProduct_price());
+                                                double price2 = Double.parseDouble(psu2.getProduct_price());
+                                                return Double.compare(price1, price2);
+                                            }
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });

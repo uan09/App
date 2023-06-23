@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PcCaseActivity extends AppCompatActivity {
@@ -25,7 +27,6 @@ public class PcCaseActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private ArrayList<CaseModel> caseModels;
     private CaseAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,9 @@ public class PcCaseActivity extends AppCompatActivity {
 
         ImageView menuBack = findViewById(R.id.menu_back);
         menuBack.setOnClickListener(view -> {
-
             Intent intent = new Intent(this, NewBuildActivity.class);
             intent.putExtra("Email", email); // Pass the email value to NewBuildActivity
             startActivity(intent);
-
         });
 
         firestore = FirebaseFirestore.getInstance();
@@ -108,6 +107,18 @@ public class PcCaseActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the caseModels list based on product price in ascending order
+                                        Collections.sort(caseModels, new Comparator<CaseModel>() {
+                                            @Override
+                                            public int compare(CaseModel case1, CaseModel case2) {
+                                                // Parse the product prices as double values for comparison
+                                                double price1 = Double.parseDouble(case1.getProduct_price());
+                                                double price2 = Double.parseDouble(case2.getProduct_price());
+                                                return Double.compare(price1, price2);
+                                            }
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });

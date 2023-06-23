@@ -1,5 +1,7 @@
 package com.example.app.ui.models;
 
+import java.util.Collections;
+
 public class MotherboardModel {
     private String Motherboard_Name;
     private String Motherboard_Socket;
@@ -49,5 +51,6 @@ public class MotherboardModel {
     public String getProduct_image() {
         return product_image;
     }
+
 
 }

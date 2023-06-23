@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HardDiskDriveActivity extends AppCompatActivity {
@@ -108,6 +109,14 @@ public class HardDiskDriveActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the hddModels list by price in ascending order
+                                        Collections.sort(hddModels, (hdd1, hdd2) -> {
+                                            double price1 = Double.parseDouble(hdd1.getProduct_price());
+                                            double price2 = Double.parseDouble(hdd2.getProduct_price());
+                                            return Double.compare(price1, price2);
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });

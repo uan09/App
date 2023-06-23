@@ -20,6 +20,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Collections;
+import java.util.Comparator;
+
+
 public class MotherboardActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private ArrayList<MotherboardModel> motherboardModels;
@@ -108,6 +112,17 @@ public class MotherboardActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the motherboardModels based on price in ascending order
+                                        Collections.sort(motherboardModels, new Comparator<MotherboardModel>() {
+                                            @Override
+                                            public int compare(MotherboardModel motherboard1, MotherboardModel motherboard2) {
+                                                double price1 = Double.parseDouble(motherboard1.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                double price2 = Double.parseDouble(motherboard2.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                return Double.compare(price1, price2);
+                                            }
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if any products were found
                                         if (motherboardModels.isEmpty()) {
@@ -120,6 +135,7 @@ public class MotherboardActivity extends AppCompatActivity {
                                 .addOnFailureListener(e -> {
                                     // Handle any errors that occurred while fetching matching motherboards
                                 });
+
                     } else {
                         // Handle the case when Temp document or CPU_Socket field doesn't exist
                     }

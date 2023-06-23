@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SolidStateDriveActivity extends AppCompatActivity {
@@ -86,7 +87,7 @@ public class SolidStateDriveActivity extends AppCompatActivity {
                                                 for (DocumentSnapshot productDocumentSnapshot : querySnapshot.getDocuments()) {
                                                     String productName = productDocumentSnapshot.getString("product_name");
 
-                                                    // Retrieve GPU_Memory_Type and GPU_Chipset
+                                                    // Retrieve SSD_Capacity and SSD_Interface
                                                     DocumentSnapshot ssdDocumentSnapshot = ssdDocumentSnapshots.getDocuments().stream()
                                                             .filter(doc -> doc.getId().equals(productName))
                                                             .findFirst()
@@ -108,6 +109,14 @@ public class SolidStateDriveActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        // Sort the ssdModels list by price in ascending order
+                                        Collections.sort(ssdModels, (ssd1, ssd2) -> {
+                                            double price1 = Double.parseDouble(ssd1.getProduct_price());
+                                            double price2 = Double.parseDouble(ssd2.getProduct_price());
+                                            return Double.compare(price1, price2);
+                                        });
+
                                         adapter.notifyDataSetChanged();
                                         // Check if the list is empty and handle accordingly
                                     });

@@ -16,7 +16,10 @@
     import com.google.firebase.firestore.FirebaseFirestore;
 
     import java.util.ArrayList;
+    import java.util.Collections;
     import java.util.List;
+    import java.util.Comparator;
+
 
     public class CentralProcessingUnitActivity extends AppCompatActivity {
 
@@ -107,6 +110,18 @@
                                                                                         cpuModels.add(cpuModel);
 
                                                                                         if (cpuModels.size() == productTask.getResult().size()) {
+                                                                                            // Sort the cpuModels based on price in descending order
+                                                                                            // Sort the cpuModels based on price in ascending order
+                                                                                            Collections.sort(cpuModels, new Comparator<CpuModel>() {
+                                                                                                @Override
+                                                                                                public int compare(CpuModel cpu1, CpuModel cpu2) {
+                                                                                                    double price1 = Double.parseDouble(cpu1.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                                                                    double price2 = Double.parseDouble(cpu2.getProduct_price().replaceAll("[^\\d.]", ""));
+                                                                                                    return Double.compare(price1, price2);
+                                                                                                }
+                                                                                            });
+
+
                                                                                             adapter.notifyDataSetChanged();
                                                                                         }
                                                                                     }
@@ -114,6 +129,7 @@
                                                                                     Log.d(TAG, "Error getting processor document: ", processorTask.getException());
                                                                                 }
                                                                             });
+
                                                                 }
                                                             } else {
                                                                 Log.d(TAG, "Error getting products: ", productTask.getException());
