@@ -58,7 +58,6 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     EditText add_item_product_name, add_item_description, add_item_price, add_item_quantity, add_item_brand, add_item_type;
-
     Spinner Product_type_dropdown;
     ViewPager viewPager;
     RadioGroup status, CategoryRadio;
@@ -75,7 +74,7 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
     View contactPopupView;
     private RecyclerView recyclerView;
     CollectionReference productsRef;
-    TextView products_empty, connector;
+    TextView products_empty, connector, check_orders;
     String layout_style, email;
 
     @Override
@@ -98,6 +97,13 @@ public class Retail_ManageProductsActivity extends AppCompatActivity {
         add_button.setOnClickListener(v -> PopupDialog());
 
         products_empty = findViewById(R.id.products_empty);
+        check_orders = findViewById(R.id.check_orders);
+        check_orders.setOnClickListener(view -> {
+            Intent check = new Intent(this, Retail_OrdersActivity.class);
+            check.putExtra("storeName", email);
+            check.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(check);
+        });
 
         recyclerView = findViewById(R.id.productsRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

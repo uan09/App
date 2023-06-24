@@ -50,7 +50,7 @@
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/menu_options"
+                        android:id="@+id/check_orders"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"

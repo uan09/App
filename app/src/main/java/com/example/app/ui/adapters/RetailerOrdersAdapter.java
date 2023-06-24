@@ -11,23 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.R;
-import com.example.app.User_OrderDetailsActivity;
+import com.example.app.Retailer_OrderDetailsActivity;
 import com.example.app.ui.models.OrderModel;
 
 import java.util.List;
 
-public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
+public class RetailerOrdersAdapter extends RecyclerView.Adapter<RetailerOrdersAdapter.ViewHolder> {
 
     private List<OrderModel> orderList;
 
-    public OrdersAdapter(List<OrderModel> orderList) {
+    public RetailerOrdersAdapter(List<OrderModel> orderList) {
         this.orderList = orderList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_retailer, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,15 +52,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         } else if (status.equals("Pending")) {
             textColor = R.color.white;
         }
-
         holder.orderStatus.setTextColor(holder.itemView.getResources().getColor(textColor));
+
         holder.check_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String orderNumber = order.getOrderId();
 
                 // Create an Intent to start the new activity
-                Intent intent = new Intent(v.getContext(), User_OrderDetailsActivity.class);
+                Intent intent = new Intent(v.getContext(), Retailer_OrderDetailsActivity.class);
 
                 // Pass the order details to the new activity
                 intent.putExtra("orderID", orderNumber);

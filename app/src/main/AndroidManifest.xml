@@ -27,6 +27,12 @@
         android:theme="@style/Theme.App"
         tools:replace="android:icon">
         <activity
+            android:name=".Retailer_OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Retail_OrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".CheckBuildActivity"
             android:exported="false" />
         <activity

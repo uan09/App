@@ -146,10 +146,5 @@
                             Log.d(TAG, "Error getting user account: ", task.getException());
                         }
                     });
-
         }
-
-
-
     }
-

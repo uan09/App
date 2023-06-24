@@ -273,19 +273,26 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
         orderData.put("payment_method", paymentMethod);
         orderData.put("status", "pending");
 
-        // Save the order data in the Orders collection using an auto-generated document ID
-        ordersRef.add(orderData)
-                .addOnCompleteListener(orderTask -> {
-                    progressDialog.dismiss();
-                    if (orderTask.isSuccessful()) {
-                        DocumentReference orderRef = orderTask.getResult();
-                        String orderId = orderRef.getId(); // get the auto-generated document ID
-                        orderRef.update("order_id", orderId);
-                        // Get all items from the Cart collection under the user's email
-                        cartRef.whereEqualTo("user_Email", checkout_email.getText().toString())
-                                .get()
-                                .addOnCompleteListener(cartTask -> {
-                                    if (cartTask.isSuccessful()) {
+        // Get the store_name from the Cart collection
+        cartRef.whereEqualTo("user_Email", checkout_email.getText().toString())
+                .get()
+                .addOnCompleteListener(cartTask -> {
+                    if (cartTask.isSuccessful()) {
+                        String storeName = "";
+                        for (DocumentSnapshot doc : cartTask.getResult()) {
+                            storeName = doc.getString("store_name");
+                            break; // Assuming there is only one store name in the cart
+                        }
+                        orderData.put("store_name", storeName);
+
+                        // Save the order data in the Orders collection using an auto-generated document ID
+                        ordersRef.add(orderData)
+                                .addOnCompleteListener(orderTask -> {
+                                    progressDialog.dismiss();
+                                    if (orderTask.isSuccessful()) {
+                                        DocumentReference orderRef = orderTask.getResult();
+                                        String orderId = orderRef.getId(); // get the auto-generated document ID
+                                        orderRef.update("order_id", orderId);
                                         WriteBatch batch = db.batch();
                                         for (DocumentSnapshot doc : cartTask.getResult()) {
                                             // Get the item data and set it to a new document in the 'items' subcollection of the order document
@@ -299,37 +306,18 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
                                         batch.commit().addOnCompleteListener(deleteTask -> {
                                             if (deleteTask.isSuccessful()) {
                                                 Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
-                                                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                                                firestore.collection("NewBuild")
-                                                        .get()
-                                                        .addOnSuccessListener(queryDocumentSnapshots -> {
-                                                            List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
-                                                            WriteBatch deleteBatch = firestore.batch();
-                                                            for (DocumentSnapshot document : documents) {
-                                                                deleteBatch.delete(document.getReference());
-                                                            }
-                                                            deleteBatch.commit()
-                                                                    .addOnSuccessListener(aVoid -> {
-                                                                        Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
-                                                                    })
-                                                                    .addOnFailureListener(e -> {
-                                                                        Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
-                                                                    });
-                                                        })
-                                                        .addOnFailureListener(e -> {
-                                                            Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
-                                                        });
                                             } else {
                                                 Toast.makeText(getContext(), "Error deleting cart items", Toast.LENGTH_SHORT).show();
                                             }
                                         });
+                                        dialog.dismiss();
                                     } else {
-                                        Toast.makeText(getContext(), "Error getting cart items", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Error placing order", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                        dialog.dismiss();
                     } else {
-                        Toast.makeText(getContext(), "Error placing order", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), "Error getting cart items", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
