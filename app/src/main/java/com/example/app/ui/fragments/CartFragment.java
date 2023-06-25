@@ -121,9 +121,9 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
             }
             adapter.notifyDataSetChanged();
             if (total > 0) {
-                totalTextView.setText(String.format(Locale.getDefault(), "Total: P%s.00", formattedNumber));
+                totalTextView.setText(String.format(Locale.getDefault(), "P%s.00", formattedNumber));
             } else {
-                totalTextView.setText("Total: P0.00");
+                totalTextView.setText("P 0.00");
             }
             View productsEmptyView = view.findViewById(R.id.products_empty);
             if (cartItems.isEmpty()) {
@@ -247,7 +247,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
             if (total > 0) {
                 checkout_totalPrice.setText(String.format(Locale.getDefault(), "P%s.00", formattedNumber));
             } else {
-                checkout_totalPrice.setText("Total: P0.00");
+                checkout_totalPrice.setText("P 0.00");
             }
         });
 
@@ -302,10 +302,29 @@ public class CartFragment extends Fragment implements CartAdapter.OnDeleteItemCl
                                             // Delete the item from the Cart collection
                                             batch.delete(doc.getReference());
                                         }
-
                                         batch.commit().addOnCompleteListener(deleteTask -> {
                                             if (deleteTask.isSuccessful()) {
                                                 Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
+                                                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                                firestore.collection("NewBuild")
+                                                        .get()
+                                                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                                                            List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+                                                            WriteBatch deleteBatch = firestore.batch();
+                                                            for (DocumentSnapshot document : documents) {
+                                                                deleteBatch.delete(document.getReference());
+                                                            }
+                                                            deleteBatch.commit()
+                                                                    .addOnSuccessListener(aVoid -> {
+                                                                        Toast.makeText(getContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
+                                                                    });
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(getContext(), "Failed to delete documents", Toast.LENGTH_SHORT).show();
+                                                        });
                                             } else {
                                                 Toast.makeText(getContext(), "Error deleting cart items", Toast.LENGTH_SHORT).show();
                                             }
